@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"sir0.net","root":"/","scheme":"Muse","version":"7.7.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="旋转数字1.题目描述 - 我们称一个数 X 为好数, 如果它的每位数字逐个地被旋转 180 度后，我们仍可以得到一个有效的，且和 X 不同的数。要求每位数字都要被旋转。 如果一个数的每位数字被旋转以后仍然还是一个数字， 则这个数是有效的。0, 1, 和 8 被旋转后仍然是它们自己；2 和 5 可以互相旋转成对方；6 和 9 同理，除了这些以外其他的数字旋转以后都不再是有效的数字。 现在我们有一个正">
+<meta property="og:type" content="article">
+<meta property="og:title" content="力扣题目汇总（旋转数字，移除元素，找不同）">
+<meta property="og:url" content="http://sir0.net/%E5%8A%9B%E6%89%A3%E9%A2%98%E7%9B%AE%E6%B1%87%E6%80%BB%EF%BC%88%E6%97%8B%E8%BD%AC%E6%95%B0%E5%AD%97%EF%BC%8C%E7%A7%BB%E9%99%A4%E5%85%83%E7%B4%A0%EF%BC%8C%E6%89%BE%E4%B8%8D%E5%90%8C%EF%BC%89/index.html">
+<meta property="og:site_name" content="吴梦梦、刘玥和SL炮叔">
+<meta property="og:description" content="旋转数字1.题目描述 - 我们称一个数 X 为好数, 如果它的每位数字逐个地被旋转 180 度后，我们仍可以得到一个有效的，且和 X 不同的数。要求每位数字都要被旋转。 如果一个数的每位数字被旋转以后仍然还是一个数字， 则这个数是有效的。0, 1, 和 8 被旋转后仍然是它们自己；2 和 5 可以互相旋转成对方；6 和 9 同理，除了这些以外其他的数字旋转以后都不再是有效的数字。 现在我们有一个正">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-03-07T15:01:31.667Z">
+<meta property="article:modified_time" content="2020-03-06T03:39:18.000Z">
+<meta property="article:author" content="sir0.net">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://sir0.net/%E5%8A%9B%E6%89%A3%E9%A2%98%E7%9B%AE%E6%B1%87%E6%80%BB%EF%BC%88%E6%97%8B%E8%BD%AC%E6%95%B0%E5%AD%97%EF%BC%8C%E7%A7%BB%E9%99%A4%E5%85%83%E7%B4%A0%EF%BC%8C%E6%89%BE%E4%B8%8D%E5%90%8C%EF%BC%89/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true
+  };
+</script>
+
+  <title>力扣题目汇总（旋转数字，移除元素，找不同） | 吴梦梦、刘玥和SL炮叔</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">吴梦梦、刘玥和SL炮叔</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://sir0.net/%E5%8A%9B%E6%89%A3%E9%A2%98%E7%9B%AE%E6%B1%87%E6%80%BB%EF%BC%88%E6%97%8B%E8%BD%AC%E6%95%B0%E5%AD%97%EF%BC%8C%E7%A7%BB%E9%99%A4%E5%85%83%E7%B4%A0%EF%BC%8C%E6%89%BE%E4%B8%8D%E5%90%8C%EF%BC%89/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="sir0.net">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="吴梦梦、刘玥和SL炮叔">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          力扣题目汇总（旋转数字，移除元素，找不同）
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-03-07 23:01:31" itemprop="dateCreated datePublished" datetime="2020-03-07T23:01:31+08:00">2020-03-07</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-03-06 11:39:18" itemprop="dateModified" datetime="2020-03-06T11:39:18+08:00">2020-03-06</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="旋转数字"><a href="#旋转数字" class="headerlink" title="旋转数字"></a><a href="https://leetcode-cn.com/problems/rotated-digits/" target="_blank" rel="noopener">旋转数字</a></h2><h3 id="1-题目描述"><a href="#1-题目描述" class="headerlink" title="1.题目描述"></a>1.题目描述</h3><ol>
+- 我们称一个数 X 为好数, 如果它的每位数字逐个地被旋转 180 度后，我们仍可以得到一个有效的，且和 X 不同的数。要求每位数字都要被旋转。
+如果一个数的每位数字被旋转以后仍然还是一个数字， 则这个数是有效的。0, 1, 和 8 被旋转后仍然是它们自己；2 和 5 可以互相旋转成对方；6 和 9 同理，除了这些以外其他的数字旋转以后都不再是有效的数字。
+现在我们有一个正整数 `N`, 计算从 `1` 到 `N` 中有多少个数 X 是好数？
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">示例:</span><br><span class="line">输入: 10</span><br><span class="line">输出: 4</span><br><span class="line">解释: </span><br><span class="line">在[1, 10]中有四个好数： 2, 5, 6, 9。</span><br><span class="line">注意 1 和 10 不是好数, 因为他们在旋转之后不变。</span><br></pre></td></tr></table></figure>
+**注意:**
+
+<ul>
+<li><p>N 的取值范围是 <code>[1, 10000]</code>。</p>
+</li>
+<li><p>2.解题思路</p>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 1.if 数字中含有 3 4 7--不满足条件</span></span><br><span class="line"><span class="comment"># 2. elif数字全部由 0 1 8 构成--不满足条件 </span></span><br><span class="line"><span class="comment"># 3. else：数字中含有2, 5, 6, 9--满足条件</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#数字不含&#123;3,4,7&#125;含&#123;2,5,6,9&#125;</span></span><br></pre></td></tr></table></figure>
+### 3.解题
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">rotatedDigits</span><span class="params">(self, N: int)</span> -&gt; int:</span></span><br><span class="line">        cnt = <span class="number">0</span></span><br><span class="line">        a = &#123;<span class="string">'3'</span>,<span class="string">'4'</span>,<span class="string">'7'</span>&#125;</span><br><span class="line">        b = &#123;<span class="string">'0'</span>,<span class="string">'1'</span>,<span class="string">'8'</span>&#125;</span><br><span class="line">        c = &#123;<span class="string">'2'</span>, <span class="string">'5'</span>, <span class="string">'6'</span>,<span class="string">'9'</span>&#125;</span><br><span class="line">        <span class="keyword">for</span> num <span class="keyword">in</span> range(<span class="number">1</span>,N+<span class="number">1</span>):</span><br><span class="line">            <span class="keyword">if</span> all(x <span class="keyword">not</span> <span class="keyword">in</span> a <span class="keyword">for</span> x <span class="keyword">in</span> str(num)) <span class="keyword">and</span> <span class="keyword">not</span> all(x <span class="keyword">in</span> b <span class="keyword">for</span> x <span class="keyword">in</span> str(num)):</span><br><span class="line">                cnt +=<span class="number">1</span></span><br><span class="line">        <span class="keyword">return</span>(cnt)  </span><br><span class="line">    <span class="comment"># 1.if 数字中含有 3 4 7--不满足条件</span></span><br><span class="line">    <span class="comment"># 2. elif数字全部由 0 1 8 构成--不满足条件 </span></span><br><span class="line">    <span class="comment"># 3. else：数字中含有2, 5, 6, 9--满足条件</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">#数字不含&#123;3,4,7&#125;含&#123;2,5,6,9&#125;</span></span><br></pre></td></tr></table></figure>
+## <a href="https://leetcode-cn.com/problems/remove-element/" target="_blank" rel="noopener">移除元素</a>
+### 1.题目描述
+给定一个数组  nums  和一个值  val ，你需要**原地**移除所有数值等于  val  的元素，返回移除后数组的新长度。
+不要使用额外的数组空间，你必须在**原地修改输入数组**并在使用 O(1) 额外空间的条件下完成。
+元素的顺序可以改变。你不需要考虑数组中超出新长度后面的元素。</li>
+</ul>
+<p><strong>示例 1:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">给定 nums &#x3D; [3,2,2,3], val &#x3D; 3,</span><br><span class="line"></span><br><span class="line">函数应该返回新的长度 2, 并且 nums 中的前两个元素均为 2。</span><br><span class="line"></span><br><span class="line">你不需要考虑数组中超出新长度后面的元素。</span><br></pre></td></tr></table></figure>
+<p><strong>示例 2:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">给定 nums &#x3D; [0,1,2,2,3,0,4,2], val &#x3D; 2,</span><br><span class="line"></span><br><span class="line">函数应该返回新的长度 5, 并且 nums 中的前五个元素为 0, 1, 3, 0, 4。</span><br><span class="line"></span><br><span class="line">注意这五个元素可为任意顺序。</span><br><span class="line"></span><br><span class="line">你不需要考虑数组中超出新长度后面的元素。</span><br></pre></td></tr></table></figure>
+<p><strong>说明:</strong><br>为什么返回数值是整数，但输出的答案是数组呢?<br>请注意，输入数组是以<strong>“引用”</strong>方式传递的，这意味着在函数里修改输入数组对于调用者是可见的。<br>你可以想象内部操作如下:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; nums 是以“引用”方式传递的。也就是说，不对实参作任何拷贝</span><br><span class="line">int len &#x3D; removeElement(nums, val);</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 在函数里修改输入数组对于调用者是可见的。</span><br><span class="line">&#x2F;&#x2F; 根据你的函数返回的长度, 它会打印出数组中该长度范围内的所有元素。</span><br><span class="line">for (int i &#x3D; 0; i &lt; len; i++) &#123;</span><br><span class="line">    print(nums[i]);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="2-解题思路"><a href="#2-解题思路" class="headerlink" title="2.解题思路"></a>2.解题思路</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#难点在原来函数上修改</span></span><br><span class="line"><span class="comment">#首先记录所有val对应的索引</span></span><br><span class="line"><span class="comment">#然后一一删除</span></span><br></pre></td></tr></table></figure>
+<h3 id="3-解题"><a href="#3-解题" class="headerlink" title="3.解题"></a>3.解题</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">removeElement</span><span class="params">(self, nums: List[int], val: int)</span> -&gt; int:</span></span><br><span class="line">        nums_del_list = list()</span><br><span class="line">        cont = <span class="number">0</span></span><br><span class="line">        <span class="keyword">for</span> a <span class="keyword">in</span> range(len(nums)):</span><br><span class="line">            <span class="keyword">if</span> nums[a]==val:</span><br><span class="line">                nums_del_list.append(a)</span><br><span class="line">        <span class="keyword">for</span> b <span class="keyword">in</span> nums_del_list:</span><br><span class="line">            <span class="keyword">del</span> nums[b+cont]</span><br><span class="line">            cont -= <span class="number">1</span></span><br></pre></td></tr></table></figure>
+<h2 id="找不同"><a href="#找不同" class="headerlink" title="找不同"></a><a href="https://leetcode-cn.com/problems/find-the-difference/" target="_blank" rel="noopener">找不同</a></h2><h3 id="1题目描述"><a href="#1题目描述" class="headerlink" title="1题目描述"></a>1题目描述</h3><p>给定两个字符串 ** s ** 和 ** t <strong>，它们只包含小写字母。<br>字符串 **t</strong> 由字符串 <strong>s</strong> 随机重排，然后在随机位置添加一个字母。<br>请找出在 ** t ** 中被添加的字母。<br><strong>示例:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">输入：</span><br><span class="line">s &#x3D; &quot;abcd&quot;</span><br><span class="line">t &#x3D; &quot;abcde&quot;</span><br><span class="line"></span><br><span class="line">输出：</span><br><span class="line">e</span><br><span class="line"></span><br><span class="line">解释：</span><br><span class="line">&#39;e&#39; 是那个被添加的字母。</span><br></pre></td></tr></table></figure>
+<h3 id="2-解题思路-1"><a href="#2-解题思路-1" class="headerlink" title="2.解题思路"></a>2.解题思路</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#有两种情况</span></span><br><span class="line"><span class="comment">#第一种添加的字母原来字母中没有,这个可以用FOR然后判断有无进行</span></span><br><span class="line"><span class="comment">#第二种添加的字母原来字母中有,用计数来判断</span></span><br><span class="line"><span class="comment">#为了减少运行时间我们要引入SET的去重</span></span><br></pre></td></tr></table></figure>
+<h3 id="3-解题-1"><a href="#3-解题-1" class="headerlink" title="3.解题"></a>3.解题</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">findTheDifference</span><span class="params">(self, s: str, t: str)</span> -&gt; str:</span></span><br><span class="line">        <span class="keyword">if</span> len(set(t))==len(set(s)):</span><br><span class="line">            <span class="keyword">for</span> a <span class="keyword">in</span> set(t):</span><br><span class="line">                print(s.count(a))</span><br><span class="line">                print(t.count(a))</span><br><span class="line">                <span class="keyword">if</span> s.count(a) != t.count(a):</span><br><span class="line">                    <span class="keyword">return</span> a</span><br><span class="line">                    <span class="keyword">break</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">for</span> a <span class="keyword">in</span> t:</span><br><span class="line">                <span class="keyword">if</span> a <span class="keyword">not</span> <span class="keyword">in</span> s:</span><br><span class="line">                    <span class="keyword">return</span> a</span><br><span class="line">                    <span class="keyword">break</span></span><br></pre></td></tr></table></figure>
+<h1 id="有更加好的思路，或者解题方法评论区留言谢谢"><a href="#有更加好的思路，或者解题方法评论区留言谢谢" class="headerlink" title="``有更加好的思路，或者解题方法评论区留言谢谢`"></a>``有更加好的思路，或者解题方法评论区留言谢谢`</h1>
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/%E5%8A%9B%E6%89%A3%E9%A2%98%E7%9B%AE%E6%B1%87%E6%80%BB%EF%BC%88%E9%87%8D%E5%A4%8DN%E6%AC%A1%E5%85%83%E7%B4%A0%EF%BC%8C%E5%8F%8D%E8%BD%AC%E5%AD%97%E7%AC%A6%E4%B8%B2%EF%BC%8C%E6%96%90%E6%B3%A2%E9%82%A3%E5%A5%91%E6%95%B0)/" rel="prev" title="力扣题目汇总（重复N次元素，反转字符串，斐波那契数)">
+      <i class="fa fa-chevron-left"></i> 力扣题目汇总（重复N次元素，反转字符串，斐波那契数)
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/%E5%8A%9B%E6%89%A3%E9%A2%98%E7%9B%AE%E6%B1%87%E6%80%BB%EF%BC%88%E4%BD%8D1%E7%9A%84%E4%B8%AA%E6%95%B0%EF%BC%8C%E6%9C%89%E6%95%88%E7%9A%84%E5%AD%97%E6%AF%8D%E5%BC%82%E4%BD%8D%E8%AF%8D%EF%BC%8C%E6%A3%80%E6%B5%8B%E5%A4%A7%E5%86%99%E5%AD%97%E6%AF%8D%EF%BC%89/" rel="next" title="力扣题目汇总（位1的个数，有效的字母异位词，检测大写字母）">
+      力扣题目汇总（位1的个数，有效的字母异位词，检测大写字母） <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#旋转数字"><span class="nav-number">1.</span> <span class="nav-text">旋转数字</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-题目描述"><span class="nav-number">1.1.</span> <span class="nav-text">1.题目描述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-解题思路"><span class="nav-number">1.2.</span> <span class="nav-text">2.解题思路</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-解题"><span class="nav-number">1.3.</span> <span class="nav-text">3.解题</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#找不同"><span class="nav-number">2.</span> <span class="nav-text">找不同</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1题目描述"><span class="nav-number">2.1.</span> <span class="nav-text">1题目描述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-解题思路-1"><span class="nav-number">2.2.</span> <span class="nav-text">2.解题思路</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-解题-1"><span class="nav-number">2.3.</span> <span class="nav-text">3.解题</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#有更加好的思路，或者解题方法评论区留言谢谢"><span class="nav-number"></span> <span class="nav-text">&#96;&#96;有更加好的思路，或者解题方法评论区留言谢谢&#96;</span></a></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">sir0.net</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">127</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">sir0.net</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.2.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.7.2
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

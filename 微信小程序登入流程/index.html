@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"sir0.net","root":"/","scheme":"Muse","version":"7.7.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="微信小程序登入流程 ## 一.首先前端先传code去后端 12345678910111213141516wx.login(&amp;#123;      success(res) &amp;#123;        if (res.code) &amp;#123;          &#x2F;&#x2F;发起网络请求          wx.request(&amp;#123;            url: app.globalData.hos">
+<meta property="og:type" content="article">
+<meta property="og:title" content="微信小程序登入流程">
+<meta property="og:url" content="http://sir0.net/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E7%99%BB%E5%85%A5%E6%B5%81%E7%A8%8B/index.html">
+<meta property="og:site_name" content="吴梦梦、刘玥和SL炮叔">
+<meta property="og:description" content="微信小程序登入流程 ## 一.首先前端先传code去后端 12345678910111213141516wx.login(&amp;#123;      success(res) &amp;#123;        if (res.code) &amp;#123;          &#x2F;&#x2F;发起网络请求          wx.request(&amp;#123;            url: app.globalData.hos">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://res.wx.qq.com/wxdoc/dist/assets/img/api-login.2fcc9f35.jpg">
+<meta property="article:published_time" content="2020-03-07T15:00:56.993Z">
+<meta property="article:modified_time" content="2020-03-06T03:39:46.000Z">
+<meta property="article:author" content="sir0.net">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://res.wx.qq.com/wxdoc/dist/assets/img/api-login.2fcc9f35.jpg">
+
+<link rel="canonical" href="http://sir0.net/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E7%99%BB%E5%85%A5%E6%B5%81%E7%A8%8B/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true
+  };
+</script>
+
+  <title>微信小程序登入流程 | 吴梦梦、刘玥和SL炮叔</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">吴梦梦、刘玥和SL炮叔</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://sir0.net/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E7%99%BB%E5%85%A5%E6%B5%81%E7%A8%8B/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="sir0.net">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="吴梦梦、刘玥和SL炮叔">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          微信小程序登入流程
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-03-07 23:00:56" itemprop="dateCreated datePublished" datetime="2020-03-07T23:00:56+08:00">2020-03-07</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-03-06 11:39:46" itemprop="dateModified" datetime="2020-03-06T11:39:46+08:00">2020-03-06</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="微信小程序登入流程"><a href="#微信小程序登入流程" class="headerlink" title="微信小程序登入流程"></a>微信小程序登入流程</h1><img src="https://res.wx.qq.com/wxdoc/dist/assets/img/api-login.2fcc9f35.jpg" />
+## 一.首先前端先传code去后端
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">wx.login(&#123;</span><br><span class="line">      success(res) &#123;</span><br><span class="line">        <span class="keyword">if</span> (res.code) &#123;</span><br><span class="line">          <span class="comment">//发起网络请求</span></span><br><span class="line">          wx.request(&#123;</span><br><span class="line">            url: app.globalData.host+<span class="string">'login'</span>,</span><br><span class="line">            method:<span class="string">"post"</span>,</span><br><span class="line">            data: &#123;</span><br><span class="line">              code: res.code</span><br><span class="line">            &#125;</span><br><span class="line">          &#125;)</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">          <span class="built_in">console</span>.log(<span class="string">'登录失败！'</span> + res.errMsg)</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;)</span><br></pre></td></tr></table></figure>
+## 二.后端接受到请求中的code
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#.......省略一下配置路由啥的</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Login</span><span class="params">(APIView)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">post</span><span class="params">(self,request)</span>:</span></span><br><span class="line">        code = request.data.get(<span class="string">'code'</span>)</span><br><span class="line">        print(code,type(code))</span><br><span class="line">        <span class="comment">#061HMtlG0hAQ6d2hOYkG0DlhlG0HMtlh &lt;class 'str'&gt;</span></span><br></pre></td></tr></table></figure>
+## 三.后端获得code之后向微信官方发起请求获得相关参数
+### 发起的链接
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">GET https://api.weixin.qq.com/sns/jscode2session?appid=APPID&amp;amp;secret=SECRET&amp;amp;js_code=JSCODE&amp;amp;grant_type=authorization_code</span><br></pre></td></tr></table></figure>
+### 请求参数
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">属性</th>
+<th style="text-align: left;">类型</th>
+<th style="text-align: left;">默认值</th>
+<th style="text-align: left;">必填</th>
+<th style="text-align: left;">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">appid</td>
+<td style="text-align: left;">string</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">是</td>
+<td style="text-align: left;">小程序 appId</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">secret</td>
+<td style="text-align: left;">string</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">是</td>
+<td style="text-align: left;">小程序 appSecret</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">js_code</td>
+<td style="text-align: left;">string</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">是</td>
+<td style="text-align: left;">登录时获取的 code</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">grant_type</td>
+<td style="text-align: left;">string</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">是</td>
+<td style="text-align: left;">授权类型，此处只需填写 authorization_code</td>
+</tr>
+</tbody>
+</table>
+### 返回值
+### Object
+返回的 JSON 数据包
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">属性</th>
+<th style="text-align: left;">类型</th>
+<th style="text-align: left;">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">openid</td>
+<td style="text-align: left;">string</td>
+<td style="text-align: left;">用户唯一标识</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">session_key</td>
+<td style="text-align: left;">string</td>
+<td style="text-align: left;">会话密钥</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">unionid</td>
+<td style="text-align: left;">string</td>
+<td style="text-align: left;">用户在开放平台的唯一标识符，在满足 UnionID 下发条件的情况下会返回，详见 <a href="https://developers.weixin.qq.com/miniprogram/dev/framework/open-ability/union-id.html" target="_blank" rel="noopener">UnionID 机制说明</a>。</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">errcode</td>
+<td style="text-align: left;">number</td>
+<td style="text-align: left;">错误码</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">errmsg</td>
+<td style="text-align: left;">string</td>
+<td style="text-align: left;">错误信息</td>
+</tr>
+</tbody>
+</table>
+### **errcode 的合法值**
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">值</th>
+<th style="text-align: left;">说明</th>
+<th style="text-align: left;">最低版本</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">-1</td>
+<td style="text-align: left;">系统繁忙，此时请开发者稍候再试</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">请求成功</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">40029</td>
+<td style="text-align: left;">code 无效</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">45011</td>
+<td style="text-align: left;">频率限制，每个用户每分钟100次</td>
+<td style="text-align: left;"></td>
+</tr>
+</tbody>
+</table>
+### 接着上述我们对于路径进行拼接成他需要的内容
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Login</span><span class="params">(APIView)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">post</span><span class="params">(self,request)</span>:</span></span><br><span class="line">        code = request.data.get(<span class="string">'code'</span>)</span><br><span class="line">    <span class="comment">#https: // api.weixin.qq.com / sns / jscode2session?appid = &#123;&#125; &amp;amp; secret =&#123;&#125; &amp;amp; js_code = &#123;&#125; &amp;amp; grant_type = authorization_code</span></span><br><span class="line">        url= <span class="string">f"https://api.weixin.qq.com/sns/jscode2session?appid=xxxx&amp;amp;secret=xxxx&amp;amp;js_code=<span class="subst">&#123;code&#125;</span>&amp;amp;grant_type=authorization_code"</span></span><br><span class="line">        <span class="comment">#appid与secret不同的开发者不一样</span></span><br><span class="line">        reponse=requests.get(url)</span><br><span class="line">        <span class="comment">#因为返回值是json的形式</span></span><br><span class="line">        data=reponse.json()</span><br><span class="line">        print(data)</span><br></pre></td></tr></table></figure>
+appid看你小程序中设置了是哪个appid
+对于的appid有对应的secret
+其中`appid`以及`secret`均在你`小程序账号中`
+## 四.获取参数后后台对于参数进行加密处理
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> hashlib</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Login</span><span class="params">(APIView)</span>:</span></span><br><span class="line">    ........</span><br><span class="line">    <span class="keyword">if</span> data.get(<span class="string">"openid"</span>) <span class="keyword">and</span> data.get(<span class="string">"session_key"</span>):</span><br><span class="line">        md5 = hashlib.md5()</span><br><span class="line">        md5.update(data[<span class="string">'openid'</span>].encode(<span class="string">"utf-8"</span>))</span><br><span class="line">        md5.update(data[<span class="string">'session_key'</span>].encode(<span class="string">"utf-8"</span>))</span><br><span class="line">        key = md5.hexdigest()</span><br><span class="line">        val =data[<span class="string">'session_key'</span>]+<span class="string">"&amp;amp;"</span>+data[<span class="string">'openid'</span>]</span><br><span class="line">        print(key,val)</span><br></pre></td></tr></table></figure>
+## 五.如果上述过程都成功,返回前端一个标识方便后续操作
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> rest_framework.response <span class="keyword">import</span>  Response</span><br><span class="line"><span class="keyword">from</span> django.core.cache <span class="keyword">import</span> cache</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Login</span><span class="params">(APIView)</span>:</span></span><br><span class="line">    ........</span><br><span class="line">    cache.set(key,val)  <span class="comment">#存缓存中较少对于数据库的压力</span></span><br><span class="line">    has_user=models.Wxuser.objects.filter(openid=data[<span class="string">'openid'</span>]).first() <span class="comment">#将唯一标识进行存储</span></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span>  has_user:</span><br><span class="line">        models.Wxuser.objects.create(openid=data[<span class="string">'openid'</span>])</span><br><span class="line">        <span class="keyword">return</span> Response(&#123;</span><br><span class="line">            <span class="string">"code"</span>: <span class="number">200</span>,</span><br><span class="line">            <span class="string">"msg"</span>: <span class="string">"ok"</span>,</span><br><span class="line">            <span class="string">"data"</span>:&#123;<span class="string">'login_key'</span>:key&#125;  <span class="comment">#发送login_key其目的是为了后续可以直接去缓存取对于信息</span></span><br><span class="line">        &#125;)</span><br></pre></td></tr></table></figure>
+## 六.前端在前没有任何问题的情况下对于标识信息进行接收
+目的,标识已登入以及获取标识,方便后续对于用户信息的查找
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> that = <span class="keyword">this</span></span><br><span class="line">   wx.login(&#123;</span><br><span class="line">     success(res) &#123;</span><br><span class="line">       <span class="keyword">if</span> (res.code) &#123;</span><br><span class="line">         <span class="comment">//发起网络请求</span></span><br><span class="line">         wx.request(&#123;</span><br><span class="line">           url: app.globalData.host + <span class="string">'login'</span>,</span><br><span class="line">           method: <span class="string">"post"</span>,</span><br><span class="line">           data: &#123;</span><br><span class="line">             code: res.code</span><br><span class="line">           &#125;,</span><br><span class="line">           success(res) &#123;</span><br><span class="line">             <span class="built_in">console</span>.log(res.data.data.login_key)</span><br><span class="line">             <span class="built_in">console</span>.log(that)</span><br><span class="line">             that.setData(&#123;</span><br><span class="line">               login_key: res.data.data.login_key</span><br><span class="line">             &#125;</span><br><span class="line">             )</span><br><span class="line">           &#125;,</span><br><span class="line">         &#125;)</span><br><span class="line">       &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">         <span class="built_in">console</span>.log(<span class="string">'登录失败！'</span> + res.errMsg)</span><br><span class="line">       &#125;</span><br><span class="line">     &#125;</span><br><span class="line">   &#125;)</span><br></pre></td></tr></table></figure>
+`其中setData`方法的必须对象是整个页面
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%8F%91%E8%B5%B7%E8%AF%B7%E6%B1%82/" rel="prev" title="微信小程序发起请求">
+      <i class="fa fa-chevron-left"></i> 微信小程序发起请求
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/%E7%BD%91%E7%BB%9C%E6%A1%86%E6%9E%B6,%E4%BA%92%E8%81%94%E7%BD%91%E7%9A%84%E7%BB%84%E6%88%90,OSI%E4%B8%83%E5%B1%82%E5%8D%8F%E8%AE%AE,%E6%8A%BD%E8%B1%A1%E5%B1%82/" rel="next" title="网络框架,互联网的组成,OSI七层协议,抽象层">
+      网络框架,互联网的组成,OSI七层协议,抽象层 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#微信小程序登入流程"><span class="nav-number">1.</span> <span class="nav-text">微信小程序登入流程</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">sir0.net</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">127</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">sir0.net</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.2.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.7.2
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

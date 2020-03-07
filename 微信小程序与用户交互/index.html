@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"sir0.net","root":"/","scheme":"Muse","version":"7.7.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="微信小程序与用户交互一.显示消息提示框wx.showToast({属性名:属性值})自定义一个提示框,时间到了会自动关闭 12345678910111213141516171819wx.showToast(&amp;#123;    title:&quot;成功&quot;,  &#x2F;&#x2F;必填    icon: &#39;success&#39;,&#x2F;&#x2F;图标只支持&quot;success&quot;、&quot;loading&quot;     image: &#39;&#x2F;images&#x2F;tan">
+<meta property="og:type" content="article">
+<meta property="og:title" content="微信小程序与用户交互">
+<meta property="og:url" content="http://sir0.net/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E4%B8%8E%E7%94%A8%E6%88%B7%E4%BA%A4%E4%BA%92/index.html">
+<meta property="og:site_name" content="吴梦梦、刘玥和SL炮叔">
+<meta property="og:description" content="微信小程序与用户交互一.显示消息提示框wx.showToast({属性名:属性值})自定义一个提示框,时间到了会自动关闭 12345678910111213141516171819wx.showToast(&amp;#123;    title:&quot;成功&quot;,  &#x2F;&#x2F;必填    icon: &#39;success&#39;,&#x2F;&#x2F;图标只支持&quot;success&quot;、&quot;loading&quot;     image: &#39;&#x2F;images&#x2F;tan">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-03-07T15:00:56.982Z">
+<meta property="article:modified_time" content="2020-03-06T03:39:44.000Z">
+<meta property="article:author" content="sir0.net">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://sir0.net/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E4%B8%8E%E7%94%A8%E6%88%B7%E4%BA%A4%E4%BA%92/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true
+  };
+</script>
+
+  <title>微信小程序与用户交互 | 吴梦梦、刘玥和SL炮叔</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">吴梦梦、刘玥和SL炮叔</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://sir0.net/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E4%B8%8E%E7%94%A8%E6%88%B7%E4%BA%A4%E4%BA%92/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="sir0.net">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="吴梦梦、刘玥和SL炮叔">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          微信小程序与用户交互
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-03-07 23:00:56" itemprop="dateCreated datePublished" datetime="2020-03-07T23:00:56+08:00">2020-03-07</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-03-06 11:39:44" itemprop="dateModified" datetime="2020-03-06T11:39:44+08:00">2020-03-06</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="微信小程序与用户交互"><a href="#微信小程序与用户交互" class="headerlink" title="微信小程序与用户交互"></a>微信小程序与用户交互</h1><h2 id="一-显示消息提示框"><a href="#一-显示消息提示框" class="headerlink" title="一.显示消息提示框"></a>一.显示消息提示框</h2><h3 id="wx-showToast-属性名-属性值"><a href="#wx-showToast-属性名-属性值" class="headerlink" title="wx.showToast({属性名:属性值})"></a>wx.showToast({属性名:属性值})</h3><p><code>自定义一个提示框,时间到了会自动关闭</code></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">wx.showToast(&#123;</span><br><span class="line"></span><br><span class="line">    title:<span class="string">"成功"</span>,  <span class="comment">//必填</span></span><br><span class="line"></span><br><span class="line">    icon: <span class="string">'success'</span>,<span class="comment">//图标只支持"success"、"loading" </span></span><br><span class="line"></span><br><span class="line">    image: <span class="string">'/images/tan.png'</span>,<span class="comment">//自定义图标的本地路径，image 的优先级高于 icon</span></span><br><span class="line"></span><br><span class="line">    duration: <span class="number">2000</span>,<span class="comment">//提示的延迟时间，单位毫秒，默认：1500 </span></span><br><span class="line"></span><br><span class="line">    mask: <span class="literal">false</span>,<span class="comment">//是否显示透明蒙层，防止触摸穿透，默认：false </span></span><br><span class="line"></span><br><span class="line">    success:<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;&#125;, <span class="comment">//接口调用成功的回调函数</span></span><br><span class="line"></span><br><span class="line">    fail:<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;&#125;, <span class="comment">//接口调用失败的回调函数</span></span><br><span class="line"></span><br><span class="line">    complete:<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;&#125; <span class="comment">//接口调用结束的回调函数（调用成功、失败都会执行）</span></span><br><span class="line"></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<h3 id="wx-showLoading-属性名-属性值"><a href="#wx-showLoading-属性名-属性值" class="headerlink" title="wx.showLoading({属性名:属性值})"></a>wx.showLoading({属性名:属性值})</h3><p><code>显示Loading提示框,不会自动关闭,需主动调用 wx.hideLoading 才能关闭提示框</code></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">wx.showLoading(&#123;</span><br><span class="line">  title: <span class="string">'加载中'</span>,</span><br><span class="line">&#125;)</span><br><span class="line">setTimeout(function () &#123;</span><br><span class="line">  wx.hideLoading()</span><br><span class="line">&#125;, <span class="number">2000</span>)</span><br></pre></td></tr></table></figure>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">属性</th>
+<th style="text-align: left;">类型</th>
+<th style="text-align: left;">默认值</th>
+<th style="text-align: left;">必填</th>
+<th style="text-align: left;">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">title</td>
+<td style="text-align: left;">string</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">是</td>
+<td style="text-align: left;">提示的内容</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">mask</td>
+<td style="text-align: left;">boolean</td>
+<td style="text-align: left;">false</td>
+<td style="text-align: left;">否</td>
+<td style="text-align: left;">是否显示透明蒙层，防止触摸穿透</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">success</td>
+<td style="text-align: left;">function</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">否</td>
+<td style="text-align: left;">接口调用成功的回调函数</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">fail</td>
+<td style="text-align: left;">function</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">否</td>
+<td style="text-align: left;">接口调用失败的回调函数</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">complete</td>
+<td style="text-align: left;">function</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">否</td>
+<td style="text-align: left;">接口调用结束的回调函数（调用成功、失败都会执行）</td>
+</tr>
+</tbody>
+</table>
+### wx.hideLoading({属性名:属性值})
+`隐藏 loading 提示框`
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">属性</th>
+<th style="text-align: left;">类型</th>
+<th style="text-align: left;">默认值</th>
+<th style="text-align: left;">必填</th>
+<th style="text-align: left;">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">success</td>
+<td style="text-align: left;">function</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">否</td>
+<td style="text-align: left;">接口调用成功的回调函数</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">fail</td>
+<td style="text-align: left;">function</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">否</td>
+<td style="text-align: left;">接口调用失败的回调函数</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">complete</td>
+<td style="text-align: left;">function</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">否</td>
+<td style="text-align: left;">接口调用结束的回调函数（调用成功、失败都会执行）</td>
+</tr>
+</tbody>
+</table>
+## 二.类似html中confirm
+### wx.showModal({属性名:属性值})
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">wx.showModal(&#123;</span><br><span class="line">  title: <span class="string">'提示'</span>,</span><br><span class="line">  content: <span class="string">'这是一个模态弹窗'</span>,</span><br><span class="line">  success (res) &#123;</span><br><span class="line">    <span class="keyword">if</span> (res.confirm) &#123;</span><br><span class="line">      console.log(<span class="string">'用户点击确定'</span>)</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (res.cancel) &#123;</span><br><span class="line">      console.log(<span class="string">'用户点击取消'</span>)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">属性</th>
+<th style="text-align: left;">类型</th>
+<th style="text-align: left;">默认值</th>
+<th style="text-align: left;">必填</th>
+<th style="text-align: left;">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">title</td>
+<td style="text-align: left;">string</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">否</td>
+<td style="text-align: left;">提示的标题</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">content</td>
+<td style="text-align: left;">string</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">否</td>
+<td style="text-align: left;">提示的内容</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">showCancel</td>
+<td style="text-align: left;">boolean</td>
+<td style="text-align: left;">true</td>
+<td style="text-align: left;">否</td>
+<td style="text-align: left;">是否显示取消按钮</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">cancelText</td>
+<td style="text-align: left;">string</td>
+<td style="text-align: left;">'取消'</td>
+<td style="text-align: left;">否</td>
+<td style="text-align: left;">取消按钮的文字，最多 4 个字符</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">cancelColor</td>
+<td style="text-align: left;">string</td>
+<td style="text-align: left;">#000000</td>
+<td style="text-align: left;">否</td>
+<td style="text-align: left;">取消按钮的文字颜色，必须是 16 进制格式的颜色字符串</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">confirmText</td>
+<td style="text-align: left;">string</td>
+<td style="text-align: left;">'确定'</td>
+<td style="text-align: left;">否</td>
+<td style="text-align: left;">确认按钮的文字，最多 4 个字符</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">confirmColor</td>
+<td style="text-align: left;">string</td>
+<td style="text-align: left;">#576B95</td>
+<td style="text-align: left;">否</td>
+<td style="text-align: left;">确认按钮的文字颜色，必须是 16 进制格式的颜色字符串</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">success</td>
+<td style="text-align: left;">function</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">否</td>
+<td style="text-align: left;">接口调用成功的回调函数</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">fail</td>
+<td style="text-align: left;">function</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">否</td>
+<td style="text-align: left;">接口调用失败的回调函数</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">complete</td>
+<td style="text-align: left;">function</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">否</td>
+<td style="text-align: left;">接口调用结束的回调函数（调用成功、失败都会执行）</td>
+</tr>
+</tbody>
+</table>
+object.success 回调函数
+Object res
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">属性</th>
+<th style="text-align: left;">类型</th>
+<th style="text-align: left;">说明</th>
+<th style="text-align: left;">最低版本</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">confirm</td>
+<td style="text-align: left;">boolean</td>
+<td style="text-align: left;">为 true 时，表示用户点击了确定按钮</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">cancel</td>
+<td style="text-align: left;">boolean</td>
+<td style="text-align: left;">为 true 时，表示用户点击了取消（用于 Android 系统区分点击蒙层关闭还是点击取消按钮关闭）</td>
+<td style="text-align: left;"><a href="https://developers.weixin.qq.com/miniprogram/dev/framework/compatibility.html" target="_blank" rel="noopener">1.1.0</a></td>
+</tr>
+</tbody>
+</table>
+## 三.显示操作菜单
+### wx.showActionSheet({属性名:属性值})
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">wx.showActionSheet(&#123;</span><br><span class="line">  itemList: [<span class="string">'A'</span>, <span class="string">'B'</span>, <span class="string">'C'</span>],</span><br><span class="line">  success (res) &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(res.tapIndex)</span><br><span class="line">  &#125;,</span><br><span class="line">  fail (res) &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(res.errMsg)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">属性</th>
+<th style="text-align: left;">类型</th>
+<th style="text-align: left;">默认值</th>
+<th style="text-align: left;">必填</th>
+<th style="text-align: left;">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">itemList</td>
+<td style="text-align: left;">Array.<string></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">是</td>
+<td style="text-align: left;">按钮的文字数组，数组长度最大为 6</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">itemColor</td>
+<td style="text-align: left;">string</td>
+<td style="text-align: left;">#000000</td>
+<td style="text-align: left;">否</td>
+<td style="text-align: left;">按钮的文字颜色</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">success</td>
+<td style="text-align: left;">function</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">否</td>
+<td style="text-align: left;">接口调用成功的回调函数</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">fail</td>
+<td style="text-align: left;">function</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">否</td>
+<td style="text-align: left;">接口调用失败的回调函数</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">complete</td>
+<td style="text-align: left;">function</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">否</td>
+<td style="text-align: left;">接口调用结束的回调函数（调用成功、失败都会执行）</td>
+</tr>
+</tbody>
+</table>
+object.success 回调函数
+参数
+Object res
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">属性</th>
+<th style="text-align: left;">类型</th>
+<th style="text-align: left;">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">tapIndex</td>
+<td style="text-align: left;">number</td>
+<td style="text-align: left;">用户点击的按钮序号，从上到下的顺序，从0开始</td>
+</tr>
+</tbody>
+</table>
+### 注意
+
+<ul>
+<li>Android 6.7.2 以下版本，点击取消或蒙层时，回调 fail, errMsg 为 “fail cancel”；</li>
+<li>Android 6.7.2 及以上版本 和 iOS 点击蒙层不会关闭模态弹窗，所以尽量避免使用「取消」分支中实现业务逻辑</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E4%B8%AD%E4%BA%8B%E4%BB%B6/" rel="prev" title="微信小程序中事件">
+      <i class="fa fa-chevron-left"></i> 微信小程序中事件
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/" rel="next" title="微信小程序学习总结">
+      微信小程序学习总结 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#微信小程序与用户交互"><span class="nav-number">1.</span> <span class="nav-text">微信小程序与用户交互</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#一-显示消息提示框"><span class="nav-number">1.1.</span> <span class="nav-text">一.显示消息提示框</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#wx-showToast-属性名-属性值"><span class="nav-number">1.1.1.</span> <span class="nav-text">wx.showToast({属性名:属性值})</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#wx-showLoading-属性名-属性值"><span class="nav-number">1.1.2.</span> <span class="nav-text">wx.showLoading({属性名:属性值})</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">sir0.net</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">127</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">sir0.net</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.2.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.7.2
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

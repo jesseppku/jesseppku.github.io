@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"sir0.net","root":"/","scheme":"Muse","version":"7.7.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="5.8自我总结1.列表类型内置算法1.必须掌握1.按索引取值（正向取值+反向取值），即可存也可以取123456#用于取其中一个值name &#x3D; [&#39;yang&#39;,&#39;wen&#39;,&#39;yi&#39;]##正方向取wen,也就是从左到右pritn(name[1])##正方向取wen,也就是从右到左print(name[-2]) 2.切片12345678#用于取多个值name &#x3D; [&#39;yang&#39;,&#39;wen&#39;,&#39;yi&#39;]#">
+<meta property="og:type" content="article">
+<meta property="og:title" content="学习python的第十天（内置算法：列表数据类型，元祖数据类型，字典数据类型）">
+<meta property="og:url" content="http://sir0.net/%E5%AD%A6%E4%B9%A0python%E7%9A%84%E7%AC%AC%E5%8D%81%E5%A4%A9%EF%BC%88%E5%86%85%E7%BD%AE%E7%AE%97%E6%B3%95%EF%BC%9A%E5%88%97%E8%A1%A8%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%EF%BC%8C%E5%85%83%E7%A5%96%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%EF%BC%8C%E5%AD%97%E5%85%B8%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%EF%BC%89/index.html">
+<meta property="og:site_name" content="吴梦梦、刘玥和SL炮叔">
+<meta property="og:description" content="5.8自我总结1.列表类型内置算法1.必须掌握1.按索引取值（正向取值+反向取值），即可存也可以取123456#用于取其中一个值name &#x3D; [&#39;yang&#39;,&#39;wen&#39;,&#39;yi&#39;]##正方向取wen,也就是从左到右pritn(name[1])##正方向取wen,也就是从右到左print(name[-2]) 2.切片12345678#用于取多个值name &#x3D; [&#39;yang&#39;,&#39;wen&#39;,&#39;yi&#39;]#">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-03-07T15:00:24.798Z">
+<meta property="article:modified_time" content="2020-03-06T03:39:47.000Z">
+<meta property="article:author" content="sir0.net">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://sir0.net/%E5%AD%A6%E4%B9%A0python%E7%9A%84%E7%AC%AC%E5%8D%81%E5%A4%A9%EF%BC%88%E5%86%85%E7%BD%AE%E7%AE%97%E6%B3%95%EF%BC%9A%E5%88%97%E8%A1%A8%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%EF%BC%8C%E5%85%83%E7%A5%96%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%EF%BC%8C%E5%AD%97%E5%85%B8%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%EF%BC%89/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true
+  };
+</script>
+
+  <title>学习python的第十天（内置算法：列表数据类型，元祖数据类型，字典数据类型） | 吴梦梦、刘玥和SL炮叔</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">吴梦梦、刘玥和SL炮叔</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://sir0.net/%E5%AD%A6%E4%B9%A0python%E7%9A%84%E7%AC%AC%E5%8D%81%E5%A4%A9%EF%BC%88%E5%86%85%E7%BD%AE%E7%AE%97%E6%B3%95%EF%BC%9A%E5%88%97%E8%A1%A8%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%EF%BC%8C%E5%85%83%E7%A5%96%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%EF%BC%8C%E5%AD%97%E5%85%B8%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%EF%BC%89/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="sir0.net">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="吴梦梦、刘玥和SL炮叔">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          学习python的第十天（内置算法：列表数据类型，元祖数据类型，字典数据类型）
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-03-07 23:00:24" itemprop="dateCreated datePublished" datetime="2020-03-07T23:00:24+08:00">2020-03-07</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-03-06 11:39:47" itemprop="dateModified" datetime="2020-03-06T11:39:47+08:00">2020-03-06</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="5-8自我总结"><a href="#5-8自我总结" class="headerlink" title="5.8自我总结"></a>5.8自我总结</h1><h2 id="1-列表类型内置算法"><a href="#1-列表类型内置算法" class="headerlink" title="1.列表类型内置算法"></a>1.列表类型内置算法</h2><h3 id="1-必须掌握"><a href="#1-必须掌握" class="headerlink" title="1.必须掌握"></a>1.必须掌握</h3><h4 id="1-按索引取值（正向取值-反向取值），即可存也可以取"><a href="#1-按索引取值（正向取值-反向取值），即可存也可以取" class="headerlink" title="1.按索引取值（正向取值+反向取值），即可存也可以取"></a>1.按索引取值（正向取值+反向取值），即可存也可以取</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#用于取其中一个值</span></span><br><span class="line">name = [<span class="string">'yang'</span>,<span class="string">'wen'</span>,<span class="string">'yi'</span>]</span><br><span class="line"><span class="comment">##正方向取wen,也就是从左到右</span></span><br><span class="line">pritn(name[<span class="number">1</span>])</span><br><span class="line"><span class="comment">##正方向取wen,也就是从右到左</span></span><br><span class="line">print(name[<span class="number">-2</span>])</span><br></pre></td></tr></table></figure>
+<h4 id="2-切片"><a href="#2-切片" class="headerlink" title="2.切片"></a>2.切片</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#用于取多个值</span></span><br><span class="line">name = [<span class="string">'yang'</span>,<span class="string">'wen'</span>,<span class="string">'yi'</span>]</span><br><span class="line"><span class="comment">#取其中的yang wen</span></span><br><span class="line">print(name[<span class="number">0</span>:<span class="number">2</span>])  <span class="comment">#和字符串类似顾头不顾尾</span></span><br><span class="line">print(name[<span class="number">0</span>:<span class="number">-1</span>])</span><br><span class="line">print(name[<span class="number">-3</span>:<span class="number">-1</span>])</span><br><span class="line">print(name[:<span class="number">2</span>])    <span class="comment">#这两个是上面基础上精简的</span></span><br><span class="line">print(name[:<span class="number">-1</span>])</span><br></pre></td></tr></table></figure>
+<h4 id="3-长度len"><a href="#3-长度len" class="headerlink" title="3.长度len"></a>3.长度len</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#用于长度3</span></span><br><span class="line">name = [<span class="string">'yang'</span>,<span class="string">'wen'</span>,<span class="string">'yi'</span>]</span><br><span class="line">print(len(name))</span><br></pre></td></tr></table></figure>
+<h4 id="4-成员运算in和not-in"><a href="#4-成员运算in和not-in" class="headerlink" title="4.成员运算in和not in"></a>4.成员运算in和not in</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#用于判断有误值在里面</span></span><br><span class="line">name = [<span class="string">'yang'</span>,<span class="string">'wen'</span>,<span class="string">'yi'</span>]</span><br><span class="line">print(<span class="string">'wennnn'</span> <span class="keyword">in</span> name) <span class="comment">#False</span></span><br><span class="line">print(<span class="string">'wen'</span> <span class="keyword">in</span> name) <span class="comment">#True</span></span><br></pre></td></tr></table></figure>
+<h4 id="5-追加append"><a href="#5-追加append" class="headerlink" title="5.追加append"></a>5.追加append</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#只加在最后</span></span><br><span class="line">name = [<span class="string">'yang'</span>,<span class="string">'wen'</span>,<span class="string">'yi'</span>]</span><br><span class="line">print(name.append(<span class="number">22</span>)) <span class="comment">#None</span></span><br><span class="line">print(name) <span class="comment">#['yang', 'wen', 'yi', 222]</span></span><br></pre></td></tr></table></figure>
+<h4 id="6-删除del"><a href="#6-删除del" class="headerlink" title="6.删除del"></a>6.删除del</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">name = [<span class="string">'yang'</span>,<span class="string">'wen'</span>,<span class="string">'yi'</span>]</span><br><span class="line"><span class="comment">#删除wen</span></span><br><span class="line"><span class="keyword">del</span> name[<span class="number">1</span>]</span><br></pre></td></tr></table></figure>
+<h4 id="7-循环"><a href="#7-循环" class="headerlink" title="7.循环"></a>7.循环</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">name = [<span class="string">'yang'</span>,<span class="string">'wen'</span>,<span class="string">'yi'</span>]</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> name:</span><br><span class="line">    print(i)</span><br><span class="line"><span class="comment">#yang</span></span><br><span class="line"><span class="comment">#wen</span></span><br><span class="line"><span class="comment">#yi</span></span><br></pre></td></tr></table></figure>
+<h3 id="2-了解"><a href="#2-了解" class="headerlink" title="2.了解"></a>2.了解</h3><h4 id="1-insert"><a href="#1-insert" class="headerlink" title="1.insert"></a>1.insert</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">name_list = [<span class="string">'nick'</span>, <span class="string">'jason'</span>, <span class="string">'tank'</span>, <span class="string">'sean'</span>]</span><br><span class="line">name_list.insert(<span class="number">1</span>, <span class="string">'handsome'</span>)  <span class="comment">#加入后那个值的位置，加入的值</span></span><br><span class="line">print(<span class="string">f"name_list: <span class="subst">&#123;name_list&#125;</span>"</span>)</span><br></pre></td></tr></table></figure>
+<h4 id="2-pop"><a href="#2-pop" class="headerlink" title="2.pop"></a>2.pop</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># list之pop()，pop()默认删除最后一个元素，删除一个元素</span></span><br><span class="line">name_list = [<span class="string">'nick'</span>, <span class="string">'jason'</span>, <span class="string">'tank'</span>, <span class="string">'sean'</span>]</span><br><span class="line"></span><br><span class="line">print(<span class="string">f"name_list.pop(1): <span class="subst">&#123;name_list.pop(<span class="number">1</span>)&#125;</span>"</span>)  <span class="comment">#会显示删除的值</span></span><br><span class="line">print(<span class="string">f"name_list: <span class="subst">&#123;name_list&#125;</span>"</span>)</span><br></pre></td></tr></table></figure>
+<h4 id="3-remove"><a href="#3-remove" class="headerlink" title="3.remove"></a>3.remove</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># list之remove() 删除一个元素</span></span><br><span class="line">name_list = [<span class="string">'nick'</span>, <span class="string">'jason'</span>, <span class="string">'tank'</span>, <span class="string">'sean'</span>]</span><br><span class="line"></span><br><span class="line">print(<span class="string">f"name_list.remove('nick'): <span class="subst">&#123;name_list.remove(<span class="string">'nick'</span>)&#125;</span>"</span>)  <span class="comment">#会输出None</span></span><br></pre></td></tr></table></figure>
+<h4 id="4-count"><a href="#4-count" class="headerlink" title="4.count"></a>4.count</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># list之count()     #x显示对于值的个数</span></span><br><span class="line">name_list = [<span class="string">'nick'</span>, <span class="string">'jason'</span>, <span class="string">'tank'</span>, <span class="string">'sean'</span>]</span><br><span class="line"></span><br><span class="line">print(<span class="string">f"name_list.count('nick'): <span class="subst">&#123;name_list.count(<span class="string">'nick'</span>)&#125;</span>"</span>)</span><br></pre></td></tr></table></figure>
+<h4 id="5-index"><a href="#5-index" class="headerlink" title="5.index"></a>5.index</h4><p>查找索引</p>
+<h4 id="6-clear"><a href="#6-clear" class="headerlink" title="6.clear"></a>6.clear</h4><p>删除列表元素</p>
+<h4 id="7-copy"><a href="#7-copy" class="headerlink" title="7.copy"></a>7.copy</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">name_list = [<span class="string">'nick'</span>, <span class="string">'jason'</span>, <span class="string">'tank'</span>, <span class="string">'sean'</span>]</span><br><span class="line"></span><br><span class="line">print(<span class="string">f"name_list.copy(): <span class="subst">&#123;name_list.copy()&#125;</span>"</span>)</span><br></pre></td></tr></table></figure>
+<h4 id="8-extend"><a href="#8-extend" class="headerlink" title="8.extend"></a>8.extend</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># list之extend()</span></span><br><span class="line">name_list = [<span class="string">'nick'</span>, <span class="string">'jason'</span>, <span class="string">'tank'</span>, <span class="string">'sean'</span>]</span><br><span class="line">name_list2 = [<span class="string">'nick handsome'</span>]</span><br><span class="line">name_list.extend(name_list2)</span><br><span class="line"></span><br><span class="line">print(<span class="string">f"name_list: <span class="subst">&#123;name_list&#125;</span>"</span>)            </span><br><span class="line"><span class="comment">#name_list: ['nick', 'jason', 'tank', 'sean', 'nick handsome']   在末尾加入</span></span><br></pre></td></tr></table></figure>
+<h4 id="9-reverse"><a href="#9-reverse" class="headerlink" title="9.reverse"></a>9.reverse</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># list之reverse()</span></span><br><span class="line">name_list = [<span class="string">'nick'</span>, <span class="string">'jason'</span>, <span class="string">'tank'</span>, <span class="string">'sean'</span>]</span><br><span class="line">name_list.reverse()</span><br><span class="line">print(<span class="string">f"name_list: <span class="subst">&#123;name_list&#125;</span>"</span>)</span><br><span class="line"><span class="comment"># name_list: ['sean', 'tank', 'jason', 'nick']  翻转</span></span><br></pre></td></tr></table></figure>
+<h4 id="10-sort"><a href="#10-sort" class="headerlink" title="10.sort"></a>10.sort</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># list之sort()，使用sort列表的元素必须是同类型的</span></span><br><span class="line">name_list = [<span class="string">'nick'</span>, <span class="string">'jason'</span>, <span class="string">'tank'</span>, <span class="string">'sean'</span>]</span><br><span class="line">name_list.sort()</span><br><span class="line"></span><br><span class="line">print(<span class="string">f"name_list: <span class="subst">&#123;name_list&#125;</span>"</span>)</span><br><span class="line"><span class="comment">#name_list: ['jason', 'nick', 'sean', 'tank']  #升序</span></span><br><span class="line">name_list.sort(reverse=<span class="literal">True</span>)</span><br><span class="line">print(<span class="string">f"name_list_reverse: <span class="subst">&#123;name_list&#125;</span>"</span>) </span><br><span class="line"><span class="comment">#name_list_reverse: ['tank', 'sean', 'nick', 'jason']  #降序</span></span><br></pre></td></tr></table></figure>
+<h3 id="3，一个值或者多个值"><a href="#3，一个值或者多个值" class="headerlink" title="3，一个值或者多个值"></a>3，一个值或者多个值</h3><p>多个值</p>
+<h3 id="4-有序或者无序"><a href="#4-有序或者无序" class="headerlink" title="4.有序或者无序"></a>4.有序或者无序</h3><p>有序</p>
+<h3 id="5-可变或者不可变"><a href="#5-可变或者不可变" class="headerlink" title="5.可变或者不可变"></a>5.可变或者不可变</h3><p>可变</p>
+<h2 id="2-元祖类型"><a href="#2-元祖类型" class="headerlink" title="2.元祖类型"></a>2.元祖类型</h2><h3 id="1-定义"><a href="#1-定义" class="headerlink" title="1.定义"></a>1.定义</h3><p>（），中间加元素用，隔开</p>
+<h3 id="2-用法"><a href="#2-用法" class="headerlink" title="2.用法"></a>2.用法</h3><p>（与列表相似，区别是可以读取不可存储改变，列表中关于存储或者改名元素的内容内置函数元祖不行）</p>
+<ol>
+- 索引取值
+- 切片（顾头不顾尾，步长）
+- 长度len
+- 成员运算in和not in
+- 循环
+- count
+- index
+</ol>
+3.一个值或者多个值
+多个值
+4.有序或者无序
+有序
+5.可变或者不可变
+不可变
+## 3.字典数据类型内置算法
+### 1.必须掌握
+#### 1.按key存取值：可存可取
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">dict = &#123;<span class="string">'name'</span>:<span class="string">'yang'</span>,<span class="string">'age'</span>:<span class="number">18</span>&#125;</span><br><span class="line"><span class="comment">#取 姓名</span></span><br><span class="line">dict[name]</span><br></pre></td></tr></table></figure>
+#### 2.长度len
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">dict = &#123;<span class="string">'name'</span>:<span class="string">'yang'</span>,<span class="string">'age'</span>:<span class="number">18</span>&#125;</span><br><span class="line"><span class="comment">#取 长度</span></span><br><span class="line">len(dict)</span><br></pre></td></tr></table></figure>
+#### 3.成员运算in和not in
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">判断有无key而不是值</span><br></pre></td></tr></table></figure>
+#### 4.删除del
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">dict = &#123;<span class="string">'name'</span>:<span class="string">'yang'</span>,<span class="string">'age'</span>:<span class="number">18</span>&#125;</span><br><span class="line"><span class="comment">#删除名字</span></span><br><span class="line">dal dict[name]</span><br></pre></td></tr></table></figure>
+#### 5.键keys()、值values()、键值对items()
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#演示即可</span></span><br><span class="line">dict = &#123;<span class="string">'name'</span>:<span class="string">'yang'</span>,<span class="string">'age'</span>:<span class="number">18</span>&#125;</span><br><span class="line">print(dict.keys())</span><br><span class="line">print(dict.values())</span><br><span class="line">print(dict.items())</span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="string">dict_keys(['name', 'age'])</span></span><br><span class="line"><span class="string">dict_values(['yang', 18])</span></span><br><span class="line"><span class="string">dict_items([('name', 'yang'), ('age', 18)])</span></span><br><span class="line"><span class="string">'''</span></span><br></pre></td></tr></table></figure>
+#### 6.循环
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">dic = &#123;<span class="string">'a'</span>: <span class="number">1</span>, <span class="string">'b'</span>: <span class="number">2</span>, <span class="string">'c'</span>: <span class="number">3</span>, <span class="string">'d'</span>: <span class="number">4</span>&#125;</span><br><span class="line"><span class="keyword">for</span> k, v <span class="keyword">in</span> dic.items():  <span class="comment"># items可以换成keys()、values()</span></span><br><span class="line">    print(k, v)</span><br><span class="line"><span class="comment">#a 1</span></span><br><span class="line"><span class="comment">#b 2</span></span><br><span class="line"><span class="comment">#c 3</span></span><br><span class="line"><span class="comment">#d 4</span></span><br></pre></td></tr></table></figure>
+### 2.慢慢掌握
+#### 1.get
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">和key取值有点类似区别就是取不到不会报错，但是不能用get来更换值</span><br></pre></td></tr></table></figure>
+#### 2.update
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># dic之update()</span></span><br><span class="line">dic1 = &#123;<span class="string">'a'</span>: <span class="number">1</span>, <span class="string">'b'</span>: <span class="number">2</span>&#125;</span><br><span class="line">dic2 = &#123;<span class="string">'c'</span>: <span class="number">3</span>&#125;<span class="comment">#如果dic2与dic1中key有相同的，则不会增加新的key更新值，如果没有相同的则会添加key还有值</span></span><br><span class="line">dic1.update(dic2)</span><br><span class="line"></span><br><span class="line">print(<span class="string">f"dic1: <span class="subst">&#123;dic1&#125;</span>"</span>) </span><br><span class="line"><span class="comment">#dic1: &#123;'a': 1, 'b': 2, 'c': 3&#125;</span></span><br></pre></td></tr></table></figure>
+#### 3.fromkeys
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># dic之fromkeys()</span></span><br><span class="line">dic = dict.fromkeys([<span class="string">'name'</span>, <span class="string">'age'</span>, <span class="string">'sex'</span>], <span class="literal">None</span>)</span><br><span class="line">print(<span class="string">f"dic: <span class="subst">&#123;dic&#125;</span>"</span>)</span><br><span class="line"><span class="comment">#给目录赋予相同的值</span></span><br></pre></td></tr></table></figure>
+#### 4.setdefault
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># dic之setdefault()，有指定key不会改变值；无指定key则改变值</span></span><br><span class="line">dic = &#123;<span class="string">'a'</span>: <span class="number">1</span>, <span class="string">'b'</span>: <span class="number">2</span>&#125;</span><br><span class="line"></span><br><span class="line">print(<span class="string">f"dic.setdefault('a'): <span class="subst">&#123;dic.setdefault(<span class="string">'a'</span>,<span class="number">3</span>)&#125;</span>"</span>)</span><br><span class="line">print(<span class="string">f"dic: <span class="subst">&#123;dic&#125;</span>"</span>)</span><br><span class="line">print(<span class="string">f"dic.setdefault('c'): <span class="subst">&#123;dic.setdefault(<span class="string">'c'</span>,<span class="number">3</span>)&#125;</span>"</span>)</span><br><span class="line">print(<span class="string">f"dic: <span class="subst">&#123;dic&#125;</span>"</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">#dic.setdefault('a'): 1</span></span><br><span class="line"><span class="comment">#dic: &#123;'a': 1, 'b': 2&#125;</span></span><br><span class="line"><span class="comment">#dic.setdefault('c'): 3</span></span><br><span class="line"><span class="comment">#dic: &#123;'a': 1, 'b': 2, 'c': 3&#125;</span></span><br></pre></td></tr></table></figure>
+## 4.需要记的单词
+<ol>
+- get 获得
+- update 更新
+- fromkeys 生成一个字典，修改和添加
+- setdefault 只添加不修改
+- count 查找个数
+- index 查找索引
+- insert 具体某个位置插入
+- pop 删除 能显示删除的值
+- remove 删除 不能显示删除的值
+- clear 清除元素
+- copy 复制
+- extend 延伸
+- reverse 颠倒
+- sort 排序
+</ol>
+## 5.今日题目
+<ol>
+- 有列表`data=['alex',49,[1900,3,18]]`，分别取出列表中的名字，年龄，出生的年，月，日赋值给不同的变量：
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">data=[<span class="string">'alex'</span>,<span class="number">49</span>,[<span class="number">1900</span>,<span class="number">3</span>,<span class="number">18</span>]]</span><br><span class="line">name,age,data_1 = data</span><br><span class="line">year,month,day = data_1</span><br><span class="line">print(name,age,year,month,day)</span><br><span class="line"><span class="comment">#####################</span></span><br><span class="line">data=[<span class="string">'alex'</span>,<span class="number">49</span>,[<span class="number">1900</span>,<span class="number">3</span>,<span class="number">18</span>]]</span><br><span class="line">a,b,c = data</span><br><span class="line">d,e,f = c</span><br><span class="line">data = [a,b,d,e,f]</span><br><span class="line">keys = [<span class="string">'姓名'</span>,<span class="string">'年龄'</span>,<span class="string">'年'</span>,<span class="string">'月'</span>,<span class="string">'日'</span>]</span><br><span class="line">dic= &#123;&#125;</span><br><span class="line">time = <span class="number">0</span></span><br><span class="line"><span class="keyword">while</span> time &lt; len(data):</span><br><span class="line">    dic.setdefault(keys[time],data[time])</span><br><span class="line">    time += <span class="number">1</span></span><br><span class="line">print(dic)</span><br></pre></td></tr></table></figure>
+- 用列表模拟队列（最先进入列表的元素会先出来）：
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 答案，通过该答案模仿写出第3题</span></span><br><span class="line">lis = []</span><br><span class="line"></span><br><span class="line">print(<span class="string">f"进队列前lis: <span class="subst">&#123;lis&#125;</span>"</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 进队列</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>, <span class="number">6</span>):</span><br><span class="line">    lis.append(i)</span><br><span class="line">    print(i)</span><br><span class="line"></span><br><span class="line">print(<span class="string">f"结束进入队列lis: <span class="subst">&#123;lis&#125;</span>"</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 出队列</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(len(lis)):</span><br><span class="line">    print(lis.pop(<span class="number">0</span>))</span><br><span class="line">    </span><br><span class="line">print(<span class="string">f"出队列后lis: <span class="subst">&#123;lis&#125;</span>"</span>)</span><br></pre></td></tr></table></figure>
+<ol>
+- 用列表模拟堆栈（最后进入列表的元素会先出来）：
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">new_lis = []</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>,<span class="number">6</span>):</span><br><span class="line"> new_lis.append(i)</span><br><span class="line">new_lis.reverse()</span><br><span class="line">print(new_lis)</span><br></pre></td></tr></table></figure>
+- 有如下列表，请按照年龄排序（涉及到匿名函数）：
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">lis=[</span><br><span class="line">    &#123;<span class="string">'name'</span>:<span class="string">'alex'</span>,<span class="string">'age'</span>:<span class="number">84</span>&#125;,</span><br><span class="line">    &#123;<span class="string">'name'</span>:<span class="string">'oldboy'</span>,<span class="string">'age'</span>:<span class="number">73</span>&#125;,</span><br><span class="line">    &#123;<span class="string">'name'</span>:<span class="string">'egon'</span>,<span class="string">'age'</span>:<span class="number">18</span>&#125;,</span><br><span class="line">]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 通过姓名排序参考（涉及匿名函数）：</span></span><br><span class="line"></span><br><span class="line">lis.sort(key=<span class="keyword">lambda</span> item:item[<span class="string">'name'</span>])</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">lis.sort(key=<span class="keyword">lambda</span> item:item[<span class="string">'age'</span>])</span><br><span class="line"><span class="comment"># 冒泡函数</span></span><br><span class="line">lis = [</span><br><span class="line">    &#123;<span class="string">'name'</span> : <span class="string">'yang'</span>,<span class="string">'age'</span> : <span class="number">6</span> &#125;,</span><br><span class="line">    &#123;<span class="string">'name'</span> : <span class="string">'wen'</span>,<span class="string">'age'</span>  : <span class="number">3</span> &#125;,</span><br><span class="line">    &#123;<span class="string">'name'</span> : <span class="string">'yi'</span>,<span class="string">'age'</span>  : <span class="number">1</span> &#125;</span><br><span class="line">]</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(len(lis)):</span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> range(i+<span class="number">1</span>,len(lis)):</span><br><span class="line">        <span class="keyword">if</span> lis[i][<span class="string">'age'</span>] &gt;lis[j][<span class="string">'age'</span>]:</span><br><span class="line">            lis[i],lis[j] = lis[j],lis[i]</span><br><span class="line">print(lis)</span><br></pre></td></tr></table></figure>
+<ol>
+- 有如下值集合`[11,22,33,44,55,66,77,88,99,90...]`，将所有大于 66 的值保存至字典的第一个key中，将
+小于 66 的值保存至第二个key的值中，结果为`{'k1': 大于66的所有值, 'k2': 小于66的所有值}`：
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">k1_list = []</span><br><span class="line">k2_list = []</span><br><span class="line">new_dict = &#123;<span class="string">'k1'</span>:k1_list,<span class="string">"k2"</span>:k2_list&#125;</span><br><span class="line">a = [<span class="number">11</span>,<span class="number">22</span>,<span class="number">33</span>,<span class="number">44</span>,<span class="number">55</span>,<span class="number">66</span>,<span class="number">77</span>,<span class="number">88</span>,<span class="number">99</span>,<span class="number">90</span>]</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> a:</span><br><span class="line">    <span class="keyword">if</span> i &gt;=<span class="number">66</span>:</span><br><span class="line">        k1_list.append(i)</span><br><span class="line">    <span class="keyword">elif</span> i &lt; <span class="number">66</span>:</span><br><span class="line">        k2_list.append(i)</span><br><span class="line">print(new_dict)</span><br></pre></td></tr></table></figure>
+- 统计`s='hello jason tank tank jason sean say hello dsb dsb sb'`中每个单词的个数，结果为`{'hello': 2, 'alex': 0, 'say': 1, 'sb': 1}
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">s=<span class="string">'hello jason tank tank jason sean say hello dsb dsb sb'</span></span><br><span class="line">hello_num = s.count(<span class="string">'hello'</span>)</span><br><span class="line">alex_num = s.count(<span class="string">'alex'</span>)</span><br><span class="line">sb_num = s.split().count(<span class="string">'sb'</span>)</span><br><span class="line">say_num = s.count(<span class="string">'say'</span>)</span><br><span class="line">new_dic = &#123;<span class="string">'hello'</span>:hello_num,<span class="string">'alex'</span>:alex_num,<span class="string">'say'</span>:say_num,<span class="string">'sb'</span>:sb_num&#125;</span><br><span class="line">print(new_dic)</span><br><span class="line"><span class="comment">#&#123;'hello': 2, 'alex': 0, 'say': 1, 'sb': 1&#125;</span></span><br></pre></td></tr></table></figure>
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/%E5%AF%BB%E6%89%BE%E5%9C%A8%E5%8D%9A%E5%AE%A2%E5%9B%AD%E7%9B%B8%E5%86%8C%E4%B8%AD%E5%9B%BE%E7%89%87%E9%93%BE%E6%8E%A5/" rel="prev" title="寻找在博客园相册中图片链接">
+      <i class="fa fa-chevron-left"></i> 寻找在博客园相册中图片链接
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/%E8%99%9A%E6%8B%9F%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/" rel="next" title="虚拟环境的搭建">
+      虚拟环境的搭建 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#5-8自我总结"><span class="nav-number">1.</span> <span class="nav-text">5.8自我总结</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-列表类型内置算法"><span class="nav-number">1.1.</span> <span class="nav-text">1.列表类型内置算法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-必须掌握"><span class="nav-number">1.1.1.</span> <span class="nav-text">1.必须掌握</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-按索引取值（正向取值-反向取值），即可存也可以取"><span class="nav-number">1.1.1.1.</span> <span class="nav-text">1.按索引取值（正向取值+反向取值），即可存也可以取</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-切片"><span class="nav-number">1.1.1.2.</span> <span class="nav-text">2.切片</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-长度len"><span class="nav-number">1.1.1.3.</span> <span class="nav-text">3.长度len</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-成员运算in和not-in"><span class="nav-number">1.1.1.4.</span> <span class="nav-text">4.成员运算in和not in</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-追加append"><span class="nav-number">1.1.1.5.</span> <span class="nav-text">5.追加append</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-删除del"><span class="nav-number">1.1.1.6.</span> <span class="nav-text">6.删除del</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#7-循环"><span class="nav-number">1.1.1.7.</span> <span class="nav-text">7.循环</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-了解"><span class="nav-number">1.1.2.</span> <span class="nav-text">2.了解</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-insert"><span class="nav-number">1.1.2.1.</span> <span class="nav-text">1.insert</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-pop"><span class="nav-number">1.1.2.2.</span> <span class="nav-text">2.pop</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-remove"><span class="nav-number">1.1.2.3.</span> <span class="nav-text">3.remove</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-count"><span class="nav-number">1.1.2.4.</span> <span class="nav-text">4.count</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-index"><span class="nav-number">1.1.2.5.</span> <span class="nav-text">5.index</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-clear"><span class="nav-number">1.1.2.6.</span> <span class="nav-text">6.clear</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#7-copy"><span class="nav-number">1.1.2.7.</span> <span class="nav-text">7.copy</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#8-extend"><span class="nav-number">1.1.2.8.</span> <span class="nav-text">8.extend</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#9-reverse"><span class="nav-number">1.1.2.9.</span> <span class="nav-text">9.reverse</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#10-sort"><span class="nav-number">1.1.2.10.</span> <span class="nav-text">10.sort</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3，一个值或者多个值"><span class="nav-number">1.1.3.</span> <span class="nav-text">3，一个值或者多个值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-有序或者无序"><span class="nav-number">1.1.4.</span> <span class="nav-text">4.有序或者无序</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-可变或者不可变"><span class="nav-number">1.1.5.</span> <span class="nav-text">5.可变或者不可变</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-元祖类型"><span class="nav-number">1.2.</span> <span class="nav-text">2.元祖类型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-定义"><span class="nav-number">1.2.1.</span> <span class="nav-text">1.定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-用法"><span class="nav-number">1.2.2.</span> <span class="nav-text">2.用法</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">sir0.net</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">127</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">sir0.net</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.2.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.7.2
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
