@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Muse","version":"7.7.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="06.27自我总结1.模拟ssh远程执行命令利用套接字编来进行远程执行命令服务端 12345678910111213141516171819202122232425262728293031323334from socket import *import subprocessserver &#x3D; socket(AF_INET, SOCK_STREAM)server.bind((&#39;127.0.0.1&#39;,">
+<meta property="og:type" content="article">
+<meta property="og:title" content="模拟ssh远程执行命令,粘包问题,基于socketserver实现并发的socket">
+<meta property="og:url" content="http://yoursite.com/2020/03/07/%E6%A8%A1%E6%8B%9Fssh%E8%BF%9C%E7%A8%8B%E6%89%A7%E8%A1%8C%E5%91%BD%E4%BB%A4,%E7%B2%98%E5%8C%85%E9%97%AE%E9%A2%98,%E5%9F%BA%E4%BA%8Esocketserver%E5%AE%9E%E7%8E%B0%E5%B9%B6%E5%8F%91%E7%9A%84socket/index.html">
+<meta property="og:site_name" content="吴梦梦、刘玥和SL炮叔">
+<meta property="og:description" content="06.27自我总结1.模拟ssh远程执行命令利用套接字编来进行远程执行命令服务端 12345678910111213141516171819202122232425262728293031323334from socket import *import subprocessserver &#x3D; socket(AF_INET, SOCK_STREAM)server.bind((&#39;127.0.0.1&#39;,">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://www.cnblogs.com/images/cnblogs_com/pythonywy/1452728/o_o_126-%e5%9f%ba%e4%ba%8esocketserver%e5%ae%9e%e7%8e%b0%e5%b9%b6%e5%8f%91%e7%9a%84socket-server%e7%b1%bb.png">
+<meta property="og:image" content="https://www.cnblogs.com/images/cnblogs_com/pythonywy/1452728/o_o_126-%e5%9f%ba%e4%ba%8esocketserver%e5%ae%9e%e7%8e%b0%e5%b9%b6%e5%8f%91%e7%9a%84socket-request%e7%b1%bb.png">
+<meta property="og:image" content="https://www.cnblogs.com/images/cnblogs_com/pythonywy/1452728/o_1.png">
+<meta property="og:image" content="https://www.cnblogs.com/images/cnblogs_com/pythonywy/1452728/o_2.png">
+<meta property="og:image" content="https://www.cnblogs.com/images/cnblogs_com/pythonywy/1452728/o_3.png">
+<meta property="article:published_time" content="2020-03-07T15:01:31.657Z">
+<meta property="article:modified_time" content="2020-03-06T03:39:45.000Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://www.cnblogs.com/images/cnblogs_com/pythonywy/1452728/o_o_126-%e5%9f%ba%e4%ba%8esocketserver%e5%ae%9e%e7%8e%b0%e5%b9%b6%e5%8f%91%e7%9a%84socket-server%e7%b1%bb.png">
+
+<link rel="canonical" href="http://yoursite.com/2020/03/07/%E6%A8%A1%E6%8B%9Fssh%E8%BF%9C%E7%A8%8B%E6%89%A7%E8%A1%8C%E5%91%BD%E4%BB%A4,%E7%B2%98%E5%8C%85%E9%97%AE%E9%A2%98,%E5%9F%BA%E4%BA%8Esocketserver%E5%AE%9E%E7%8E%B0%E5%B9%B6%E5%8F%91%E7%9A%84socket/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true
+  };
+</script>
+
+  <title>模拟ssh远程执行命令,粘包问题,基于socketserver实现并发的socket | 吴梦梦、刘玥和SL炮叔</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">吴梦梦、刘玥和SL炮叔</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/07/%E6%A8%A1%E6%8B%9Fssh%E8%BF%9C%E7%A8%8B%E6%89%A7%E8%A1%8C%E5%91%BD%E4%BB%A4,%E7%B2%98%E5%8C%85%E9%97%AE%E9%A2%98,%E5%9F%BA%E4%BA%8Esocketserver%E5%AE%9E%E7%8E%B0%E5%B9%B6%E5%8F%91%E7%9A%84socket/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="吴梦梦、刘玥和SL炮叔">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          模拟ssh远程执行命令,粘包问题,基于socketserver实现并发的socket
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-03-07 23:01:31" itemprop="dateCreated datePublished" datetime="2020-03-07T23:01:31+08:00">2020-03-07</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-03-06 11:39:45" itemprop="dateModified" datetime="2020-03-06T11:39:45+08:00">2020-03-06</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="06-27自我总结"><a href="#06-27自我总结" class="headerlink" title="06.27自我总结"></a>06.27自我总结</h1><h2 id="1-模拟ssh远程执行命令"><a href="#1-模拟ssh远程执行命令" class="headerlink" title="1.模拟ssh远程执行命令"></a>1.模拟ssh远程执行命令</h2><p><code>利用套接字编来进行远程执行命令</code><br>服务端</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">from</span> socket <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">import</span> subprocess</span><br><span class="line"></span><br><span class="line">server = socket(AF_INET, SOCK_STREAM)</span><br><span class="line"></span><br><span class="line">server.bind((<span class="string">'127.0.0.1'</span>, <span class="number">8000</span>))</span><br><span class="line">server.listen(<span class="number">5</span>)</span><br><span class="line"></span><br><span class="line">print(<span class="string">'start...'</span>)</span><br><span class="line"><span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">    conn, client_addr = server.accept()</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">        print(<span class="string">'from client:'</span>, client_addr)</span><br><span class="line"></span><br><span class="line">        cmd = conn.recv(<span class="number">1024</span>)</span><br><span class="line">        <span class="keyword">if</span> len(cmd) == <span class="number">0</span>: <span class="keyword">break</span></span><br><span class="line">        print(<span class="string">'cmd:'</span>, cmd)</span><br><span class="line"></span><br><span class="line">        obj = subprocess.Popen(cmd.decode(<span class="string">'utf8'</span>),  <span class="comment"># 输入的cmd命令</span></span><br><span class="line">                               shell=<span class="literal">True</span>,  <span class="comment"># 通过shell运行</span></span><br><span class="line">                               stderr=subprocess.PIPE,  <span class="comment"># 把错误输出放入管道，以便打印</span></span><br><span class="line">                               stdout=subprocess.PIPE)  <span class="comment"># 把正确输出放入管道，以便打印</span></span><br><span class="line"></span><br><span class="line">        stdout = obj.stdout.read()  <span class="comment"># 打印正确输出</span></span><br><span class="line">        stderr = obj.stderr.read()  <span class="comment"># 打印错误输出</span></span><br><span class="line"></span><br><span class="line">        conn.send(stdout)</span><br><span class="line">        conn.send(stderr)</span><br><span class="line"></span><br><span class="line">    conn.close()</span><br><span class="line"></span><br><span class="line">server.close()</span><br></pre></td></tr></table></figure>
+<p>客户端</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">port socket</span><br><span class="line"></span><br><span class="line">client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)</span><br><span class="line"></span><br><span class="line">client.connect((<span class="string">'127.0.0.1'</span>, <span class="number">8000</span>))</span><br><span class="line"></span><br><span class="line"><span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">    data = input(<span class="string">'please enter your data'</span>)</span><br><span class="line">    client.send(data.encode(<span class="string">'utf8'</span>))</span><br><span class="line">    data = client.recv(<span class="number">1024</span>)</span><br><span class="line"></span><br><span class="line">    print(<span class="string">'from server:'</span>, data)</span><br><span class="line"></span><br><span class="line">client.close()</span><br></pre></td></tr></table></figure>
+<p>输入<code>dir</code>命令，由于服务端发送字节少于1024字节，客户端可以接受。<br>输入<code>tasklist</code>命令，由于服务端发送字节多于1024字节，客户端只接受部分数据，并且当你再次输入<code>dir</code>命令的时候，客户端会接收<code>dir</code>命令的结果，但是会打印上一次的剩余未发送完的数据，这就是粘包问题</p>
+<h2 id="2-粘包问题和解决粘包问题"><a href="#2-粘包问题和解决粘包问题" class="headerlink" title="2.粘包问题和解决粘包问题"></a>2.粘包问题和解决粘包问题</h2><h3 id="1-粘包问题"><a href="#1-粘包问题" class="headerlink" title="1.粘包问题"></a>1.粘包问题</h3><p>粘包问题主要出现在用TCP协议传输中才会出现的问题,UDP不会出现,因为TCP传输中他会服务端会一次性把所有东西一并丢入缓存区,而读取的内容大小有时候没法准确的做到一一读取,所有会存在粘包,而UDP他传输的时候是吧一个个内容丢过去,不管客户端能否完全接受到内容他都会接受他制定大小的内容,而内容大于他接受设定的大小时候多余的东西会被丢到</p>
+<h3 id="2-解决粘包问题"><a href="#2-解决粘包问题" class="headerlink" title="2.解决粘包问题"></a>2.解决粘包问题</h3><p><code>我们通过粘包他产生的问题入手如果我们知道他传输的文件大小我们就可以按他大小完美的全部接受他</code><br>我们引入<code>struct</code>模块:<a href="https://www.cnblogs.com/pythonywy/p/11097305.html" target="_blank" rel="noopener" class="uri">https://www.cnblogs.com/pythonywy/p/11097305.html</a><br>服务端</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> socket <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">import</span> struct</span><br><span class="line"><span class="keyword">import</span> subprocess</span><br><span class="line"></span><br><span class="line">sever = socket(AF_INET,SOCK_STREAM)  <span class="comment">#创建服务器</span></span><br><span class="line"></span><br><span class="line">sever.bind((<span class="string">'127.0.0.1'</span>,<span class="number">8000</span>))   <span class="comment">#创建地址</span></span><br><span class="line"></span><br><span class="line">sever.listen(<span class="number">5</span>)     <span class="comment">#创建连接个数</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">    print(<span class="string">'start...'</span>)</span><br><span class="line">    conn,addr = sever.accept()      <span class="comment">#连接</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">        <span class="keyword">try</span>:</span><br><span class="line">            cmd = conn.recv(<span class="number">1024</span>)   <span class="comment">#就收CMD指令</span></span><br><span class="line">            print(<span class="string">'cmd:'</span>,cmd)</span><br><span class="line"></span><br><span class="line">            obj = subprocess.Popen(cmd.decode(<span class="string">'utf8'</span>),</span><br><span class="line">                                   shell = <span class="literal">True</span>,</span><br><span class="line">                                   stderr= subprocess.PIPE,</span><br><span class="line">                                   stdout=subprocess.PIPE)</span><br><span class="line">            stdout = obj.stdout.read()</span><br><span class="line">            stderr = obj.stderr.read()</span><br><span class="line">            <span class="comment"># stdout = obj.stdout.read()</span></span><br><span class="line"></span><br><span class="line">            count_len = len(stdout) + len(stderr)</span><br><span class="line"></span><br><span class="line">            guiding_bytes = struct.pack(<span class="string">'i'</span>,count_len)  <span class="comment">#压缩他大小</span></span><br><span class="line">            conn.send(guiding_bytes)</span><br><span class="line">            conn.send(stdout+stderr)</span><br><span class="line">        <span class="keyword">except</span> ConnectionRefusedError:</span><br><span class="line">            <span class="keyword">break</span></span><br></pre></td></tr></table></figure>
+<p>客户端</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> socket <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">import</span> struct</span><br><span class="line"></span><br><span class="line">client = socket(AF_INET,SOCK_STREAM)</span><br><span class="line"></span><br><span class="line">client.connect((<span class="string">'127.0.0.1'</span>,<span class="number">8000</span>))</span><br><span class="line"></span><br><span class="line"><span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">    cmd = input(<span class="string">'please enter your cmd&gt;&gt;&gt;'</span>)</span><br><span class="line"></span><br><span class="line">    client.send(cmd.encode(<span class="string">'utf8'</span>)) <span class="comment">#传送命令</span></span><br><span class="line"></span><br><span class="line">    count_len = client.recv(<span class="number">4</span>)</span><br><span class="line"></span><br><span class="line">    fixing_bytes = struct.unpack(<span class="string">'i'</span>,count_len)[<span class="number">0</span>] <span class="comment">#解压</span></span><br><span class="line"></span><br><span class="line">    msg = client.recv(fixing_bytes)</span><br><span class="line"></span><br><span class="line">    print(msg.decode(<span class="string">'gbk'</span>))</span><br></pre></td></tr></table></figure>
+<h2 id="3-基于UDP套接字编程"><a href="#3-基于UDP套接字编程" class="headerlink" title="3.基于UDP套接字编程"></a>3.基于UDP套接字编程</h2><ul>
+<li>UDP是无链接的，先启动哪一端都不会报错</li>
+<li>UDP协议是数据报协议，发空的时候也会自带报头，因此客户端输入空，服务端也能收到</li>
+</ul>
+<p>服务端</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> socket</span><br><span class="line"></span><br><span class="line">server = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)  <span class="comment"># 数据报协议-》UDP</span></span><br><span class="line">server.bind((<span class="string">'127.0.0.1'</span>, <span class="number">8080</span>))</span><br><span class="line"></span><br><span class="line"><span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">    data, client_addr = server.recvfrom(<span class="number">1024</span>)</span><br><span class="line">    print(<span class="string">'===&gt;'</span>, data, client_addr)</span><br><span class="line">    server.sendto(data.upper(), client_addr)</span><br><span class="line"></span><br><span class="line">server.close()</span><br></pre></td></tr></table></figure>
+<p>客户端</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> socket</span><br><span class="line"></span><br><span class="line">client = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)  <span class="comment"># 数据报协议-》UDP</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">    msg = input(<span class="string">'&gt;&gt;: '</span>).strip()  <span class="comment"># msg=''</span></span><br><span class="line">    client.sendto(msg.encode(<span class="string">'utf-8'</span>), (<span class="string">'127.0.0.1'</span>, <span class="number">8080</span>))</span><br><span class="line">    data, server_addr = client.recvfrom(<span class="number">1024</span>)</span><br><span class="line">    print(data)</span><br><span class="line"></span><br><span class="line">client.close()</span><br></pre></td></tr></table></figure>
+<h2 id="4-基于socketserver实现并发的socket"><a href="#4-基于socketserver实现并发的socket" class="headerlink" title="4.基于socketserver实现并发的socket"></a>4.基于socketserver实现并发的socket</h2><p>基于tcp的套接字，关键就是两个循环，一个链接循环，一个通信循环<br>socketserver模块中分两大类：server类（解决链接问题）和request类（解决通信问题）</p>
+<h3 id="1-server类"><a href="#1-server类" class="headerlink" title="1.server类"></a>1.server类</h3><img src="https://www.cnblogs.com/images/cnblogs_com/pythonywy/1452728/o_o_126-%e5%9f%ba%e4%ba%8esocketserver%e5%ae%9e%e7%8e%b0%e5%b9%b6%e5%8f%91%e7%9a%84socket-server%e7%b1%bb.png" />
+### 2.request类
+<img src="https://www.cnblogs.com/images/cnblogs_com/pythonywy/1452728/o_o_126-%e5%9f%ba%e4%ba%8esocketserver%e5%ae%9e%e7%8e%b0%e5%b9%b6%e5%8f%91%e7%9a%84socket-request%e7%b1%bb.png" />
+### 3.继承关系
+<img src="https://www.cnblogs.com/images/cnblogs_com/pythonywy/1452728/o_1.png" />
+<img src="https://www.cnblogs.com/images/cnblogs_com/pythonywy/1452728/o_2.png" />
+<img src="https://www.cnblogs.com/images/cnblogs_com/pythonywy/1452728/o_3.png" />
+服务端
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> socketserver</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyHandler</span><span class="params">(socketserver.BaseRequestHandler)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">handle</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="comment"># 通信循环</span></span><br><span class="line">        <span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">            <span class="comment"># print(self.client_address)</span></span><br><span class="line">            <span class="comment"># print(self.request) #self.request=conn</span></span><br><span class="line"></span><br><span class="line">            <span class="keyword">try</span>:</span><br><span class="line">                data = self.request.recv(<span class="number">1024</span>)</span><br><span class="line">                <span class="keyword">if</span> len(data) == <span class="number">0</span>: <span class="keyword">break</span></span><br><span class="line">                self.request.send(data.upper())</span><br><span class="line">            <span class="keyword">except</span> ConnectionResetError:</span><br><span class="line">                <span class="keyword">break</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    s = socketserver.ThreadingTCPServer((<span class="string">'127.0.0.1'</span>, <span class="number">8080</span>), MyHandler, bind_and_activate=<span class="literal">True</span>)</span><br><span class="line"></span><br><span class="line">    s.serve_forever()  <span class="comment"># 代表连接循环</span></span><br><span class="line">    <span class="comment"># 循环建立连接，每建立一个连接就会启动一个线程（服务员）+调用Myhanlder类产生一个对象，调用该对象下的handle方法，专门与刚刚建立好的连接做通信循环</span></span><br></pre></td></tr></table></figure>
+客户端
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> socket</span><br><span class="line"></span><br><span class="line">phone = socket.socket(socket.AF_INET, socket.SOCK_STREAM)</span><br><span class="line">phone.connect((<span class="string">'127.0.0.1'</span>, <span class="number">8080</span>))  <span class="comment"># 指定服务端ip和端口</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">    <span class="comment"># msg=input('&gt;&gt;: ').strip() #msg=''</span></span><br><span class="line">    msg = <span class="string">'client33333'</span>  <span class="comment"># msg=''</span></span><br><span class="line">    <span class="keyword">if</span> len(msg) == <span class="number">0</span>: <span class="keyword">continue</span></span><br><span class="line">    phone.send(msg.encode(<span class="string">'utf-8'</span>))</span><br><span class="line">    data = phone.recv(<span class="number">1024</span>)</span><br><span class="line">    print(data)</span><br><span class="line"></span><br><span class="line">phone.close()</span><br></pre></td></tr></table></figure>
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/03/07/%E6%A8%A1%E6%8B%9F%E7%99%BE%E5%BA%A6%E8%BF%9B%E8%A1%8C%E5%9B%BE%E7%89%87%E6%90%9C%E7%B4%A2,%E6%9C%89%E9%97%AE%E9%A2%98%E5%8F%AF%E4%BB%A5%E7%95%99%E8%A8%80/" rel="prev" title="模拟百度进行图片搜索,有问题可以留言">
+      <i class="fa fa-chevron-left"></i> 模拟百度进行图片搜索,有问题可以留言
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/03/07/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%BC%96%E7%A8%8B,%E9%B1%BC%E9%AA%A8%E5%9B%BE%E5%88%86%E6%9E%90%E6%B3%95/" rel="next" title="面向对象编程,鱼骨图分析法">
+      面向对象编程,鱼骨图分析法 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#06-27自我总结"><span class="nav-number">1.</span> <span class="nav-text">06.27自我总结</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-模拟ssh远程执行命令"><span class="nav-number">1.1.</span> <span class="nav-text">1.模拟ssh远程执行命令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-粘包问题和解决粘包问题"><span class="nav-number">1.2.</span> <span class="nav-text">2.粘包问题和解决粘包问题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-粘包问题"><span class="nav-number">1.2.1.</span> <span class="nav-text">1.粘包问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-解决粘包问题"><span class="nav-number">1.2.2.</span> <span class="nav-text">2.解决粘包问题</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-基于UDP套接字编程"><span class="nav-number">1.3.</span> <span class="nav-text">3.基于UDP套接字编程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-基于socketserver实现并发的socket"><span class="nav-number">1.4.</span> <span class="nav-text">4.基于socketserver实现并发的socket</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-server类"><span class="nav-number">1.4.1.</span> <span class="nav-text">1.server类</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">John Doe</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">127</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">John Doe</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.2.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.7.2
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

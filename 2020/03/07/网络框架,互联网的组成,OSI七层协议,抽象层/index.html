@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Muse","version":"7.7.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="6.25自我总结1.网络框架1.单机 单机游戏  以下两个基于网络的 2.CS架构 cs—&gt;client客户&#x2F;server服务服务端(应用程序)一个就够了,客户端(应用程序)可以有多个  服务端和客户端都是应用程序,那两者一定都可以存储数据,哪一个存储数据更好:  服务端: 很多人都可以用,它一次更新,其它人还是直接拿,还能保证数据的安全 客户端:非常快,如果本地保存账号密码,安全性非常低,">
+<meta property="og:type" content="article">
+<meta property="og:title" content="网络框架,互联网的组成,OSI七层协议,抽象层">
+<meta property="og:url" content="http://yoursite.com/2020/03/07/%E7%BD%91%E7%BB%9C%E6%A1%86%E6%9E%B6,%E4%BA%92%E8%81%94%E7%BD%91%E7%9A%84%E7%BB%84%E6%88%90,OSI%E4%B8%83%E5%B1%82%E5%8D%8F%E8%AE%AE,%E6%8A%BD%E8%B1%A1%E5%B1%82/index.html">
+<meta property="og:site_name" content="吴梦梦、刘玥和SL炮叔">
+<meta property="og:description" content="6.25自我总结1.网络框架1.单机 单机游戏  以下两个基于网络的 2.CS架构 cs—&gt;client客户&#x2F;server服务服务端(应用程序)一个就够了,客户端(应用程序)可以有多个  服务端和客户端都是应用程序,那两者一定都可以存储数据,哪一个存储数据更好:  服务端: 很多人都可以用,它一次更新,其它人还是直接拿,还能保证数据的安全 客户端:非常快,如果本地保存账号密码,安全性非常低,">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://www.cnblogs.com/images/cnblogs_com/pythonywy/1452728/o_o_153-socket%e6%8a%bd%e8%b1%a1%e5%b1%82-socket%e5%b1%82.png">
+<meta property="article:published_time" content="2020-03-07T15:00:56.994Z">
+<meta property="article:modified_time" content="2020-03-06T03:39:19.000Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://www.cnblogs.com/images/cnblogs_com/pythonywy/1452728/o_o_153-socket%e6%8a%bd%e8%b1%a1%e5%b1%82-socket%e5%b1%82.png">
+
+<link rel="canonical" href="http://yoursite.com/2020/03/07/%E7%BD%91%E7%BB%9C%E6%A1%86%E6%9E%B6,%E4%BA%92%E8%81%94%E7%BD%91%E7%9A%84%E7%BB%84%E6%88%90,OSI%E4%B8%83%E5%B1%82%E5%8D%8F%E8%AE%AE,%E6%8A%BD%E8%B1%A1%E5%B1%82/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true
+  };
+</script>
+
+  <title>网络框架,互联网的组成,OSI七层协议,抽象层 | 吴梦梦、刘玥和SL炮叔</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">吴梦梦、刘玥和SL炮叔</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/07/%E7%BD%91%E7%BB%9C%E6%A1%86%E6%9E%B6,%E4%BA%92%E8%81%94%E7%BD%91%E7%9A%84%E7%BB%84%E6%88%90,OSI%E4%B8%83%E5%B1%82%E5%8D%8F%E8%AE%AE,%E6%8A%BD%E8%B1%A1%E5%B1%82/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="吴梦梦、刘玥和SL炮叔">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          网络框架,互联网的组成,OSI七层协议,抽象层
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-03-07 23:00:56" itemprop="dateCreated datePublished" datetime="2020-03-07T23:00:56+08:00">2020-03-07</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-03-06 11:39:19" itemprop="dateModified" datetime="2020-03-06T11:39:19+08:00">2020-03-06</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="6-25自我总结"><a href="#6-25自我总结" class="headerlink" title="6.25自我总结"></a>6.25自我总结</h1><h2 id="1-网络框架"><a href="#1-网络框架" class="headerlink" title="1.网络框架"></a>1.网络框架</h2><h3 id="1-单机"><a href="#1-单机" class="headerlink" title="1.单机"></a>1.单机</h3><ul>
+<li>单机游戏</li>
+</ul>
+<p>以下两个基于网络的</p>
+<h3 id="2-CS架构"><a href="#2-CS架构" class="headerlink" title="2.CS架构"></a>2.CS架构</h3><ul>
+<li>cs—&gt;client客户/server服务<br>服务端(应用程序)一个就够了,客户端(应用程序)可以有多个</li>
+</ul>
+<p>服务端和客户端都是应用程序,那两者一定都可以存储数据,哪一个存储数据更好:</p>
+<ul>
+<li>服务端: 很多人都可以用,它一次更新,其它人还是直接拿,还能保证数据的安全</li>
+<li>客户端:非常快,如果本地保存账号密码,安全性非常低,客户端不联网,数据不更新</li>
+</ul>
+<h3 id="3-BS架构"><a href="#3-BS架构" class="headerlink" title="3.BS架构"></a>3.BS架构</h3><ul>
+<li>bs—&gt;browser浏览器/服务端<br>客户端(浏览器)/服务端,程序放在浏览器上</li>
+</ul>
+<h2 id="2-互联网的组成"><a href="#2-互联网的组成" class="headerlink" title="2.互联网的组成"></a>2.互联网的组成</h2><p>边缘部分: 客户端/服务端,这些普通的计算机,负责接收/发送数据<br>核心部分:传输网络的设备,路由,基站,负责数据的传输<br>举例我们打开浏览器:</p>
+<ol>
+- 打开浏览器(客户端)
+- 输入www.taobao.com,----->地址指向淘宝的服务端
+- 按enter键客户端把www.taobao.com解析成淘宝的地址(杭州.....)
+- 发送一条指令给淘宝,让淘宝把数据发给你
+- 客户端渲染数据
+</ol>
+## 3.OSI七层协议
+互联网的本质就是一系列的网络协议，这个协议就叫OSI协议（一系列协议），按照功能不同，分工不同，人为的分层七层。实际上这个七层是不存在的。没有这七层的概念，只是人为的划分而已。区分出来的目的只是让你明白哪一层是干什么用的。
+每一层都运行不同的协议。协议是干什么的，协议就是标准。
+实际上还有人把它划成五层、四层。
+
+<ul>
+<li>七层划分为：应用层、表示层、会话层、传输层、网络层、数据链路层、物理层。</li>
+<li>五层划分为：应用层、传输层、网络层、数据链路层、物理层。</li>
+<li>四层划分为：应用层、传输层、网络层、网络接口层。</li>
+</ul>
+<p>互联网由硬件和软件组成,传输数据,只能传输电信号,0和1,OSI协议吧0和1从无意义的东西变成有意义的东西</p>
+<h3 id="1-物理层"><a href="#1-物理层" class="headerlink" title="1.物理层"></a>1.物理层</h3><p>计算机与计算机之间传输数据</p>
+<ul>
+<li>光缆/网线:传输信号,连接两台计算机,如果有一根网线能从中国连到美国,只要物理层就够了</li>
+</ul>
+<p>客户端 —-00111110011111001111100111110011111001111100111110011111—&gt;服务端</p>
+<h3 id="2-数据链路层"><a href="#2-数据链路层" class="headerlink" title="2.数据链路层"></a>2.数据链路层</h3><p>让同一局域网下的计算机连接在一起<br>把001111 100111 110011 1110011111变得有意义,分组,每几位一组<br>以太网协议:规定物理层中传输的0和1的格式<br>head:<br>有点类似我们的邮件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">收件人地址:</span><br><span class="line"></span><br><span class="line">数据类型:</span><br><span class="line"></span><br><span class="line">发件人地址:</span><br></pre></td></tr></table></figure>
+<p>data: 内容</p>
+<ul>
+<li>发件人地址就是mac地址,计算机上网卡的地址,这个地址固定不变,并且唯一,每一台电脑有自己固定的mac地址</li>
+<li>广播:你一定知道自己的mac地址,还有收件人的mac地址,通过某一台设备(交换机),但是交换机不知道mac地址对应的计算机是那一台,交换机就会以广播的形式发送给所有的计算机,收件人的计算机收到了就会解析这条命令,拿到内容了.之后交换机会记录两个mac地址.</li>
+</ul>
+<p>以上基于局域网</p>
+<h3 id="3-网络层"><a href="#3-网络层" class="headerlink" title="3.网络层"></a>3.网络层</h3><p>让不同局域网下面的计算机连接在一起.<br>叫做ip地址,只只知道mac地址无法连接其他局域网内的计算机.因为mac地址只被交换机识别,然后不同局域网的交换机不一样.所以现在定义一个新的地址表名是哪个局域网,通过路由器<br>在数据链路层的基础上在包一层ip头.<br>已经知道了淘宝的ip地址和mac地址,你会吧自己的mac地址和ip地址一起发送出去,路由会接收淘宝的ip地址,路由发送淘宝的ip地址和mac地址,自带mac地址(路由器的)和ip地址(路由器的ip地址)<br>mac地址(局域网)+IP地址(互联网)就能找到全世界独一无二的电脑</p>
+<h3 id="4-传输层"><a href="#4-传输层" class="headerlink" title="4.传输层"></a>4.传输层</h3><p>组织网络带来的数据,<br>端口号,找到一个固定的应用程序,一个端口号对应一个应用程序<br>mac地址(局域网)+IP地址(互联网)+端口号就能找到全世界独一无二的电脑上的独一无二的应用程序<br>数据,0和1发给应用程序,tcp/udp协议</p>
+<h3 id="5-应用层"><a href="#5-应用层" class="headerlink" title="5.应用层"></a>5.应用层</h3><p>0和1转换成具体的功能</p>
+<h2 id="4-抽象层"><a href="#4-抽象层" class="headerlink" title="4.抽象层"></a>4.抽象层</h2><p>我们可以利用IP地址＋协议＋端口号唯一标示网络中的一个进程。<br>能够唯一标示网络中的进程后，它们就可以利用Socket进行通信了，什么是Socket呢？我们经常把Socket翻译为套接字，Socket是在应用层和传输层之间的一个抽象层，它把TCP/IP层复杂的操作抽象为几个简单的接口供应用层调用已实现进程在网络中通信。<br><img src="https://www.cnblogs.com/images/cnblogs_com/pythonywy/1452728/o_o_153-socket%e6%8a%bd%e8%b1%a1%e5%b1%82-socket%e5%b1%82.png" /><br>Socket起源于UNIX，在Unix一切皆文件哲学的思想下，Socket是一种”打开—读/写—关闭”模式的实现，服务器和客户端各自维护一个”文件”，在建立连接打开后，可以向自己文件写入内容供对方读取或者读取对方内容，通讯结束时关闭文件。</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/03/07/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E7%99%BB%E5%85%A5%E6%B5%81%E7%A8%8B/" rel="prev" title="微信小程序登入流程">
+      <i class="fa fa-chevron-left"></i> 微信小程序登入流程
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/03/07/%E9%9A%8F%E6%9C%BA%E7%82%B9%E5%90%8D%E5%8F%AF%E8%A7%86%E5%8C%96%E7%95%8C%E9%9D%A2,%E8%AE%B0%E5%BD%95%E8%BF%9F%E5%88%B0%E4%BA%BA%E5%91%98,%E8%BD%ACexe%E6%96%87%E4%BB%B6/" rel="next" title="随机点名可视化界面,记录迟到人员,转exe文件">
+      随机点名可视化界面,记录迟到人员,转exe文件 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#6-25自我总结"><span class="nav-number">1.</span> <span class="nav-text">6.25自我总结</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-网络框架"><span class="nav-number">1.1.</span> <span class="nav-text">1.网络框架</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-单机"><span class="nav-number">1.1.1.</span> <span class="nav-text">1.单机</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-CS架构"><span class="nav-number">1.1.2.</span> <span class="nav-text">2.CS架构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-BS架构"><span class="nav-number">1.1.3.</span> <span class="nav-text">3.BS架构</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-互联网的组成"><span class="nav-number">1.2.</span> <span class="nav-text">2.互联网的组成</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-物理层"><span class="nav-number">1.2.1.</span> <span class="nav-text">1.物理层</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-数据链路层"><span class="nav-number">1.2.2.</span> <span class="nav-text">2.数据链路层</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-网络层"><span class="nav-number">1.2.3.</span> <span class="nav-text">3.网络层</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-传输层"><span class="nav-number">1.2.4.</span> <span class="nav-text">4.传输层</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-应用层"><span class="nav-number">1.2.5.</span> <span class="nav-text">5.应用层</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-抽象层"><span class="nav-number">1.3.</span> <span class="nav-text">4.抽象层</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">John Doe</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">127</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">John Doe</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.2.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.7.2
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

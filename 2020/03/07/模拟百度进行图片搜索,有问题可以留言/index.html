@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Muse","version":"7.7.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="模拟百度进行图片搜索 1234567891011121314151617181920212223242526272829303132import requestsimport re#分析页面我们先在百度图片搜索里面随笔输入一个&#39;背景图片&#39;获得链接如下#https:&#x2F;&#x2F;image.baidu.com&#x2F;search&#x2F;index?tn&#x3D;baiduimage&amp;amp;ipn&#x3D;r&amp;amp;c">
+<meta property="og:type" content="article">
+<meta property="og:title" content="模拟百度进行图片搜索,有问题可以留言">
+<meta property="og:url" content="http://yoursite.com/2020/03/07/%E6%A8%A1%E6%8B%9F%E7%99%BE%E5%BA%A6%E8%BF%9B%E8%A1%8C%E5%9B%BE%E7%89%87%E6%90%9C%E7%B4%A2,%E6%9C%89%E9%97%AE%E9%A2%98%E5%8F%AF%E4%BB%A5%E7%95%99%E8%A8%80/index.html">
+<meta property="og:site_name" content="吴梦梦、刘玥和SL炮叔">
+<meta property="og:description" content="模拟百度进行图片搜索 1234567891011121314151617181920212223242526272829303132import requestsimport re#分析页面我们先在百度图片搜索里面随笔输入一个&#39;背景图片&#39;获得链接如下#https:&#x2F;&#x2F;image.baidu.com&#x2F;search&#x2F;index?tn&#x3D;baiduimage&amp;amp;ipn&#x3D;r&amp;amp;c">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-03-07T15:01:31.656Z">
+<meta property="article:modified_time" content="2020-03-06T03:38:42.000Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://yoursite.com/2020/03/07/%E6%A8%A1%E6%8B%9F%E7%99%BE%E5%BA%A6%E8%BF%9B%E8%A1%8C%E5%9B%BE%E7%89%87%E6%90%9C%E7%B4%A2,%E6%9C%89%E9%97%AE%E9%A2%98%E5%8F%AF%E4%BB%A5%E7%95%99%E8%A8%80/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true
+  };
+</script>
+
+  <title>模拟百度进行图片搜索,有问题可以留言 | 吴梦梦、刘玥和SL炮叔</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">吴梦梦、刘玥和SL炮叔</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/07/%E6%A8%A1%E6%8B%9F%E7%99%BE%E5%BA%A6%E8%BF%9B%E8%A1%8C%E5%9B%BE%E7%89%87%E6%90%9C%E7%B4%A2,%E6%9C%89%E9%97%AE%E9%A2%98%E5%8F%AF%E4%BB%A5%E7%95%99%E8%A8%80/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="吴梦梦、刘玥和SL炮叔">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          模拟百度进行图片搜索,有问题可以留言
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-03-07 23:01:31" itemprop="dateCreated datePublished" datetime="2020-03-07T23:01:31+08:00">2020-03-07</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-03-06 11:38:42" itemprop="dateModified" datetime="2020-03-06T11:38:42+08:00">2020-03-06</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>模拟百度进行图片搜索</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">import</span> re</span><br><span class="line"><span class="comment">#分析页面我们先在百度图片搜索里面随笔输入一个'背景图片'获得链接如下</span></span><br><span class="line"><span class="comment">#https://image.baidu.com/search/index?tn=baiduimage&amp;amp;ipn=r&amp;amp;ct=201326592&amp;amp;cl=2&amp;amp;lm=-1&amp;amp;st=-1&amp;amp;fm=index&amp;amp;fr=&amp;amp;hs=0&amp;amp;xthttps=111111&amp;amp;sf=1&amp;amp;fmq=&amp;amp;pv=&amp;amp;ic=0&amp;amp;nc=1&amp;amp;z=&amp;amp;se=1&amp;amp;showtab=0&amp;amp;fb=0&amp;amp;width=&amp;amp;height=&amp;amp;face=0&amp;amp;istype=2&amp;amp;ie=utf-8&amp;amp;word=背景图片</span></span><br><span class="line"><span class="comment">#word为我们查找的内容</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># data = input('请输入你要搜索的内容')</span></span><br><span class="line"><span class="comment"># rp = requests.get(f'https://image.baidu.com/search/index?tn=baiduimage&amp;amp;ipn=r&amp;amp;ct=201326592&amp;amp;cl=2&amp;amp;lm=-1&amp;amp;st=-1&amp;amp;fm=index&amp;amp;fr=&amp;amp;hs=0&amp;amp;xthttps=111111&amp;amp;sf=1&amp;amp;fmq=&amp;amp;pv=&amp;amp;ic=0&amp;amp;nc=1&amp;amp;z=&amp;amp;se=1&amp;amp;showtab=0&amp;amp;fb=0&amp;amp;width=&amp;amp;height=&amp;amp;face=0&amp;amp;istype=2&amp;amp;ie=utf-8&amp;amp;word=&#123;data&#125;')</span></span><br><span class="line"><span class="comment"># rp.encoding = rp.apparent_encoding</span></span><br><span class="line"><span class="comment"># print(rp.text)</span></span><br><span class="line"><span class="comment">#试了一下很明显内容是错误的,主体很多内容没有</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#这时候我们加headers</span></span><br><span class="line">headers = &#123;</span><br><span class="line">    <span class="string">'User-Agent'</span>: <span class="string">'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.90 Safari/537.36'</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">#User-Agent是对于我们来源的进行伪装</span></span><br><span class="line"></span><br><span class="line">data = input(<span class="string">'请输入你要搜索的内容'</span>)</span><br><span class="line">rp = requests.get(<span class="string">f'https://image.baidu.com/search/index?tn=baiduimage&amp;amp;ipn=r&amp;amp;ct=201326592&amp;amp;cl=2&amp;amp;lm=-1&amp;amp;st=-1&amp;amp;fm=index&amp;amp;fr=&amp;amp;hs=0&amp;amp;xthttps=111111&amp;amp;sf=1&amp;amp;fmq=&amp;amp;pv=&amp;amp;ic=0&amp;amp;nc=1&amp;amp;z=&amp;amp;se=1&amp;amp;showtab=0&amp;amp;fb=0&amp;amp;width=&amp;amp;height=&amp;amp;face=0&amp;amp;istype=2&amp;amp;ie=utf-8&amp;amp;word=<span class="subst">&#123;data&#125;</span>'</span>,headers=headers)</span><br><span class="line">rp.encoding = rp.apparent_encoding</span><br><span class="line">data = <span class="string">'"middleURL":"(.*?)",'</span></span><br><span class="line"><span class="comment"># print(rp.text)</span></span><br><span class="line"><span class="comment">#对于url查找我们一定不要看原网页上的,要看访问请求下来的text,他可能会相比于原来网页会少了点前缀之类的,但是肯定会有一部分内容一样,绝对能发现的.</span></span><br><span class="line">url = re.findall(data,rp.text,re.S)</span><br><span class="line">print(url)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#下一步对就是对爬取的url再进行访问可以将文件保存至本地,具体可以参考博客</span></span><br><span class="line">https://www.cnblogs.com/pythonywy/p/<span class="number">10856508.</span>html</span><br></pre></td></tr></table></figure>
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/03/07/%E7%88%AC%E8%99%ABselenium%E4%B8%AD%E5%8A%A8%E4%BD%9C%E9%93%BE%E6%8E%A5ActionChains/" rel="prev" title="爬虫selenium中动作链接ActionChains">
+      <i class="fa fa-chevron-left"></i> 爬虫selenium中动作链接ActionChains
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/03/07/%E6%A8%A1%E6%8B%9Fssh%E8%BF%9C%E7%A8%8B%E6%89%A7%E8%A1%8C%E5%91%BD%E4%BB%A4,%E7%B2%98%E5%8C%85%E9%97%AE%E9%A2%98,%E5%9F%BA%E4%BA%8Esocketserver%E5%AE%9E%E7%8E%B0%E5%B9%B6%E5%8F%91%E7%9A%84socket/" rel="next" title="模拟ssh远程执行命令,粘包问题,基于socketserver实现并发的socket">
+      模拟ssh远程执行命令,粘包问题,基于socketserver实现并发的socket <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">John Doe</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">127</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">John Doe</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.2.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.7.2
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
