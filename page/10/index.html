@@ -208,6 +208,76 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://sir0.net/%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E8%A1%A5%E5%85%85/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="sir0.net">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="吴梦梦、刘玥和SL炮叔">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E8%A1%A5%E5%85%85/" class="post-title-link" itemprop="url">数据类型补充</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-03-07 23:00:56" itemprop="dateCreated datePublished" datetime="2020-03-07T23:00:56+08:00">2020-03-07</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-03-06 11:39:15" itemprop="dateModified" datetime="2020-03-06T11:39:15+08:00">2020-03-06</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="5-1自学自我总结"><a href="#5-1自学自我总结" class="headerlink" title="5.1自学自我总结"></a>5.1自学自我总结</h1><h2 id="1-关于数据类型补充"><a href="#1-关于数据类型补充" class="headerlink" title="1.关于数据类型补充"></a>1.关于数据类型补充</h2><p>在整列中除了int数据类型，还要long数据数据类型<br>ling为长数字<br>另外还有一种未被提到的数据类型为虚数complex在python中虚数为5j来表示<br>个个数字函数的也可以相互装换<br>如下</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">a = <span class="number">1</span>; b = <span class="number">3.9</span> ; c = <span class="literal">True</span></span><br><span class="line"><span class="comment">#同一排多个变量可以用;分开写在同一排</span></span><br><span class="line"><span class="comment">#int转化</span></span><br><span class="line">print(int(a),int(b),int(c))</span><br><span class="line"> <span class="number">1</span> <span class="number">3</span> <span class="number">1</span></span><br><span class="line"><span class="comment">#其中有小数点取整不存在“四舍五入”</span></span><br><span class="line"><span class="comment">#浮点转换</span></span><br><span class="line">print(float(a),float(b),float(c))</span><br><span class="line">其中如果要保留小数点后两位个数用print(<span class="string">f'<span class="subst">&#123;a:<span class="number">.2</span>f&#125;</span>'</span>)</span><br><span class="line"><span class="comment">#布尔转换</span></span><br><span class="line">print(bool(a),bool(b),bool(c))</span><br></pre></td></tr></table></figure>
+<h2 id="2-关于字符串"><a href="#2-关于字符串" class="headerlink" title="2.关于字符串"></a>2.关于字符串</h2><p>字符串取值</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">a = <span class="string">"你是傻子"</span></span><br><span class="line">    <span class="comment"># 0 1 2 3</span></span><br><span class="line">print(a[<span class="number">0</span>])</span><br><span class="line"><span class="comment">#打印字符串中的“你”</span></span><br><span class="line"><span class="comment">#如果取字符串中的“傻子”</span></span><br><span class="line">print(a[<span class="number">2</span>]+a[<span class="number">3</span>])</span><br><span class="line"><span class="comment">#用切片取</span></span><br><span class="line">print(a[<span class="number">2</span>:<span class="number">4</span>:<span class="number">1</span>])</span><br><span class="line"><span class="comment">#我比较low用中文来解释切片工具</span></span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="string">切片工具：要切内容[开始文本:结束文本后一位:步数]</span></span><br><span class="line"><span class="string">前面两个号理解后面这个步的意思是举例</span></span><br><span class="line"><span class="string">a = '你是傻子'</span></span><br><span class="line"><span class="string">比如说要取‘是子’</span></span><br><span class="line"><span class="string">我们就这样print(a[1:4:2])</span></span><br><span class="line"><span class="string">如果文字是“子傻是你”</span></span><br><span class="line"><span class="string">print(::-1)</span></span><br><span class="line"><span class="string">关于-号与后面的步数，他是先进行倒过来，再按照步数进行裁切</span></span><br><span class="line"><span class="string">'''</span></span><br></pre></td></tr></table></figure>
+<h2 id="3-不同类型变量拼接新增方法"><a href="#3-不同类型变量拼接新增方法" class="headerlink" title="3.不同类型变量拼接新增方法"></a>3.不同类型变量拼接新增方法</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">a=<span class="number">1</span></span><br><span class="line">b=<span class="string">"1"</span></span><br><span class="line">c=<span class="literal">True</span></span><br><span class="line">print(<span class="string">'%s%s%s'</span>%(a,b,c))</span><br><span class="line"><span class="number">11</span><span class="literal">True</span></span><br></pre></td></tr></table></figure>
+<p>五一快乐<br><img src="file:///C:\Users\ADMINI~1\AppData\Local\Temp\SGPicFaceTpBq\5376\01ACFB86.gif" alt="img" /><br>内容不多哈</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://sir0.net/%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -274,76 +344,6 @@
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>print(bool(<span class="number">0</span>))</span><br><span class="line"><span class="literal">False</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>print(bool(<span class="literal">None</span>))</span><br><span class="line"><span class="literal">False</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>print(bool())</span><br><span class="line"><span class="literal">False</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>print(bool(int()))</span><br><span class="line"><span class="literal">False</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>print(bool(str()))</span><br><span class="line"><span class="literal">False</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>print(bool(float()))</span><br><span class="line"><span class="literal">False</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>print(bool(list()))</span><br><span class="line"><span class="literal">False</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>print(bool(dict()))</span><br><span class="line"><span class="literal">False</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>print(bool(<span class="literal">False</span>))</span><br><span class="line"><span class="literal">False</span></span><br></pre></td></tr></table></figure>
 <h2 id="三-关于输入"><a href="#三-关于输入" class="headerlink" title="三.关于输入"></a>三.关于输入</h2><h2 id="1-python3中"><a href="#1-python3中" class="headerlink" title="1.python3中"></a>1.python3中</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">guess = input(<span class="string">'请输入数字：'</span>)</span><br><span class="line"><span class="comment">#如果输入了 18，其中18为为字符串，</span></span><br><span class="line"><span class="comment">#如果输入了 十八,其中十八位字符串</span></span><br><span class="line"><span class="comment">#如果输入了sdasdasda撒大声地，其中输入的内容也为字符串</span></span><br></pre></td></tr></table></figure>
 <h2 id="2-python2中"><a href="#2-python2中" class="headerlink" title="2.python2中"></a>2.python2中</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">guess = input(<span class="string">'请输入数字：'</span>)</span><br><span class="line"><span class="comment">#如果输入了 18，其中18为数字，</span></span><br><span class="line"><span class="comment">#如果输入了 十八，会报错，十八在python2眼中为变量名一个没有被赋予变量值的变量名没有意义所有会报错、</span></span><br><span class="line">guess = raw_input(<span class="string">'请输入数字：'</span>)</span><br><span class="line"><span class="comment">#其中raw_input相当于python3中的input</span></span><br></pre></td></tr></table></figure>
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://sir0.net/%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E8%A1%A5%E5%85%85/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="sir0.net">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="吴梦梦、刘玥和SL炮叔">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E8%A1%A5%E5%85%85/" class="post-title-link" itemprop="url">数据类型补充</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-03-07 23:00:56" itemprop="dateCreated datePublished" datetime="2020-03-07T23:00:56+08:00">2020-03-07</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-03-06 11:39:15" itemprop="dateModified" datetime="2020-03-06T11:39:15+08:00">2020-03-06</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="5-1自学自我总结"><a href="#5-1自学自我总结" class="headerlink" title="5.1自学自我总结"></a>5.1自学自我总结</h1><h2 id="1-关于数据类型补充"><a href="#1-关于数据类型补充" class="headerlink" title="1.关于数据类型补充"></a>1.关于数据类型补充</h2><p>在整列中除了int数据类型，还要long数据数据类型<br>ling为长数字<br>另外还有一种未被提到的数据类型为虚数complex在python中虚数为5j来表示<br>个个数字函数的也可以相互装换<br>如下</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">a = <span class="number">1</span>; b = <span class="number">3.9</span> ; c = <span class="literal">True</span></span><br><span class="line"><span class="comment">#同一排多个变量可以用;分开写在同一排</span></span><br><span class="line"><span class="comment">#int转化</span></span><br><span class="line">print(int(a),int(b),int(c))</span><br><span class="line"> <span class="number">1</span> <span class="number">3</span> <span class="number">1</span></span><br><span class="line"><span class="comment">#其中有小数点取整不存在“四舍五入”</span></span><br><span class="line"><span class="comment">#浮点转换</span></span><br><span class="line">print(float(a),float(b),float(c))</span><br><span class="line">其中如果要保留小数点后两位个数用print(<span class="string">f'<span class="subst">&#123;a:<span class="number">.2</span>f&#125;</span>'</span>)</span><br><span class="line"><span class="comment">#布尔转换</span></span><br><span class="line">print(bool(a),bool(b),bool(c))</span><br></pre></td></tr></table></figure>
-<h2 id="2-关于字符串"><a href="#2-关于字符串" class="headerlink" title="2.关于字符串"></a>2.关于字符串</h2><p>字符串取值</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">a = <span class="string">"你是傻子"</span></span><br><span class="line">    <span class="comment"># 0 1 2 3</span></span><br><span class="line">print(a[<span class="number">0</span>])</span><br><span class="line"><span class="comment">#打印字符串中的“你”</span></span><br><span class="line"><span class="comment">#如果取字符串中的“傻子”</span></span><br><span class="line">print(a[<span class="number">2</span>]+a[<span class="number">3</span>])</span><br><span class="line"><span class="comment">#用切片取</span></span><br><span class="line">print(a[<span class="number">2</span>:<span class="number">4</span>:<span class="number">1</span>])</span><br><span class="line"><span class="comment">#我比较low用中文来解释切片工具</span></span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="string">切片工具：要切内容[开始文本:结束文本后一位:步数]</span></span><br><span class="line"><span class="string">前面两个号理解后面这个步的意思是举例</span></span><br><span class="line"><span class="string">a = '你是傻子'</span></span><br><span class="line"><span class="string">比如说要取‘是子’</span></span><br><span class="line"><span class="string">我们就这样print(a[1:4:2])</span></span><br><span class="line"><span class="string">如果文字是“子傻是你”</span></span><br><span class="line"><span class="string">print(::-1)</span></span><br><span class="line"><span class="string">关于-号与后面的步数，他是先进行倒过来，再按照步数进行裁切</span></span><br><span class="line"><span class="string">'''</span></span><br></pre></td></tr></table></figure>
-<h2 id="3-不同类型变量拼接新增方法"><a href="#3-不同类型变量拼接新增方法" class="headerlink" title="3.不同类型变量拼接新增方法"></a>3.不同类型变量拼接新增方法</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">a=<span class="number">1</span></span><br><span class="line">b=<span class="string">"1"</span></span><br><span class="line">c=<span class="literal">True</span></span><br><span class="line">print(<span class="string">'%s%s%s'</span>%(a,b,c))</span><br><span class="line"><span class="number">11</span><span class="literal">True</span></span><br></pre></td></tr></table></figure>
-<p>五一快乐<br><img src="file:///C:\Users\ADMINI~1\AppData\Local\Temp\SGPicFaceTpBq\5376\01ACFB86.gif" alt="img" /><br>内容不多哈</p>
-
       
     </div>
 
@@ -1362,6 +1362,15 @@ appid看你小程序中设置了是哪个appid
 
 
   
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
 
 
 

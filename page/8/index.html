@@ -586,74 +586,6 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://sir0.net/%E5%89%8D%E7%AB%AF%E5%AE%9E%E7%8E%B0%E6%96%87%E4%BB%B6%E4%B8%8B%E8%BD%BD%E6%89%80%E6%9C%89%E6%96%B9%E5%BC%8F/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="sir0.net">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="吴梦梦、刘玥和SL炮叔">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/%E5%89%8D%E7%AB%AF%E5%AE%9E%E7%8E%B0%E6%96%87%E4%BB%B6%E4%B8%8B%E8%BD%BD%E6%89%80%E6%9C%89%E6%96%B9%E5%BC%8F/" class="post-title-link" itemprop="url">前端实现文件下载所有方式</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-03-07 23:00:57" itemprop="dateCreated datePublished" datetime="2020-03-07T23:00:57+08:00">2020-03-07</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-03-06 11:39:39" itemprop="dateModified" datetime="2020-03-06T11:39:39+08:00">2020-03-06</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="一-a标签完成"><a href="#一-a标签完成" class="headerlink" title="一.a标签完成"></a>一.a标签完成</h2><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"文件链接"</span> <span class="attr">download</span>=<span class="string">'下载文件名'</span>&gt;</span><span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">--!但是其中的download对应音频文件和视频文件无效--</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<h2 id="二-js实现下载"><a href="#二-js实现下载" class="headerlink" title="二.js实现下载"></a>二.js实现下载</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line">    <span class="keyword">const</span> a = <span class="built_in">document</span>.createElement(<span class="string">'a'</span>);</span><br><span class="line">    a.setAttribute(<span class="string">'href'</span>, <span class="string">'文件链接'</span>);    <span class="comment">//a.href='文件链接'</span></span><br><span class="line">    a.setAttribute(<span class="string">'download'</span>, <span class="string">'文件名'</span>);   <span class="comment">//a.download='文件名'</span></span><br><span class="line">    a.click();</span><br><span class="line">&lt;<span class="regexp">/script&gt;</span></span><br></pre></td></tr></table></figure>
-<h2 id="三-js中ajax实现音频或者视频不跳转进行文件下载"><a href="#三-js中ajax实现音频或者视频不跳转进行文件下载" class="headerlink" title="三.js中ajax实现音频或者视频不跳转进行文件下载"></a>三.js中ajax实现音频或者视频不跳转进行文件下载</h2><p>写代码的思路<br><code>先请求音频的链接,再把返回值转换成二进制,再根据他二进制对象生成新链接,再创建a标签,点击a标签</code></p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//这是vue里面的写的普通页面也差不多</span></span><br><span class="line">&lt;script&gt;</span><br><span class="line">    <span class="keyword">this</span>.$axios(&#123;</span><br><span class="line">    method: <span class="string">'get'</span>,</span><br><span class="line">    url: row.src,</span><br><span class="line">    responseType: <span class="string">'blob'</span>  <span class="comment">//这个不能少,让response二进制形式,如果你按照网上教程不设置这个将返回值进行BLOB([])进行处理可能会出现解析错误</span></span><br><span class="line">&#125;).then(<span class="function"><span class="params">response</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> href = URL.createObjectURL(response.data); <span class="comment">//根据二进制对象创造新的链接</span></span><br><span class="line">    <span class="keyword">const</span> a = <span class="built_in">document</span>.createElement(<span class="string">'a'</span>);</span><br><span class="line">    a.setAttribute(<span class="string">'href'</span>, href);</span><br><span class="line">    a.setAttribute(<span class="string">'download'</span>, row.title);</span><br><span class="line">    a.click();</span><br><span class="line">    URL.revokeObjectURL(href);</span><br><span class="line">&#125;</span><br><span class="line">&lt;<span class="regexp">/script&gt;</span></span><br></pre></td></tr></table></figure>
-<h2 id="四-fetch实现"><a href="#四-fetch实现" class="headerlink" title="四.fetch实现"></a>四.fetch实现</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//原理和ajax一模一样</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">request</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  fetch(<span class="string">'&lt;接口地址&gt;'</span>, &#123;</span><br><span class="line">    method: <span class="string">'POST'</span>,</span><br><span class="line">    headers: &#123;</span><br><span class="line">      <span class="string">'Content-Type'</span>: <span class="string">'application/json'</span>,</span><br><span class="line">    &#125;,</span><br><span class="line">    body: <span class="string">'&lt;请求参数：json字符串&gt;'</span>,</span><br><span class="line">  &#125;)</span><br><span class="line">    .then(<span class="function"><span class="params">res</span> =&gt;</span> res.blob())</span><br><span class="line">    .then(<span class="function"><span class="params">data</span> =&gt;</span> &#123;</span><br><span class="line">      <span class="keyword">let</span> blobUrl = <span class="built_in">window</span>.URL.createObjectURL(data);</span><br><span class="line">      download(blobUrl);</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">download</span>(<span class="params">blobUrl</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> a = <span class="built_in">document</span>.createElement(<span class="string">'a'</span>);</span><br><span class="line">  a.download = <span class="string">'&lt;文件名&gt;'</span>;</span><br><span class="line">  a.href = blobUrl;</span><br><span class="line">  a.click();</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">request();</span><br></pre></td></tr></table></figure>
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://sir0.net/%E5%89%8D%E7%AB%AF%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E4%B9%A6%E5%86%99%E4%BB%A5%E5%8F%8A%E5%B8%B8%E7%94%A8%E7%9A%84%E6%96%B9%E6%B3%95/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -718,6 +650,74 @@
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">/a/.test(<span class="string">'a'</span>) <span class="comment">#返回true</span></span><br><span class="line">/a/.test(<span class="string">'ac'</span>) <span class="comment">#返回true</span></span><br><span class="line">/a/.test(<span class="string">'c'</span>) <span class="comment">#返回false</span></span><br></pre></td></tr></table></figure>
 <h3 id="5-exec"><a href="#5-exec" class="headerlink" title="5.exec"></a>5.exec</h3><p>方法就是用来检索字符串中正则表达式的匹配，如果匹配到了那么就返回一个存放有结果的数组，如果没有匹配到就返回一个null<br><code>regexp</code>.<code>exec</code>(<code>stringObject</code>)<br>其实和match类似,不过就是填写的位置返一下<br>但是有一点</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">console.log(<span class="string">'c'</span>.exec(<span class="string">'c'</span>));  <span class="comment">#会报错</span></span><br><span class="line">console.log(<span class="string">'c'</span>.match(<span class="string">'c'</span>)); <span class="comment">#会匹配c</span></span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://sir0.net/%E5%89%8D%E7%AB%AF%E5%AE%9E%E7%8E%B0%E6%96%87%E4%BB%B6%E4%B8%8B%E8%BD%BD%E6%89%80%E6%9C%89%E6%96%B9%E5%BC%8F/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="sir0.net">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="吴梦梦、刘玥和SL炮叔">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/%E5%89%8D%E7%AB%AF%E5%AE%9E%E7%8E%B0%E6%96%87%E4%BB%B6%E4%B8%8B%E8%BD%BD%E6%89%80%E6%9C%89%E6%96%B9%E5%BC%8F/" class="post-title-link" itemprop="url">前端实现文件下载所有方式</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-03-07 23:00:57" itemprop="dateCreated datePublished" datetime="2020-03-07T23:00:57+08:00">2020-03-07</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-03-06 11:39:39" itemprop="dateModified" datetime="2020-03-06T11:39:39+08:00">2020-03-06</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="一-a标签完成"><a href="#一-a标签完成" class="headerlink" title="一.a标签完成"></a>一.a标签完成</h2><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"文件链接"</span> <span class="attr">download</span>=<span class="string">'下载文件名'</span>&gt;</span><span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">--!但是其中的download对应音频文件和视频文件无效--</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="二-js实现下载"><a href="#二-js实现下载" class="headerlink" title="二.js实现下载"></a>二.js实现下载</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line">    <span class="keyword">const</span> a = <span class="built_in">document</span>.createElement(<span class="string">'a'</span>);</span><br><span class="line">    a.setAttribute(<span class="string">'href'</span>, <span class="string">'文件链接'</span>);    <span class="comment">//a.href='文件链接'</span></span><br><span class="line">    a.setAttribute(<span class="string">'download'</span>, <span class="string">'文件名'</span>);   <span class="comment">//a.download='文件名'</span></span><br><span class="line">    a.click();</span><br><span class="line">&lt;<span class="regexp">/script&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="三-js中ajax实现音频或者视频不跳转进行文件下载"><a href="#三-js中ajax实现音频或者视频不跳转进行文件下载" class="headerlink" title="三.js中ajax实现音频或者视频不跳转进行文件下载"></a>三.js中ajax实现音频或者视频不跳转进行文件下载</h2><p>写代码的思路<br><code>先请求音频的链接,再把返回值转换成二进制,再根据他二进制对象生成新链接,再创建a标签,点击a标签</code></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//这是vue里面的写的普通页面也差不多</span></span><br><span class="line">&lt;script&gt;</span><br><span class="line">    <span class="keyword">this</span>.$axios(&#123;</span><br><span class="line">    method: <span class="string">'get'</span>,</span><br><span class="line">    url: row.src,</span><br><span class="line">    responseType: <span class="string">'blob'</span>  <span class="comment">//这个不能少,让response二进制形式,如果你按照网上教程不设置这个将返回值进行BLOB([])进行处理可能会出现解析错误</span></span><br><span class="line">&#125;).then(<span class="function"><span class="params">response</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> href = URL.createObjectURL(response.data); <span class="comment">//根据二进制对象创造新的链接</span></span><br><span class="line">    <span class="keyword">const</span> a = <span class="built_in">document</span>.createElement(<span class="string">'a'</span>);</span><br><span class="line">    a.setAttribute(<span class="string">'href'</span>, href);</span><br><span class="line">    a.setAttribute(<span class="string">'download'</span>, row.title);</span><br><span class="line">    a.click();</span><br><span class="line">    URL.revokeObjectURL(href);</span><br><span class="line">&#125;</span><br><span class="line">&lt;<span class="regexp">/script&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="四-fetch实现"><a href="#四-fetch实现" class="headerlink" title="四.fetch实现"></a>四.fetch实现</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//原理和ajax一模一样</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">request</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  fetch(<span class="string">'&lt;接口地址&gt;'</span>, &#123;</span><br><span class="line">    method: <span class="string">'POST'</span>,</span><br><span class="line">    headers: &#123;</span><br><span class="line">      <span class="string">'Content-Type'</span>: <span class="string">'application/json'</span>,</span><br><span class="line">    &#125;,</span><br><span class="line">    body: <span class="string">'&lt;请求参数：json字符串&gt;'</span>,</span><br><span class="line">  &#125;)</span><br><span class="line">    .then(<span class="function"><span class="params">res</span> =&gt;</span> res.blob())</span><br><span class="line">    .then(<span class="function"><span class="params">data</span> =&gt;</span> &#123;</span><br><span class="line">      <span class="keyword">let</span> blobUrl = <span class="built_in">window</span>.URL.createObjectURL(data);</span><br><span class="line">      download(blobUrl);</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">download</span>(<span class="params">blobUrl</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> a = <span class="built_in">document</span>.createElement(<span class="string">'a'</span>);</span><br><span class="line">  a.download = <span class="string">'&lt;文件名&gt;'</span>;</span><br><span class="line">  a.href = blobUrl;</span><br><span class="line">  a.click();</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">request();</span><br></pre></td></tr></table></figure>
       
     </div>
 
@@ -1038,6 +1038,15 @@
 
 
   
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
 
 
 
