@@ -153,6 +153,254 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://sir0.net/%E5%89%8D%E7%AB%AF%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E4%B9%A6%E5%86%99%E4%BB%A5%E5%8F%8A%E5%B8%B8%E7%94%A8%E7%9A%84%E6%96%B9%E6%B3%95/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="sir0.net">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="吴梦梦、刘玥和SL炮叔">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/%E5%89%8D%E7%AB%AF%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E4%B9%A6%E5%86%99%E4%BB%A5%E5%8F%8A%E5%B8%B8%E7%94%A8%E7%9A%84%E6%96%B9%E6%B3%95/" class="post-title-link" itemprop="url">前端正则表达式书写以及常用的方法</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-03-07 23:00:57" itemprop="dateCreated datePublished" datetime="2020-03-07T23:00:57+08:00">2020-03-07</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-03-06 11:39:40" itemprop="dateModified" datetime="2020-03-06T11:39:40+08:00">2020-03-06</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="0917自我总结"><a href="#0917自我总结" class="headerlink" title="0917自我总结"></a>0917自我总结</h1><h1 id="前端正则表达式书写"><a href="#前端正则表达式书写" class="headerlink" title="前端正则表达式书写"></a>前端正则表达式书写</h1><h2 id="一-写法"><a href="#一-写法" class="headerlink" title="一.写法"></a>一.写法</h2><h3 id="写法一"><a href="#写法一" class="headerlink" title="写法一"></a>写法一</h3><p>/正则表达式/修饰符<br><code>修饰符</code></p>
+<ul>
+<li><strong>/i (忽略大小写)</strong></li>
+<li><strong>/g (全文查找出现的所有匹配字符)</strong></li>
+<li><strong>/m (多行查找)</strong></li>
+<li><strong>/gi(全文查找、忽略大小写)</strong></li>
+<li><strong>/ig(全文查找、忽略大小写)</strong></li>
+</ul>
+<p>例子:/a/gi 查找内容中的a<br>不写修饰符默认只匹配一个</p>
+<h3 id="写法二"><a href="#写法二" class="headerlink" title="写法二"></a>写法二</h3><p>let a = new RegExp(‘/正则表达式/‘,’修饰符’)</p>
+<h2 id="二-常用几个方法"><a href="#二-常用几个方法" class="headerlink" title="二.常用几个方法"></a>二.常用几个方法</h2><h3 id="1-match"><a href="#1-match" class="headerlink" title="1.match"></a>1.match</h3><p>方法可在字符串内检索指定的值，或找到一个或多个正则表达式的匹配。<br>返回的内容</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[<span class="string">"匹配到的内容"</span>, index: <span class="number">3</span>, input: <span class="string">"字符串对象"</span>, groups: undefined]</span><br></pre></td></tr></table></figure>
+<p>如果regexp修饰符为/g则返回对象为一个数组<br>语法：<br /><br>1.<code>stringObject</code>.<code>match</code>(<code>str</code>)<br>2.<code>stringObject</code>.<code>match</code>(<code>regexp</code>)<br>拿查找字符串abc 中的a举例<br><code>&#39;aabc&#39;</code> .<code>match</code>(<code>&#39;a&#39;</code>) <code>只匹配第一个</code><br><code>&#39;aabc&#39;</code> .<code>match</code>(<code>/a/</code>) <code>只匹配第一个</code></p>
+<h3 id="2-replace"><a href="#2-replace" class="headerlink" title="2.replace"></a>2.replace</h3><p>用于字符串中一些字符替换另一些字符，或替换一个与正则表达式相匹配的子串<br>语法：<br /><br>1.<code>stringObject</code>.<code>replace</code>(<code>&#39;查找的第一个字符串&#39;</code>,<code>&#39;修改后的字符串&#39;</code>)<br>2.<code>stringObject</code>.<code>replace</code>(<code>regexp(正则表达式匹配到的内容所有替换)</code>,<code>&#39;修改后的字符串&#39;</code>)</p>
+<h3 id="3-search"><a href="#3-search" class="headerlink" title="3.search"></a>3.search</h3><p>他用法与match类似不过他返回的是索引<br>语法：<br /><br>1.<code>stringObject</code>.<code>match</code>(<code>&#39;searchvalue&#39;</code>)<br>2.<code>stringObject</code>.<code>match</code>(<code>regexp</code>)</p>
+<h3 id="4-test"><a href="#4-test" class="headerlink" title="4.test"></a>4.test</h3><p>方法用于检测一个字符串是否匹配某个模式，如果字符串中含有匹配的文本，则返回 true，否则返回 false。<br>语法:<br><code>regexp</code>.<code>test</code>(<code>stringObject</code>)<br>如</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">/a/.test(<span class="string">'a'</span>) <span class="comment">#返回true</span></span><br><span class="line">/a/.test(<span class="string">'ac'</span>) <span class="comment">#返回true</span></span><br><span class="line">/a/.test(<span class="string">'c'</span>) <span class="comment">#返回false</span></span><br></pre></td></tr></table></figure>
+<h3 id="5-exec"><a href="#5-exec" class="headerlink" title="5.exec"></a>5.exec</h3><p>方法就是用来检索字符串中正则表达式的匹配，如果匹配到了那么就返回一个存放有结果的数组，如果没有匹配到就返回一个null<br><code>regexp</code>.<code>exec</code>(<code>stringObject</code>)<br>其实和match类似,不过就是填写的位置返一下<br>但是有一点</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">console.log(<span class="string">'c'</span>.exec(<span class="string">'c'</span>));  <span class="comment">#会报错</span></span><br><span class="line">console.log(<span class="string">'c'</span>.match(<span class="string">'c'</span>)); <span class="comment">#会匹配c</span></span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://sir0.net/%E5%89%8D%E7%AB%AF%E8%87%AA%E5%AD%A6%E6%80%BB%E7%BB%93/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="sir0.net">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="吴梦梦、刘玥和SL炮叔">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/%E5%89%8D%E7%AB%AF%E8%87%AA%E5%AD%A6%E6%80%BB%E7%BB%93/" class="post-title-link" itemprop="url">前端自学总结</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-03-07 23:00:57" itemprop="dateCreated datePublished" datetime="2020-03-07T23:00:57+08:00">2020-03-07</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-03-06 11:38:49" itemprop="dateModified" datetime="2020-03-06T11:38:49+08:00">2020-03-06</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="一-软件相关"><a href="#一-软件相关" class="headerlink" title="一.软件相关"></a>一.软件相关</h2><h3 id="vs实用插件"><a href="#vs实用插件" class="headerlink" title="vs实用插件"></a><a href="https://www.cnblogs.com/pythonywy/p/10804710.html" target="_blank" rel="noopener">vs实用插件</a></h3><h2 id="二-基础"><a href="#二-基础" class="headerlink" title="二.基础"></a>二.基础</h2><h3 id="html基础"><a href="#html基础" class="headerlink" title="html基础"></a><a href="https://www.cnblogs.com/pythonywy/p/11265345.html" target="_blank" rel="noopener">html基础</a></h3><h3 id="console的各种输出格式"><a href="#console的各种输出格式" class="headerlink" title="console的各种输出格式"></a><a href="https://www.cnblogs.com/pythonywy/p/11650338.html" target="_blank" rel="noopener">console的各种输出格式</a></h3><h3 id="audio标签以及audio对象"><a href="#audio标签以及audio对象" class="headerlink" title="audio标签以及audio对象"></a><a href="https://www.cnblogs.com/pythonywy/p/11669487.html" target="_blank" rel="noopener">audio标签以及audio对象</a></h3><h3 id="HTML标签嵌套规则"><a href="#HTML标签嵌套规则" class="headerlink" title="HTML标签嵌套规则"></a><a href="https://www.cnblogs.com/pythonywy/p/11437227.html" target="_blank" rel="noopener">HTML标签嵌套规则</a></h3><h3 id="css基础-css基础选择器"><a href="#css基础-css基础选择器" class="headerlink" title="css基础,css基础选择器"></a><a href="https://www.cnblogs.com/pythonywy/p/11266221.html#4312247" target="_blank" rel="noopener">css基础,css基础选择器</a></h3><h3 id="CSS高级选择器"><a href="#CSS高级选择器" class="headerlink" title="CSS高级选择器"></a><a href="https://www.cnblogs.com/pythonywy/p/11276513.html" target="_blank" rel="noopener">CSS高级选择器</a></h3><h3 id="HTML标签嵌套规则-1"><a href="#HTML标签嵌套规则-1" class="headerlink" title="HTML标签嵌套规则"></a><a href="https://www.cnblogs.com/pythonywy/p/11437227.html" target="_blank" rel="noopener">HTML标签嵌套规则</a></h3><h3 id="HTTP中get和post"><a href="#HTTP中get和post" class="headerlink" title="HTTP中get和post"></a><a href="https://www.cnblogs.com/pythonywy/p/11449043.html" target="_blank" rel="noopener">HTTP中get和post</a></h3><h3 id="前端实现文件下载所有方式"><a href="#前端实现文件下载所有方式" class="headerlink" title="前端实现文件下载所有方式"></a><a href="https://www.cnblogs.com/pythonywy/p/11671303.html" target="_blank" rel="noopener">前端实现文件下载所有方式</a></h3><h2 id="三-样式操作"><a href="#三-样式操作" class="headerlink" title="三.样式操作"></a>三.样式操作</h2><h3 id="HTML中的三元表达式-灵活的使用or逻辑判断"><a href="#HTML中的三元表达式-灵活的使用or逻辑判断" class="headerlink" title="HTML中的三元表达式,灵活的使用or逻辑判断"></a><a href="https://www.cnblogs.com/pythonywy/p/11419705.html" target="_blank" rel="noopener">HTML中的三元表达式,灵活的使用or逻辑判断</a></h3><h3 id="文本属性-边界圆角-背景属性-精灵图案例"><a href="#文本属性-边界圆角-背景属性-精灵图案例" class="headerlink" title="文本属性,边界圆角,背景属性,精灵图案例"></a><a href="https://www.cnblogs.com/pythonywy/p/11278674.html" target="_blank" rel="noopener">文本属性,边界圆角,背景属性,精灵图案例</a></h3><h3 id="显示方式"><a href="#显示方式" class="headerlink" title="显示方式"></a><a href="https://www.cnblogs.com/pythonywy/p/11303207.html" target="_blank" rel="noopener">显示方式</a></h3><h3 id="CSS定位和滚动条"><a href="#CSS定位和滚动条" class="headerlink" title="CSS定位和滚动条"></a><a href="https://www.cnblogs.com/pythonywy/p/11305321.html" target="_blank" rel="noopener">CSS定位和滚动条</a></h3><h3 id="HTML识别后台传输或者js变量中字符串里的-‘-n’-并成功换行显示"><a href="#HTML识别后台传输或者js变量中字符串里的-‘-n’-并成功换行显示" class="headerlink" title="HTML识别后台传输或者js变量中字符串里的 ‘\n’ 并成功换行显示"></a><a href="https://www.cnblogs.com/pythonywy/p/11623593.html" target="_blank" rel="noopener">HTML识别后台传输或者js变量中字符串里的 ‘\n’ 并成功换行显示</a></h3><h3 id="css盒子布局-浮动布局以及显影与简单的动画"><a href="#css盒子布局-浮动布局以及显影与简单的动画" class="headerlink" title="css盒子布局,浮动布局以及显影与简单的动画"></a><a href="https://www.cnblogs.com/pythonywy/p/11305228.html" target="_blank" rel="noopener">css盒子布局,浮动布局以及显影与简单的动画</a></h3><h3 id="好看的鼠标hover效果"><a href="#好看的鼠标hover效果" class="headerlink" title="好看的鼠标hover效果"></a><a href="https://www.cnblogs.com/pythonywy/p/11548543.html" target="_blank" rel="noopener">好看的鼠标hover效果</a></h3><h3 id="关于hover与after-before已及first-letter-first-line的联用"><a href="#关于hover与after-before已及first-letter-first-line的联用" class="headerlink" title="关于hover与after,before已及first-letter,first-line的联用"></a><a href="https://www.cnblogs.com/pythonywy/p/11557351.html" target="_blank" rel="noopener">关于hover与after,before已及first-letter,first-line的联用</a></h3><h3 id="前端正则表达式书写以及常用的方法"><a href="#前端正则表达式书写以及常用的方法" class="headerlink" title="前端正则表达式书写以及常用的方法"></a><a href="https://www.cnblogs.com/pythonywy/p/11532035.html" target="_blank" rel="noopener">前端正则表达式书写以及常用的方法</a></h3><h2 id="四-js"><a href="#四-js" class="headerlink" title="四.js"></a>四.js</h2><h3 id="JavaScript的概念-引入-基本数据类型"><a href="#JavaScript的概念-引入-基本数据类型" class="headerlink" title="JavaScript的概念,引入,基本数据类型"></a><a href="https://www.cnblogs.com/pythonywy/p/11305633.html" target="_blank" rel="noopener">JavaScript的概念,引入,基本数据类型</a></h3><h3 id="js基本操作"><a href="#js基本操作" class="headerlink" title="js基本操作"></a><a href="https://www.cnblogs.com/pythonywy/p/11305670.html" target="_blank" rel="noopener">js基本操作</a></h3><h3 id="js获取屏幕以及元素宽高的方法"><a href="#js获取屏幕以及元素宽高的方法" class="headerlink" title="js获取屏幕以及元素宽高的方法"></a><a href="https://www.cnblogs.com/pythonywy/p/11631243.html" target="_blank" rel="noopener">js获取屏幕以及元素宽高的方法</a></h3><h3 id="js中scroll滚动相关"><a href="#js中scroll滚动相关" class="headerlink" title="js中scroll滚动相关"></a><a href="https://www.cnblogs.com/pythonywy/p/11617664.html" target="_blank" rel="noopener">js中scroll滚动相关</a></h3><h3 id="js鼠标滚轮事件上滚下滚判断"><a href="#js鼠标滚轮事件上滚下滚判断" class="headerlink" title="js鼠标滚轮事件上滚下滚判断"></a><a href="https://www.cnblogs.com/pythonywy/p/11627992.html" target="_blank" rel="noopener">js鼠标滚轮事件上滚下滚判断</a></h3><h3 id="原生js获得八种方式-事件操作"><a href="#原生js获得八种方式-事件操作" class="headerlink" title="原生js获得八种方式,事件操作"></a><a href="https://www.cnblogs.com/pythonywy/p/11369847.html" target="_blank" rel="noopener">原生js获得八种方式,事件操作</a></h3><h3 id="js-jq获取兄弟节点-父节点-子节点"><a href="#js-jq获取兄弟节点-父节点-子节点" class="headerlink" title="js|jq获取兄弟节点,父节点,子节点"></a><a href="https://www.cnblogs.com/pythonywy/p/11378875.html" target="_blank" rel="noopener">js|jq获取兄弟节点,父节点,子节点</a></h3><h3 id="js中-和-区别"><a href="#js中-和-区别" class="headerlink" title="js中==和===区别"></a><a href="https://www.cnblogs.com/pythonywy/p/11408350.html" target="_blank" rel="noopener">js中==和===区别</a></h3><h3 id="js获取时间-循环执行任务-延迟执行任务"><a href="#js获取时间-循环执行任务-延迟执行任务" class="headerlink" title="js获取时间,循环执行任务,延迟执行任务"></a><a href="https://www.cnblogs.com/pythonywy/p/11543926.html" target="_blank" rel="noopener">js获取时间,循环执行任务,延迟执行任务</a></h3><h3 id="JavaScript-三种弹窗方式"><a href="#JavaScript-三种弹窗方式" class="headerlink" title="JavaScript-三种弹窗方式"></a><a href="https://www.cnblogs.com/pythonywy/p/11544880.html" target="_blank" rel="noopener">JavaScript-三种弹窗方式</a></h3><h3 id="原生js对cookie的增删改查"><a href="#原生js对cookie的增删改查" class="headerlink" title="原生js对cookie的增删改查"></a><a href="https://www.cnblogs.com/pythonywy/p/11590701.html" target="_blank" rel="noopener">原生js对cookie的增删改查</a></h3><h3 id="form表单提交与ajax消息传递"><a href="#form表单提交与ajax消息传递" class="headerlink" title="form表单提交与ajax消息传递"></a><a href="https://www.cnblogs.com/pythonywy/p/11437167.html" target="_blank" rel="noopener">form表单提交与ajax消息传递</a></h3><h2 id="五-jq"><a href="#五-jq" class="headerlink" title="五.jq"></a>五.jq</h2><h3 id="jq初始-选择器-事件-内容操作-样式操作"><a href="#jq初始-选择器-事件-内容操作-样式操作" class="headerlink" title="jq初始,选择器,事件,内容操作,样式操作"></a><a href="https://www.cnblogs.com/pythonywy/p/11305663.html" target="_blank" rel="noopener">jq初始,选择器,事件,内容操作,样式操作</a></h3><h3 id="jQuery跳转到另一个页面"><a href="#jQuery跳转到另一个页面" class="headerlink" title="jQuery跳转到另一个页面"></a><a href="https://www.cnblogs.com/pythonywy/p/11408329.html" target="_blank" rel="noopener">jQuery跳转到另一个页面</a></h3><h2 id="六-模板"><a href="#六-模板" class="headerlink" title="六.模板"></a>六.模板</h2><h3 id="样式模板快捷键设置"><a href="#样式模板快捷键设置" class="headerlink" title="样式模板快捷键设置"></a><a href="https://www.cnblogs.com/pythonywy/p/11341976.html" target="_blank" rel="noopener">样式模板快捷键设置</a></h3><h2 id="七-CSS3动画"><a href="#七-CSS3动画" class="headerlink" title="七.CSS3动画"></a>七.CSS3动画</h2><h3 id="CSS3动画的使用"><a href="#CSS3动画的使用" class="headerlink" title="CSS3动画的使用"></a><a href="https://www.cnblogs.com/pythonywy/p/11563474.html" target="_blank" rel="noopener">CSS3动画的使用</a></h3><h3 id="css3动画如何解决动画的播放、暂停和重新开始"><a href="#css3动画如何解决动画的播放、暂停和重新开始" class="headerlink" title="css3动画如何解决动画的播放、暂停和重新开始"></a><a href="https://www.cnblogs.com/pythonywy/p/11563382.html" target="_blank" rel="noopener">css3动画如何解决动画的播放、暂停和重新开始</a></h3><h2 id="八-博客园美化"><a href="#八-博客园美化" class="headerlink" title="八.博客园美化"></a>八.博客园美化</h2><h3 id="寻找在博客园相册中图片链接"><a href="#寻找在博客园相册中图片链接" class="headerlink" title="寻找在博客园相册中图片链接"></a><a href="https://www.cnblogs.com/pythonywy/p/10774625.html" target="_blank" rel="noopener">寻找在博客园相册中图片链接</a></h3><h3 id="js写个小时钟"><a href="#js写个小时钟" class="headerlink" title="js写个小时钟"></a><a href="https://www.cnblogs.com/pythonywy/p/11543962.html" target="_blank" rel="noopener">js写个小时钟</a></h3><h3 id="博客园美化夜间模式"><a href="#博客园美化夜间模式" class="headerlink" title="博客园美化夜间模式"></a><a href="https://www.cnblogs.com/pythonywy/p/11544485.html" target="_blank" rel="noopener">博客园美化夜间模式</a></h3><h3 id="博客园美化首页随笔展示美化"><a href="#博客园美化首页随笔展示美化" class="headerlink" title="博客园美化首页随笔展示美化"></a><a href="https://www.cnblogs.com/pythonywy/p/11369888.html" target="_blank" rel="noopener">博客园美化首页随笔展示美化</a></h3><h3 id="博客园美化首页随笔同时一天发布内容分开分开版块展示"><a href="#博客园美化首页随笔同时一天发布内容分开分开版块展示" class="headerlink" title="博客园美化首页随笔同时一天发布内容分开分开版块展示"></a><a href="https://www.cnblogs.com/pythonywy/p/11374654.html" target="_blank" rel="noopener">博客园美化首页随笔同时一天发布内容分开分开版块展示</a></h3><h3 id="博客园美化小火箭"><a href="#博客园美化小火箭" class="headerlink" title="博客园美化小火箭"></a><a href="https://www.cnblogs.com/pythonywy/p/11437066.html" target="_blank" rel="noopener">博客园美化小火箭</a></h3><h3 id="博客园美化阅读模式"><a href="#博客园美化阅读模式" class="headerlink" title="博客园美化阅读模式"></a><a href="https://www.cnblogs.com/pythonywy/p/11615889.html" target="_blank" rel="noopener">博客园美化阅读模式</a></h3><h3 id="博客园美化博客随笔目录"><a href="#博客园美化博客随笔目录" class="headerlink" title="博客园美化博客随笔目录"></a><a href="https://www.cnblogs.com/pythonywy/p/11572044.html" target="_blank" rel="noopener">博客园美化博客随笔目录</a></h3><h2 id="九-QQ"><a href="#九-QQ" class="headerlink" title="九.QQ"></a>九.QQ</h2><h3 id="页面QQ临时对话的实现"><a href="#页面QQ临时对话的实现" class="headerlink" title="页面QQ临时对话的实现"></a><a href="https://www.cnblogs.com/pythonywy/p/11633676.html" target="_blank" rel="noopener">页面QQ临时对话的实现</a></h3>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://sir0.net/%E5%89%8D%E5%90%8E%E7%AB%AF%E5%88%86%E7%A6%BB%E9%A1%B9%E7%9B%AE%E4%B8%80%E5%8F%B0%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%B8%8A%E7%BA%BF/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="sir0.net">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="吴梦梦、刘玥和SL炮叔">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/%E5%89%8D%E5%90%8E%E7%AB%AF%E5%88%86%E7%A6%BB%E9%A1%B9%E7%9B%AE%E4%B8%80%E5%8F%B0%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%B8%8A%E7%BA%BF/" class="post-title-link" itemprop="url">前后端分离项目一台服务器上线</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-03-07 23:00:57" itemprop="dateCreated datePublished" datetime="2020-03-07T23:00:57+08:00">2020-03-07</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-03-06 11:39:05" itemprop="dateModified" datetime="2020-03-06T11:39:05+08:00">2020-03-06</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="一-购买服务器"><a href="#一-购买服务器" class="headerlink" title="一.购买服务器"></a>一.购买服务器</h2><p>这里有几点注意</p>
+<ul>
+<li>选择配置 linux 系统的时候最好选择<code>centos7+</code>不要选择<code>centos6+</code></li>
+<li>配置开发端口最好把常用端口打开以及运行端口最好多开几个防止后续<code>nginx</code> 启动网页没法没法访问ip一般是端口权限没开</li>
+<li>默认服务器账户名为<code>root</code></li>
+</ul>
+<h2 id="二-更新系统安装包-非常重要"><a href="#二-更新系统安装包-非常重要" class="headerlink" title="二.更新系统安装包(非常重要)"></a>二.更新系统安装包(非常重要)</h2><ul>
+<li>yum update -y</li>
+<li>yum -y groupinstall “Development tools”</li>
+<li>yum install openssl-devel bzip2-devel expat-devel gdbm-devel readline-devel sqlite-devel psmisc libffi-devel</li>
+</ul>
+<h2 id="三-安装mysql"><a href="#三-安装mysql" class="headerlink" title="三.安装mysql"></a>三.安装mysql</h2><ul>
+<li>cd ~</li>
+<li>下载安装包也可以<code>wget http://dev.mysql.com/get/mysql57-community-release-el7-10.noarch.rpm</code><br>也可以直接上传安装包一样的</li>
+<li>yum -y install mysql57-community-release-el7-10.noarch.rpm</li>
+<li>yum -y install mysql-community-server</li>
+<li>systemctl start mysqld.service</li>
+<li>systemctl status mysqld.service</li>
+<li>grep “password” /var/log/mysqld.log (查看初始密码)</li>
+<li>mysql -uroot -p (登入mysql)</li>
+<li>修改密码</li>
+<li>ALTER USER ‘root’@’localhost’ IDENTIFIED BY ‘YWy1234?’;</li>
+</ul>
+<h2 id="四-安装Redis"><a href="#四-安装Redis" class="headerlink" title="四.安装Redis"></a>四.安装Redis</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span>）前往用户根目录</span><br><span class="line">&gt;: cd ~</span><br><span class="line"></span><br><span class="line"><span class="number">2</span>）下载redis<span class="number">-5.0</span><span class="number">.5</span></span><br><span class="line">&gt;: wget http://download.redis.io/releases/redis<span class="number">-5.0</span><span class="number">.5</span>.tar.gz</span><br><span class="line"></span><br><span class="line"><span class="number">3</span>）解压安装包</span><br><span class="line">&gt;: tar -xf redis<span class="number">-5.0</span><span class="number">.5</span>.tar.gz</span><br><span class="line"></span><br><span class="line"><span class="number">4</span>）进入目标文件</span><br><span class="line">&gt;: cd redis<span class="number">-5.0</span><span class="number">.5</span></span><br><span class="line"></span><br><span class="line"><span class="number">5</span>）编译环境</span><br><span class="line">&gt;: make</span><br><span class="line"></span><br><span class="line"><span class="number">6</span>）复制环境到指定路径完成安装</span><br><span class="line">&gt;: cp -r ~/redis<span class="number">-5.0</span><span class="number">.5</span> /usr/local/redis</span><br><span class="line"></span><br><span class="line"><span class="number">7</span>）配置redis可以后台启动：修改下方内容</span><br><span class="line">&gt;: vim /usr/local/redis/redis.conf</span><br><span class="line"></span><br><span class="line">daemonize yes</span><br><span class="line"></span><br><span class="line"><span class="number">8</span>）完成配置修改</span><br><span class="line">&gt;: esc</span><br><span class="line">&gt;: :wq</span><br><span class="line"></span><br><span class="line"><span class="number">9</span>）建立软连接</span><br><span class="line">&gt;: ln -s /usr/local/redis/src/redis-server /usr/bin/redis-server</span><br><span class="line">&gt;: ln -s /usr/local/redis/src/redis-cli /usr/bin/redis-cli</span><br><span class="line"></span><br><span class="line"><span class="number">10</span>）后台运行redis</span><br><span class="line">&gt;: redis-server &amp;amp;</span><br><span class="line">ctrl + c</span><br><span class="line"></span><br><span class="line"><span class="number">11</span>）测试redis环境</span><br><span class="line">&gt;: redis-cli</span><br><span class="line">ctrl + c</span><br><span class="line"></span><br><span class="line"><span class="number">12</span>）关闭redis服务</span><br><span class="line">&gt;: pkill -f redis <span class="number">-9</span></span><br></pre></td></tr></table></figure>
+<h2 id="五-安装Python3-6"><a href="#五-安装Python3-6" class="headerlink" title="五.安装Python3.6"></a>五.安装Python3.6</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span>）前往用户根目录</span><br><span class="line">&gt;: cd ~</span><br><span class="line"></span><br><span class="line"><span class="number">2</span>）下载 或 上传 Python3<span class="number">.6</span><span class="number">.7</span></span><br><span class="line">&gt;: wget https://www.python.org/ftp/python/<span class="number">3.6</span><span class="number">.7</span>/Python<span class="number">-3.6</span><span class="number">.7</span>.tar.xz</span><br><span class="line"></span><br><span class="line"><span class="number">3</span>）解压安装包</span><br><span class="line">&gt;: tar -xf Python<span class="number">-3.6</span><span class="number">.7</span>.tar.xz</span><br><span class="line"></span><br><span class="line"><span class="number">4</span>）进入目标文件</span><br><span class="line">&gt;: cd Python<span class="number">-3.6</span><span class="number">.7</span></span><br><span class="line"></span><br><span class="line"><span class="number">5</span>）配置安装路径：/usr/local/python3</span><br><span class="line">&gt;: ./configure --prefix=/usr/local/python3</span><br><span class="line"></span><br><span class="line"><span class="number">6</span>）编译并安装</span><br><span class="line">&gt;: make &amp;amp;&amp;amp; sudo make install</span><br><span class="line"></span><br><span class="line"><span class="number">7</span>）建立软连接：终端命令 python3，pip3</span><br><span class="line">&gt;: ln -s /usr/local/python3/bin/python3<span class="number">.6</span> /usr/bin/python3</span><br><span class="line">&gt;: ln -s /usr/local/python3/bin/pip3<span class="number">.6</span> /usr/bin/pip3</span><br><span class="line"></span><br><span class="line"><span class="number">8</span>）删除安装包与文件：</span><br><span class="line">&gt;: rm -rf Python<span class="number">-3.6</span><span class="number">.7</span></span><br><span class="line">&gt;: rm -rf Python<span class="number">-3.6</span><span class="number">.7</span>.tar.xz</span><br></pre></td></tr></table></figure>
+<p>六.配置pip镜像源</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span>）创建pip配置路径</span><br><span class="line">&gt;: mkdir ~/.pip</span><br><span class="line"></span><br><span class="line"><span class="number">2</span>）进入目录编辑配置文件：填入下方内容</span><br><span class="line">cd ~/.pip &amp;amp;&amp;amp; vim pip.conf</span><br><span class="line"></span><br><span class="line">[<span class="keyword">global</span>]</span><br><span class="line">index-url = http://pypi.douban.com/simple</span><br><span class="line">[install]</span><br><span class="line">use-mirrors =true</span><br><span class="line">mirrors =http://pypi.douban.com/simple/</span><br><span class="line">trusted-host =pypi.douban.com</span><br></pre></td></tr></table></figure>
+<h2 id="七-安装虚拟环境"><a href="#七-安装虚拟环境" class="headerlink" title="七.安装虚拟环境"></a>七.安装虚拟环境</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span>）安装依赖</span><br><span class="line">&gt;: pip3 install virtualenv</span><br><span class="line">&gt;: pip3 install virtualenvwrapper</span><br><span class="line"></span><br><span class="line"><span class="number">2</span>）建立虚拟环境软连接</span><br><span class="line">&gt;: ln -s /usr/local/python3/bin/virtualenv /usr/bin/virtualenv</span><br><span class="line"></span><br><span class="line"><span class="number">3</span>）配置虚拟环境：填入下方内容</span><br><span class="line">&gt;: vim ~/.bash_profile</span><br><span class="line"></span><br><span class="line">VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3</span><br><span class="line">source /usr/local/python3/bin/virtualenvwrapper.sh</span><br><span class="line"></span><br><span class="line"><span class="number">4</span>）退出编辑状态</span><br><span class="line">&gt;: esc</span><br><span class="line"></span><br><span class="line"><span class="number">5</span>）保存修改并退出</span><br><span class="line">&gt;: :wq</span><br><span class="line"></span><br><span class="line"><span class="number">6</span>）更新配置文件内容</span><br><span class="line">&gt;: source ~/.bash_profile</span><br><span class="line"></span><br><span class="line"><span class="number">7</span>）虚拟环境默认根目录：~/.virtualenvs</span><br></pre></td></tr></table></figure>
+<h2 id="八-pip3安装uwsgi"><a href="#八-pip3安装uwsgi" class="headerlink" title="八.pip3安装uwsgi"></a>八.pip3安装uwsgi</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span>）在真实环境下安装</span><br><span class="line">pip3 install uwsgi</span><br><span class="line"></span><br><span class="line"><span class="number">2</span>）建立软连接</span><br><span class="line">ln -s /usr/local/python3/bin/uwsgi /usr/bin/uwsgi</span><br></pre></td></tr></table></figure>
+<h2 id="九-安装Nginx"><a href="#九-安装Nginx" class="headerlink" title="九.安装Nginx"></a>九.安装Nginx</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span>）前往用户根目录</span><br><span class="line">&gt;: cd ~</span><br><span class="line"></span><br><span class="line"><span class="number">2</span>）下载nginx1<span class="number">.13</span><span class="number">.7</span></span><br><span class="line">&gt;: wget http://nginx.org/download/nginx<span class="number">-1.13</span><span class="number">.7</span>.tar.gz</span><br><span class="line"></span><br><span class="line"><span class="number">3</span>）解压安装包</span><br><span class="line">&gt;: tar -xf nginx<span class="number">-1.13</span><span class="number">.7</span>.tar.gz</span><br><span class="line"></span><br><span class="line"><span class="number">4</span>）进入目标文件</span><br><span class="line">&gt;: cd nginx<span class="number">-1.13</span><span class="number">.7</span></span><br><span class="line"></span><br><span class="line"><span class="number">5</span>）配置安装路径：/usr/local/nginx</span><br><span class="line">&gt;: ./configure --prefix=/usr/local/nginx</span><br><span class="line"></span><br><span class="line"><span class="number">6</span>）编译并安装</span><br><span class="line">&gt;: make &amp;amp;&amp;amp; sudo make install</span><br><span class="line"></span><br><span class="line"><span class="number">7</span>）建立软连接：终端命令 nginx</span><br><span class="line">&gt;: ln -s /usr/local/nginx/sbin/nginx /usr/bin/nginx</span><br><span class="line"></span><br><span class="line"><span class="number">8</span>）删除安装包与文件：</span><br><span class="line">&gt;: rm -rf nginx<span class="number">-1.13</span><span class="number">.7</span></span><br><span class="line">&gt;: rm -rf nginx<span class="number">-1.13</span><span class="number">.7</span>.tar.xz</span><br><span class="line"></span><br><span class="line"><span class="number">9</span>）测试Nginx环境，服务器运行nginx，本地访问服务器ip</span><br><span class="line">&gt;: nginx</span><br><span class="line">&gt;: 服务器绑定的域名 或 ip:<span class="number">80</span></span><br></pre></td></tr></table></figure>
+<h2 id="十-Nginx常用命令"><a href="#十-Nginx常用命令" class="headerlink" title="十.Nginx常用命令"></a>十.Nginx常用命令</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">1）启动</span><br><span class="line">&gt;: nginx</span><br><span class="line"></span><br><span class="line">2）关闭nginx</span><br><span class="line">&gt;: nginx -s stop</span><br><span class="line"></span><br><span class="line">3）重启nginx</span><br><span class="line">&gt;: nginx -s reload</span><br><span class="line"></span><br><span class="line">4）查看端口，强行关闭</span><br><span class="line">&gt;: ps -aux|grep nginx</span><br><span class="line">&gt;: kill &lt;pid:进程编号&gt;</span><br></pre></td></tr></table></figure>
+<h2 id="十一-前端部署"><a href="#十一-前端部署" class="headerlink" title="十一.前端部署"></a>十一.前端部署</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1.</span>项目中关于与后端请求的ip改成服务器的ip(这个没有固定写法根据自己项目灵活设置)</span><br><span class="line"></span><br><span class="line">前端项目打包</span><br><span class="line">cnpm run build (项目目录执行)</span><br><span class="line">打包后会有一个dist文件夹只要他就好了</span><br><span class="line"></span><br><span class="line">上传到~(也就是root)</span><br><span class="line"></span><br><span class="line">移动并重命名</span><br><span class="line">mv ~/dist /home/html</span><br></pre></td></tr></table></figure>
+<h2 id="十二-后端部署"><a href="#十二-后端部署" class="headerlink" title="十二.后端部署"></a>十二.后端部署</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span>）需要做上线修改的内容settings.py</span><br><span class="line">DEBUG = <span class="literal">False</span></span><br><span class="line">ALLOWED_HOSTS = [</span><br><span class="line">    <span class="string">'39.100.107.176'</span>  <span class="comment"># 公网ip地址</span></span><br><span class="line">]</span><br><span class="line"></span><br><span class="line">CORS_ORIGIN_ALLOW_ALL = <span class="literal">True</span>  <span class="comment"># 允许所有跨域</span></span><br><span class="line">CORS_ORIGIN_WHITELIST = [</span><br><span class="line">]</span><br><span class="line"></span><br><span class="line"><span class="number">2</span> )上传并移动至于/home/project</span><br><span class="line"></span><br><span class="line"><span class="number">3</span> )提前先配置uwsgi设置</span><br><span class="line">vim /home/project/你的后台项目名称/配置的文件名称.xml</span><br><span class="line">里面写入内容如下:</span><br><span class="line"> &lt;uwsgi&gt;    </span><br><span class="line">   &lt;socket&gt;127.0.0.1:8808&lt;/socket&gt; &lt;!-- 内部端口，自定义 --&gt; </span><br><span class="line">   &lt;chdir&gt;/home/project/你的后台项目名称/&lt;/chdir&gt; &lt;!-- 项目路径 --&gt;            </span><br><span class="line">   &lt;module&gt;xxxx.wsgi&lt;/module&gt;  &lt;!-- xxxx为wsgi.py所在目录名--&gt; </span><br><span class="line">   &lt;processes&gt;4&lt;/processes&gt; &lt;!-- 进程数 --&gt;     </span><br><span class="line">   &lt;daemonize&gt;uwsgi.log&lt;/daemonize&gt; &lt;!-- 日志文件 --&gt;</span><br><span class="line">&lt;/uwsgi&gt;</span><br><span class="line"></span><br><span class="line">保存并退出</span><br></pre></td></tr></table></figure>
+<h2 id="十三-导出本地依赖-服务器安装依赖"><a href="#十三-导出本地依赖-服务器安装依赖" class="headerlink" title="十三.导出本地依赖,服务器安装依赖"></a>十三.导出本地依赖,服务器安装依赖</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">走进后台项目</span><br><span class="line">pip3 freeze &gt; packages.txt</span><br><span class="line"></span><br><span class="line">上传packages.txt至服务器</span><br><span class="line">pip3 install -r packages.txt</span><br></pre></td></tr></table></figure>
+<h2 id="十四-数据库迁移-没有数据库相关可以忽略"><a href="#十四-数据库迁移-没有数据库相关可以忽略" class="headerlink" title="十四.数据库迁移(没有数据库相关可以忽略)"></a>十四.数据库迁移(没有数据库相关可以忽略)</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">和玩DJANGO迁移在CMD中执行命令一模一样</span><br></pre></td></tr></table></figure>
+<h2 id="十五-配置上线启动"><a href="#十五-配置上线启动" class="headerlink" title="十五.配置上线启动"></a>十五.配置上线启动</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line">vim /usr/local/nginx/conf/nginx.conf</span><br><span class="line"></span><br><span class="line">写入内容如下:</span><br><span class="line"></span><br><span class="line">events &#123;</span><br><span class="line">    worker_connections  1024;</span><br><span class="line">&#125;</span><br><span class="line">http &#123;</span><br><span class="line">    include       mime.types;</span><br><span class="line">    default_type  application/octet-stream;</span><br><span class="line">    sendfile        on;</span><br><span class="line">    server &#123;</span><br><span class="line">        listen 8000;</span><br><span class="line">        server_name  127.0.0.1; # 改为自己的域名，没域名修改为127.0.0.1:80</span><br><span class="line">        charset utf-8;</span><br><span class="line">        location / &#123;</span><br><span class="line">           include uwsgi_params;</span><br><span class="line">           uwsgi_pass 127.0.0.1:8808;  # 端口要和uwsgi里配置的一样</span><br><span class="line">           uwsgi_param UWSGI_SCRIPT wsgi.py所在的目录名.wsgi;  #wsgi.py所在的目录名+.wsgi</span><br><span class="line">           uwsgi_param UWSGI_CHDIR /home/project/项目路径/; # 项目路径</span><br><span class="line">        &#125;</span><br><span class="line">        # 新增的配置静态文件</span><br><span class="line">        location /static &#123;</span><br><span class="line">            alias /home/project/项目路径/wsgi.py所在的目录名/static;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    server &#123;</span><br><span class="line">        listen 80;</span><br><span class="line">        server_name  127.0.0.1; # 改为自己的域名，没域名修改为127.0.0.1:80</span><br><span class="line">        charset utf-8;</span><br><span class="line">        location / &#123;</span><br><span class="line">            root /home/html; # html访问路径</span><br><span class="line">            index index.html; # html文件名称</span><br><span class="line">            try_files $uri $uri/ /index.html; # 解决单页面应用刷新404问题</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">保存退出</span><br></pre></td></tr></table></figure>
+<h2 id="十六-启动服务"><a href="#十六-启动服务" class="headerlink" title="十六.启动服务"></a>十六.启动服务</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">pkill -f uwsgi <span class="number">-9</span></span><br><span class="line"></span><br><span class="line">uwsgi -x /home/project/项目路径/xxx.xml</span><br><span class="line"></span><br><span class="line">nginx</span><br></pre></td></tr></table></figure>
+<p><code>如果有做修改需要重新启动一次服务才生效</code></p>
+<h2 id="十七-简单的django启动办法"><a href="#十七-简单的django启动办法" class="headerlink" title="十七.简单的django启动办法"></a>十七.简单的django启动办法</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">cd 到manage.py所在目录</span><br><span class="line"></span><br><span class="line">python3 manage.py runserver <span class="number">0.0</span><span class="number">.0</span><span class="number">.0</span>:<span class="number">80</span></span><br><span class="line">    </span><br><span class="line">这时候测试后台的ip+端口是服务器的ip</span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://sir0.net/%E6%B7%B1%E5%85%A5selenium%E6%A8%A1%E5%9D%97%E5%9F%BA%E7%A1%80%E6%93%8D%E4%BD%9C/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1120,97 +1368,6 @@ having 判断内容
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://sir0.net/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E5%A4%87%E4%BB%BD,%E8%BF%81%E7%A7%BB/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="sir0.net">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="吴梦梦、刘玥和SL炮叔">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E5%A4%87%E4%BB%BD,%E8%BF%81%E7%A7%BB/" class="post-title-link" itemprop="url">数据库的备份,迁移</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-03-07 23:00:57" itemprop="dateCreated datePublished" datetime="2020-03-07T23:00:57+08:00">2020-03-07</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-03-06 11:39:14" itemprop="dateModified" datetime="2020-03-06T11:39:14+08:00">2020-03-06</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="08-14自我总结"><a href="#08-14自我总结" class="headerlink" title="08.14自我总结"></a>08.14自我总结</h1><h1 id="数据库的备份"><a href="#数据库的备份" class="headerlink" title="数据库的备份"></a>数据库的备份</h1><h2 id="一数据库的备份"><a href="#一数据库的备份" class="headerlink" title="一数据库的备份"></a>一数据库的备份</h2><h3 id="1-单库备份"><a href="#1-单库备份" class="headerlink" title="1.单库备份"></a>1.单库备份</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mysqldump -uroot -p123 db1 &gt; db1.sql  #库名</span><br><span class="line">mysqldump -uroot -p123 db1 table1 table2 &gt; db1-table1-table2.sql #库名 表名</span><br></pre></td></tr></table></figure>
-<h3 id="2-多库备份"><a href="#2-多库备份" class="headerlink" title="2.多库备份"></a>2.多库备份</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysqldump -uroot -p123 --databases db1 db2 mysql db3 &gt; db1_db2_mysql_db3.sql</span><br></pre></td></tr></table></figure>
-<h3 id="3-备份所有库"><a href="#3-备份所有库" class="headerlink" title="3.备份所有库"></a>3.备份所有库</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysqldump -uroot -p123 --all-databases &gt; all.sql</span><br></pre></td></tr></table></figure>
-<h2 id="二-备份恢复"><a href="#二-备份恢复" class="headerlink" title="二.备份恢复"></a>二.备份恢复</h2><h3 id="1-退出数据库后"><a href="#1-退出数据库后" class="headerlink" title="1.退出数据库后"></a>1.退出数据库后</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql -u -p &lt; filename.sql;</span><br></pre></td></tr></table></figure>
-<h3 id="2-在数据库内"><a href="#2-在数据库内" class="headerlink" title="2.在数据库内"></a>2.在数据库内</h3><ul>
-<li>创建空数据库</li>
-<li>选择数据库</li>
-<li>然后使用source filename; 来进行还原</li>
-</ul>
-<p>例如</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">use db1;</span><br><span class="line">source &#x2F;root&#x2F;db1.sql</span><br></pre></td></tr></table></figure>
-<h2 id="三-数据库迁移"><a href="#三-数据库迁移" class="headerlink" title="三.数据库迁移"></a>三.数据库迁移</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">务必保证在相同版本之间迁移</span><br><span class="line"># mysqldump -h 源IP -uroot -p123 --databases db1 | mysql -h 目标IP -uroot -p456</span><br></pre></td></tr></table></figure>
-<h2 id="四-备份高阶"><a href="#四-备份高阶" class="headerlink" title="四.备份高阶"></a>四.备份高阶</h2><h3 id="1-常用参数"><a href="#1-常用参数" class="headerlink" title="1.常用参数"></a>1.常用参数</h3><ul>
-<li>-B：表示的是指定多个库，增加了建库语句和use数据库的语句。</li>
-<li>-compact：去掉注释，适合调试输出，不适合在生产环境使用。</li>
-<li>-A： 表示的是本分所有的库。</li>
-<li>-F：刷新binlog日志，方便进行增量的恢复。</li>
-<li>–master-data：增加binlog日志文件名及其对应的位置点。</li>
-<li>-x，–lock-all-tables ：在备份的时候进行锁表，保持数据的一致性。</li>
-<li>-d：只备份表的结构。</li>
-<li>-t : 只备份数据库中的数据</li>
-<li>–single-transaction 适合innodb数据库的备份。</li>
-</ul>
-<h3 id="2-B备份"><a href="#2-B备份" class="headerlink" title="2.-B备份"></a>2.-B备份</h3><h4 id="单库"><a href="#单库" class="headerlink" title="单库"></a>单库</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">备份test中的所有表</span><br><span class="line">mysqldump -uroot -ppassword  -B test &gt;/tmp/test.sql</span><br></pre></td></tr></table></figure>
-<h4 id="多库"><a href="#多库" class="headerlink" title="多库"></a>多库</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysqldump -uroot -ppassword  -B 库<span class="number">1</span> 库<span class="number">2</span>  &gt;/tmp/test.sql</span><br></pre></td></tr></table></figure>
-<h3 id="3-使用gzip进行压缩数据备份"><a href="#3-使用gzip进行压缩数据备份" class="headerlink" title="3.使用gzip进行压缩数据备份"></a>3.使用gzip进行压缩数据备份</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysqldump -uroot -ppassword  -B 库1 库2 |gzip &gt;&#x2F;tmp&#x2F;test.gz</span><br></pre></td></tr></table></figure>
-<h3 id="4-备份时候切割binlog日志：（进行增量备份的时候可以用到）"><a href="#4-备份时候切割binlog日志：（进行增量备份的时候可以用到）" class="headerlink" title="4.备份时候切割binlog日志：（进行增量备份的时候可以用到）"></a>4.备份时候切割binlog日志：（进行增量备份的时候可以用到）</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">-F 的作用就是备份数据库的时候，将binlog日志进行重新刷新。</span><br><span class="line">mysqldump -uroot -ppassword  -t  -B -F test</span><br></pre></td></tr></table></figure>
-<h3 id="5-备份的时候会记录指定文件的位置以及mysqlbinglog的文件名称"><a href="#5-备份的时候会记录指定文件的位置以及mysqlbinglog的文件名称" class="headerlink" title="5.备份的时候会记录指定文件的位置以及mysqlbinglog的文件名称"></a>5.备份的时候会记录指定文件的位置以及mysqlbinglog的文件名称</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">--master-data=<span class="number">1</span> 的作用就是备份数据库的时候，将binlog日志进行重新刷新</span><br><span class="line">mysqldump -uroot -ppassword  -t  -B -F --master-data test</span><br></pre></td></tr></table></figure>
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://sir0.net/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1313,7 +1470,7 @@ having 判断内容
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://sir0.net/%E6%95%B0%E6%8D%AE%E5%BA%93%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/">
+    <link itemprop="mainEntityOfPage" href="http://sir0.net/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E5%A4%87%E4%BB%BD,%E8%BF%81%E7%A7%BB/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -1327,7 +1484,7 @@ having 判断内容
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
           
-            <a href="/%E6%95%B0%E6%8D%AE%E5%BA%93%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/" class="post-title-link" itemprop="url">数据库数据类型</a>
+            <a href="/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E5%A4%87%E4%BB%BD,%E8%BF%81%E7%A7%BB/" class="post-title-link" itemprop="url">数据库的备份,迁移</a>
         </h1>
 
         <div class="post-meta">
@@ -1344,7 +1501,7 @@ having 判断内容
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-03-06 11:40:10" itemprop="dateModified" datetime="2020-03-06T11:40:10+08:00">2020-03-06</time>
+                <time title="修改时间：2020-03-06 11:39:14" itemprop="dateModified" datetime="2020-03-06T11:39:14+08:00">2020-03-06</time>
               </span>
 
           
@@ -1358,342 +1515,34 @@ having 判断内容
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="07-14自我总结"><a href="#07-14自我总结" class="headerlink" title="07.14自我总结"></a>07.14自我总结</h1><h2 id="MYSQL数据库数据类型"><a href="#MYSQL数据库数据类型" class="headerlink" title="MYSQL数据库数据类型"></a>MYSQL数据库数据类型</h2><h2 id="一-整数类型和浮点数典型"><a href="#一-整数类型和浮点数典型" class="headerlink" title="一.整数类型和浮点数典型"></a>一.整数类型和浮点数典型</h2><h3 id="1-有符号-没符号"><a href="#1-有符号-没符号" class="headerlink" title="1.有符号/没符号"></a>1.有符号/没符号</h3><p>对于整数和负整数来说，默认情况下是有符号范围的<br><code>默认</code>是<code>有符号</code><br><code>有符号和没符号其实就是有没有包括负数,有符号是包括负数的</code><br>设置成无符号:<br>alter table 表名 变量名 数据类型 unsigned;</p>
-<table>
-<thead>
-<tr class="header">
-<th style="text-align: center;"></th>
-<th style="text-align: center;">严格模式</th>
-<th style="text-align: center;">非严格模式</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: center;">有符号</td>
-<td style="text-align: center;">（-，+） 超出范围会报错</td>
-<td style="text-align: center;">（-，+） 超出范围取极值</td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">无符号</td>
-<td style="text-align: center;">（0，+） 超出范围会报错</td>
-<td style="text-align: center;">（0，+） 超出范围取极值</td>
-</tr>
-</tbody>
-</table>
-### 2.严选/非严选
-我们`不推荐使用非严格模式下`建立table，因为它会可能造成数据丢失的情况，所以我们必须在5.6版本中将mysql设置为严格模式。
-方法一：select@@sql_mode; @表示全局变量；@@表示会话级变量（局部）
-​ 临时设置set @@sql_mode ='NO_ENGINE_SUBSTITUTION,STRICT_TRANS_TABLES ';
-方法二:直接修改配置文件;
-​ [mysqld]
-​ sql_mode=NO_ENGINE_SUBSTITUTION,STRICT_TRANS_TABLES 并重启服务端mysql后生效.
-
-<ul>
-<li>严选情况下,数据超过他的设置范围他会报错</li>
-<li>非严选情况下,数据超过他的设置范围不会报错,但是只存他设置大小的那一部分的数据,多余的会丢掉</li>
+          <h1 id="08-14自我总结"><a href="#08-14自我总结" class="headerlink" title="08.14自我总结"></a>08.14自我总结</h1><h1 id="数据库的备份"><a href="#数据库的备份" class="headerlink" title="数据库的备份"></a>数据库的备份</h1><h2 id="一数据库的备份"><a href="#一数据库的备份" class="headerlink" title="一数据库的备份"></a>一数据库的备份</h2><h3 id="1-单库备份"><a href="#1-单库备份" class="headerlink" title="1.单库备份"></a>1.单库备份</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mysqldump -uroot -p123 db1 &gt; db1.sql  #库名</span><br><span class="line">mysqldump -uroot -p123 db1 table1 table2 &gt; db1-table1-table2.sql #库名 表名</span><br></pre></td></tr></table></figure>
+<h3 id="2-多库备份"><a href="#2-多库备份" class="headerlink" title="2.多库备份"></a>2.多库备份</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysqldump -uroot -p123 --databases db1 db2 mysql db3 &gt; db1_db2_mysql_db3.sql</span><br></pre></td></tr></table></figure>
+<h3 id="3-备份所有库"><a href="#3-备份所有库" class="headerlink" title="3.备份所有库"></a>3.备份所有库</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysqldump -uroot -p123 --all-databases &gt; all.sql</span><br></pre></td></tr></table></figure>
+<h2 id="二-备份恢复"><a href="#二-备份恢复" class="headerlink" title="二.备份恢复"></a>二.备份恢复</h2><h3 id="1-退出数据库后"><a href="#1-退出数据库后" class="headerlink" title="1.退出数据库后"></a>1.退出数据库后</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql -u -p &lt; filename.sql;</span><br></pre></td></tr></table></figure>
+<h3 id="2-在数据库内"><a href="#2-在数据库内" class="headerlink" title="2.在数据库内"></a>2.在数据库内</h3><ul>
+<li>创建空数据库</li>
+<li>选择数据库</li>
+<li>然后使用source filename; 来进行还原</li>
 </ul>
-<h3 id="3-常见的类型"><a href="#3-常见的类型" class="headerlink" title="3.常见的类型"></a>3.常见的类型</h3><h4 id="1-整数型"><a href="#1-整数型" class="headerlink" title="1.整数型"></a>1.整数型</h4><table>
-<thead>
-<tr class="header">
-<th>数据类型</th>
-<th>字节数</th>
-<th>符号范围</th>
-<th>有符号范围</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>TINYINT</td>
-<td>1</td>
-<td>0~255</td>
-<td>-128~127</td>
-</tr>
-<tr class="even">
-<td>SMALLINT</td>
-<td>2</td>
-<td>0~65535</td>
-<td>-32768~32767</td>
-</tr>
-<tr class="odd">
-<td>MEDIUMINT</td>
-<td>3</td>
-<td>0~16777215</td>
-<td>-8388608~8388607</td>
-</tr>
-<tr class="even">
-<td>INT</td>
-<td>4</td>
-<td>0~4294967295</td>
-<td>-2147483648~2147483647</td>
-</tr>
-<tr class="odd">
-<td>BIGINT</td>
-<td>8</td>
-<td>0~18446744073709551615</td>
-<td>-9223372036854775808<br />~9223372036854775807</td>
-</tr>
-</tbody>
-</table>
-### 2.浮点型
-<table>
-<thead>
-<tr class="header">
-<th>数据类型</th>
-<th>字节数</th>
-<th>符号范围</th>
-<th>有符号范围</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>float</td>
-<td>4</td>
-<td>1.175494351E-38 
-~3.402823466E +38</td>
-<td>-3.402823466E+38~
--1.175494351E-38</td>
-</tr>
-<tr class="even">
-<td>double</td>
-<td>8</td>
-<td>2.2250738585072014E-308
-~1.7976931348623157E+308</td>
-<td>-1.7976931348623157E+308
-~-2.2250738585072014E- 308</td>
-</tr>
-<tr class="odd">
-<td>decimal[(M[,D])]</td>
-<td>最大与
-double相同</td>
-<td>不固定</td>
-<td>不固定 10.2 decimal(3,1);</td>
-</tr>
-</tbody>
-</table>
-## 二.字符串类型
-### 1.char 与varchar
-char:定长字符串,字符长度0-255个字节之间,存储时占用固定字节空间
-相对于varchar来讲
-优点: 读取存储速度快于varchar
-varchar:可变长度字符串,字符长度在0-65532个字节,存储式占用空间实际字节长度+1,而+1是存的他的长度
-`原因`:因为char我们如果规定6,然后输入3个字符,他后面的内容会用宫格来填充,而varchar不会用空格填充,所有存的时候空间节省了,而读的时候需要发送字符的数量所有读取会变慢
-### 2.binary 与 varbinary
-BINARY和VARBINARY类类似于CHAR和VARCHAR，不同的是它们包含二进制字符串而不要二进制字符串<br />
-输入值的和char 与varchar差不多的填充效果
-### 3.text与blob
-blob:没有编码的二进制大字符串.(了解即可)
-text:具备编码的大字符串;
-都有四种
-
-<ul>
-<li>tinyblob,tinytext:</li>
-<li>blob,text</li>
-<li>mediumblob,mediumtext</li>
-<li>longblob,longtext</li>
+<p>例如</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">use db1;</span><br><span class="line">source &#x2F;root&#x2F;db1.sql</span><br></pre></td></tr></table></figure>
+<h2 id="三-数据库迁移"><a href="#三-数据库迁移" class="headerlink" title="三.数据库迁移"></a>三.数据库迁移</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">务必保证在相同版本之间迁移</span><br><span class="line"># mysqldump -h 源IP -uroot -p123 --databases db1 | mysql -h 目标IP -uroot -p456</span><br></pre></td></tr></table></figure>
+<h2 id="四-备份高阶"><a href="#四-备份高阶" class="headerlink" title="四.备份高阶"></a>四.备份高阶</h2><h3 id="1-常用参数"><a href="#1-常用参数" class="headerlink" title="1.常用参数"></a>1.常用参数</h3><ul>
+<li>-B：表示的是指定多个库，增加了建库语句和use数据库的语句。</li>
+<li>-compact：去掉注释，适合调试输出，不适合在生产环境使用。</li>
+<li>-A： 表示的是本分所有的库。</li>
+<li>-F：刷新binlog日志，方便进行增量的恢复。</li>
+<li>–master-data：增加binlog日志文件名及其对应的位置点。</li>
+<li>-x，–lock-all-tables ：在备份的时候进行锁表，保持数据的一致性。</li>
+<li>-d：只备份表的结构。</li>
+<li>-t : 只备份数据库中的数据</li>
+<li>–single-transaction 适合innodb数据库的备份。</li>
 </ul>
-<h3 id="4-enum与set"><a href="#4-enum与set" class="headerlink" title="4.enum与set"></a>4.enum与set</h3><p>规定这个里面输入内容是什么,你可以输入他的内容,也可以输入他的索引<br>enum与set区别,enum只能输一个,set能输入一个或多个,且用集合的形式输入<br>*<em>注意: mysql会自动将字符串后面的空格删掉 所以你的数据在存储前应该先把空格处理掉 *</em></p>
-<h2 id="三-时间类型"><a href="#三-时间类型" class="headerlink" title="三.时间类型"></a>三.时间类型</h2><ul>
-<li>year :格式YYYT</li>
-<li>data:格式YYYY-MM-DD</li>
-<li>time:格式HH:MM:SS</li>
-<li>datatime:格式YYYY-MM-DD HH:MM:SS</li>
-<li>timestamp :格式YYYY-MM-DD HH:MM:SS (不用输入默认为数据插入时候的插入时间)</li>
-</ul>
-<p><strong>注意：</strong></p>
-<ul>
-<li>0-69 翻译为 2000-2069； 70-99 翻译为1790-1999</li>
-<li>year、date、time既可以用字符串也可以用数字输入值；current_time和now()输入系统当前日期</li>
-<li>time不仅可以表示一天的时间，也可以表示两个时间的时间间隔</li>
-<li>‘D HH:MM:SS’格式的字符串，D表示日（0-34），HH的实际值为D*24+HH</li>
-<li>datetime、timestamp只能以字符串形式输入</li>
-<li>在使用timestamp时，输入current_timestamp输入系统当前日期和时间</li>
-<li>在使用timestamp时，输入null或不输入，系统会自动输入当前日期和时间</li>
-</ul>
-<p>​<br>​</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://sir0.net/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%94%A8%E6%88%B7%E7%AE%A1%E7%90%86/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="sir0.net">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="吴梦梦、刘玥和SL炮叔">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%94%A8%E6%88%B7%E7%AE%A1%E7%90%86/" class="post-title-link" itemprop="url">数据库用户管理</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-03-07 23:00:57" itemprop="dateCreated datePublished" datetime="2020-03-07T23:00:57+08:00">2020-03-07</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-03-06 11:39:49" itemprop="dateModified" datetime="2020-03-06T11:39:49+08:00">2020-03-06</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="07-21自我总结"><a href="#07-21自我总结" class="headerlink" title="07.21自我总结"></a>07.21自我总结</h1><h1 id="数据库用户管理"><a href="#数据库用户管理" class="headerlink" title="数据库用户管理"></a>数据库用户管理</h1><h2 id="一-用户创建语法"><a href="#一-用户创建语法" class="headerlink" title="一.用户创建语法"></a>一.用户创建语法</h2><p>语法:<br>create user 用户名@”ip地址” “identified” by 密码;<br>举例:<br>create user tom@”192.168.101” identified by “123”;<br>创建除本机以外其他ip第能登入<br>create user 用户名@”%” “identified” by 密码;</p>
-<h2 id="二-用户授权"><a href="#二-用户授权" class="headerlink" title="二.用户授权"></a>二.用户授权</h2><h3 id="1-给权限"><a href="#1-给权限" class="headerlink" title="1.给权限"></a>1.给权限</h3><p>grant all on <em>.</em> to toms@”%” identified by “123”;</p>
-<ul>
-<li>all:增删改查所有权限</li>
-<li>all的地方可以修改对于的方式updata,select等待select后面可以跟字段表示只能查看某个字段</li>
-<li>on后面库名.表明,*表示所有</li>
-<li>to后面跟账号和账号ip</li>
-<li>如果创建账号时候没有创建密码可以在授权这里加上密码</li>
-</ul>
-<h3 id="2-收回权限"><a href="#2-收回权限" class="headerlink" title="2.收回权限"></a>2.收回权限</h3><p>REVOKE all privileges [column] on 库名.表名 from user@”host”;<br>column 不填表示所有字段</p>
-<h3 id="3-删除用户"><a href="#3-删除用户" class="headerlink" title="3.删除用户"></a>3.删除用户</h3><p>drop user@”host”</p>
-<h3 id="4-刷新权限表"><a href="#4-刷新权限表" class="headerlink" title="4.刷新权限表"></a>4.刷新权限表</h3><p>flush privileges;<br /><br>刷新权限表 一些时候权限信息可能会有所延迟 可以执行该语句立即刷新权限信息</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://sir0.net/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B4%A2%E5%BC%95/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="sir0.net">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="吴梦梦、刘玥和SL炮叔">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B4%A2%E5%BC%95/" class="post-title-link" itemprop="url">数据库索引</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-03-07 23:00:57" itemprop="dateCreated datePublished" datetime="2020-03-07T23:00:57+08:00">2020-03-07</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-03-06 11:39:27" itemprop="dateModified" datetime="2020-03-06T11:39:27+08:00">2020-03-06</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="07-21自我总结"><a href="#07-21自我总结" class="headerlink" title="07.21自我总结"></a>07.21自我总结</h1><h1 id="数据库索引"><a href="#数据库索引" class="headerlink" title="数据库索引"></a>数据库索引</h1><h2 id="1-什么是索引"><a href="#1-什么是索引" class="headerlink" title="1.什么是索引?"></a>1.什么是索引?</h2><p>即搜索引导,索引是一个特殊的数据结构,其存储的关键信息与详细信息的位置对应关系,加速索引<br>索引的影响:</p>
-<ol>
-- 正确使用索引才能加速查询;
-- 索引需要额外的占用数据空间;
-- 索引的加入,使数据的crud变慢
-</ol>
-索引的应用场景:
-​ 查询操作较多,写入较少;本质原理是尽可能减小搜索范围
-## 2.磁盘IO
-数据库的数据最终存储到了硬盘上,**当一次IO时，不光把当前磁盘地址的数据，而是把相邻的数据也都读取到内存缓冲区内**，因为局部预读性原理告诉我们，当计算机访问一个地址的数据的时候，与其相邻的数据也会很快被访问到。每一次IO读取的数据我们称之为一页(page)
-索引的目的:尽可能减低io次数,算法支持:二分查找法,**应该尽可能的将数据量小的字段作为索引**
-## 3.索引数据结构
-b+树
-​ 在b+树中 叶子节点才是存储真实数据的,叶子数量越多,树的层级越高,导致IO次数增加
-​ 要避免这个问题,在叶子节点中尽可能的存储更多的数据, **应该将数据量小的字段作为索引**
-### 最左匹配原则
-当b+树的数据项是复合的数据结构,b+树会按照从左到右的顺序来建立搜索树，也就是说根据sql语句由左至右顺序写入的搜索字段,会优先搜索最左边的字段条件,再匹配下一个字段条件,即索引的最左匹配特性.
-### 聚集索引
-聚集索引中包含了所有字段的值,如果拟制定了主键,主键就是聚集索引;<br />
-如果没有则找一个非空且唯一的字段作为聚集索引;<br />
-如果也没有这样的列,innoDB会在表内自动产生一个聚集索引id,它是自增的<br />
-聚集索引中存储了所有的数据
-### 辅助索引
-除了聚集索引之外的索引都称之为辅助索引或第二索引,包括 foreign key 与 unique
-辅助索引的特点:<br />
-其叶子节点保存的是索引数据与所在行的主键值,InnoDB用这个 主键值来从聚集索引中搜查找数据
-### 覆盖查询
-覆盖索引指的是需要的数据仅在辅助索引中就能找到:
-### 回表查询
-如果要查找的数据在辅助索引中不存在,则需要回到聚集索引中查找,这种现象称之为回表<br />
-也就是说搜索字段为非索引字段时,查询搜索字段数据时,先根据索引字段获取主键值,在根据主键值搜索查询的字段.
-## 小结:(判断数据查询的快慢其实是如何正确使用索引)
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">#为表中某个字段添加索引</span><br><span class="line">create index index_name on table_name(column);</span><br><span class="line"># index_name表示索引名</span><br><span class="line"># table_name表示表名</span><br><span class="line"># column表示字段名</span><br><span class="line"></span><br><span class="line">#添加主键</span><br><span class="line">alter table table_name add primary key(column);</span><br></pre></td></tr></table></figure>
-<ol>
-- 使用占用空间最小的字段来作为索引;
-- 不要再一行中存储太多的数据,例如小说,视频,如果字段太多可以分表 ;
-- 尽量使用覆盖查询 ;
-- 如果字段区分度低(重复度高),建立索引是没有意义,反过来说应该将区分度高的字段作为索引
-- 不要再等号的左边做运算,例如:select count( ) from usr where id   3 = 6; 也会遍历所有记录
-- 模糊匹配中,%尽量不要写在前面
-- and语句中会自动找一个具的字段优先执行,所以我们应该在and语句中至少包含一个具备索引的字段
-- or语句要避免使用,如果要用则保证所有字段都有索引才能加速
-- 联合索引中,顺序应该将区分度最高的放到左边,最低的放右边
-</ol>
+<h3 id="2-B备份"><a href="#2-B备份" class="headerlink" title="2.-B备份"></a>2.-B备份</h3><h4 id="单库"><a href="#单库" class="headerlink" title="单库"></a>单库</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">备份test中的所有表</span><br><span class="line">mysqldump -uroot -ppassword  -B test &gt;/tmp/test.sql</span><br></pre></td></tr></table></figure>
+<h4 id="多库"><a href="#多库" class="headerlink" title="多库"></a>多库</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysqldump -uroot -ppassword  -B 库<span class="number">1</span> 库<span class="number">2</span>  &gt;/tmp/test.sql</span><br></pre></td></tr></table></figure>
+<h3 id="3-使用gzip进行压缩数据备份"><a href="#3-使用gzip进行压缩数据备份" class="headerlink" title="3.使用gzip进行压缩数据备份"></a>3.使用gzip进行压缩数据备份</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysqldump -uroot -ppassword  -B 库1 库2 |gzip &gt;&#x2F;tmp&#x2F;test.gz</span><br></pre></td></tr></table></figure>
+<h3 id="4-备份时候切割binlog日志：（进行增量备份的时候可以用到）"><a href="#4-备份时候切割binlog日志：（进行增量备份的时候可以用到）" class="headerlink" title="4.备份时候切割binlog日志：（进行增量备份的时候可以用到）"></a>4.备份时候切割binlog日志：（进行增量备份的时候可以用到）</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">-F 的作用就是备份数据库的时候，将binlog日志进行重新刷新。</span><br><span class="line">mysqldump -uroot -ppassword  -t  -B -F test</span><br></pre></td></tr></table></figure>
+<h3 id="5-备份的时候会记录指定文件的位置以及mysqlbinglog的文件名称"><a href="#5-备份的时候会记录指定文件的位置以及mysqlbinglog的文件名称" class="headerlink" title="5.备份的时候会记录指定文件的位置以及mysqlbinglog的文件名称"></a>5.备份的时候会记录指定文件的位置以及mysqlbinglog的文件名称</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">--master-data=<span class="number">1</span> 的作用就是备份数据库的时候，将binlog日志进行重新刷新</span><br><span class="line">mysqldump -uroot -ppassword  -t  -B -F --master-data test</span><br></pre></td></tr></table></figure>
       
     </div>
 
@@ -1778,7 +1627,7 @@ b+树
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">127</span>
+          <span class="site-state-item-count">130</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
