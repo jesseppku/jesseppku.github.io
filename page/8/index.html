@@ -153,156 +153,6 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://sir0.net/%E7%88%AC%E8%99%AB%E5%93%8D%E5%BA%94%E4%BF%A1%E6%81%AF%E4%B9%B1%E7%A0%81%E8%A7%A3%E5%86%B3%E6%96%B9%E5%BC%8F/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="sir0.net">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="吴梦梦、刘玥和SL炮叔">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/%E7%88%AC%E8%99%AB%E5%93%8D%E5%BA%94%E4%BF%A1%E6%81%AF%E4%B9%B1%E7%A0%81%E8%A7%A3%E5%86%B3%E6%96%B9%E5%BC%8F/" class="post-title-link" itemprop="url">爬虫响应信息乱码解决方式</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-03-07 23:00:57" itemprop="dateCreated datePublished" datetime="2020-03-07T23:00:57+08:00">2020-03-07</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-03-06 11:40:08" itemprop="dateModified" datetime="2020-03-06T11:40:08+08:00">2020-03-06</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="一-用requests库自带的自动检测"><a href="#一-用requests库自带的自动检测" class="headerlink" title="一.用requests库自带的自动检测"></a>一.用requests库自带的自动检测</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line">response = requests.get(<span class="string">'https://wwww.baidu.com'</span>)</span><br><span class="line">response.encoding =response.apparent_encoding <span class="comment"># 这个容易炸</span></span><br></pre></td></tr></table></figure>
-<h2 id="二-用pycharm编辑器"><a href="#二-用pycharm编辑器" class="headerlink" title="二.用pycharm编辑器"></a>二.用pycharm编辑器</h2><ul>
-<li>第一步:将爬取数据保存txt中</li>
-<li>第二步:用pycharm打开txt</li>
-<li>然后pycharm会提示你什么编码</li>
-</ul>
-<h2 id="三-用网页终端console-个人比较推荐"><a href="#三-用网页终端console-个人比较推荐" class="headerlink" title="三.用网页终端console(个人比较推荐)"></a>三.用网页终端console(个人比较推荐)</h2><p><code>在你爬取的网站</code></p>
-<ul>
-<li>浏览器F12</li>
-<li>点击console</li>
-<li>执行js命令<code>document.charset</code></li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://sir0.net/%E7%88%AC%E8%99%AB%E4%B9%8BScarpy.Request/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="sir0.net">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="吴梦梦、刘玥和SL炮叔">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/%E7%88%AC%E8%99%AB%E4%B9%8BScarpy.Request/" class="post-title-link" itemprop="url">爬虫之Scarpy.Request</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-03-07 23:00:57" itemprop="dateCreated datePublished" datetime="2020-03-07T23:00:57+08:00">2020-03-07</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-03-06 11:39:29" itemprop="dateModified" datetime="2020-03-06T11:39:29+08:00">2020-03-06</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>一 .Request<br>1.request<br>Scarpy中的HTTP请求对象<br>1.1.Requse的构造</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#我们ctrl+左键可以看到Scarpy.Request的代码</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Request</span><span class="params">(object_ref)</span>:</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, url, callback=None, method=<span class="string">'GET'</span>, headers=None, body=None,</span></span></span><br><span class="line"><span class="function"><span class="params">                 cookies=None, meta=None, encoding=<span class="string">'utf-8'</span>, priority=<span class="number">0</span>,</span></span></span><br><span class="line"><span class="function"><span class="params">                 dont_filter=False, errback=None, flags=None)</span>:</span></span><br><span class="line"></span><br><span class="line"> 其中我们可以看出描述他的有这几个因素</span><br><span class="line"><span class="number">1.</span>url:请求页面的地址(必须有这个参数)</span><br><span class="line"><span class="number">2.</span>callback:页面解析参数,(默认调用Spider的parse的方法)</span><br><span class="line"><span class="number">3.</span>method:http的请求方法,默认为<span class="string">'GET'</span></span><br><span class="line"><span class="number">4.</span>header:请求头部字典,NONE是不发生送给COOKIES</span><br><span class="line"><span class="number">5.</span>body:请求正文,bytes或者str数据类型</span><br><span class="line"><span class="number">6.</span>cookies:COOKIES信息字典</span><br><span class="line"><span class="number">7</span>meta:(我没法理解)</span><br><span class="line"><span class="number">8.</span>encoding:编码方式</span><br><span class="line"><span class="number">9.</span>priority:请求优先级,默认值为<span class="number">0</span></span><br><span class="line"><span class="number">10.</span>dont_filter:默认情况下是<span class="literal">False</span>对同一url发送多次请求不过会被过滤,对于变换的网页我们最好改成Ture防止被过滤</span><br><span class="line"><span class="number">11.</span>errback:请求时发送错误进行回调</span><br><span class="line"><span class="number">12.</span>flags:(不清楚)</span><br></pre></td></tr></table></figure>
-<p>1.2常用的几个参数</p>
-<ul>
-<li>url</li>
-<li>method</li>
-<li>headers</li>
-<li>body</li>
-<li>meta</li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://sir0.net/%E7%88%AC%E8%99%AB%E6%95%B4%E7%90%86/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -609,71 +459,6 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://sir0.net/%E7%88%AC%E5%8F%96%E8%B1%86%E7%93%A3%E7%94%B5%E5%BD%B1%E6%8E%92%E5%90%8D%E7%9A%84%E4%BB%A3%E7%A0%81%E4%BB%A5%E5%8F%8A%E6%80%9D%E8%B7%AF/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="sir0.net">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="吴梦梦、刘玥和SL炮叔">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/%E7%88%AC%E5%8F%96%E8%B1%86%E7%93%A3%E7%94%B5%E5%BD%B1%E6%8E%92%E5%90%8D%E7%9A%84%E4%BB%A3%E7%A0%81%E4%BB%A5%E5%8F%8A%E6%80%9D%E8%B7%AF/" class="post-title-link" itemprop="url">爬取豆瓣电影排名的代码以及思路</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-03-07 23:00:57" itemprop="dateCreated datePublished" datetime="2020-03-07T23:00:57+08:00">2020-03-07</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-03-06 11:39:53" itemprop="dateModified" datetime="2020-03-06T11:39:53+08:00">2020-03-06</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p><code>博问上到有人问的,后自己帮他代码修正了一下,其实蛮简单的一个爬虫</code></p>
-<h2 id="代码以及思路"><a href="#代码以及思路" class="headerlink" title="代码以及思路"></a>代码以及思路</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> requests_html <span class="keyword">import</span> HTMLSession</span><br><span class="line"></span><br><span class="line">session = HTMLSession()  <span class="comment">#定义一个session对象,和reuqests模块中的session是一样的</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_movie</span><span class="params">()</span>:</span></span><br><span class="line">    </span><br><span class="line">    movie_list=[]</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">0</span>, <span class="number">10</span>):  <span class="comment">#前250名</span></span><br><span class="line">        </span><br><span class="line">        print(<span class="string">f'<span class="subst">&#123;i+<span class="number">1</span>&#125;</span>页'</span>)</span><br><span class="line">        link = <span class="string">f'https://movie.douban.com/top250?start=<span class="subst">&#123;i*<span class="number">25</span>&#125;</span>'</span> <span class="comment">#这里呢稍微点几页你就知道规律了</span></span><br><span class="line">        print(link)</span><br><span class="line">        response = session.get(link)   <span class="comment">#这里很多人都有误区总是喜欢加User-Agen,个人感觉他反爬的时候用到这个再加,人家都没设这方面的反爬加了也没啥意义</span></span><br><span class="line">        </span><br><span class="line">        div_list = response.html.find(<span class="string">'.info'</span>)  <span class="comment">#你也可以获取info类下的电影信息</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> each <span class="keyword">in</span> div_list:</span><br><span class="line">            movie = each.text  <span class="comment">#获取里面所有字符串</span></span><br><span class="line">            movie_list.append(movie)  <span class="comment">#加列表你可以存数据库,这随意</span></span><br><span class="line">    <span class="keyword">return</span> movie_list</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    print(get_movie())</span><br></pre></td></tr></table></figure>
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://sir0.net/%E7%88%AC%E5%8F%96%E6%96%97%E5%9B%BE%E7%BD%91%E5%9B%BE%E7%89%87,%E4%BD%BF%E7%94%A8xpath%E6%A0%BC%E5%BC%8F%E6%9D%A5%E5%8C%B9%E9%85%8D%E5%86%85%E5%AE%B9,%E5%AF%B9%E8%AF%B7%E6%B1%82%E4%BC%AA%E8%A3%85%E6%88%90%E6%B5%8F%E8%A7%88%E5%99%A8,%20Referer%20%E9%98%B2%E8%B7%A8%E5%9F%9F%E8%AF%B7%E6%B1%82/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -721,6 +506,71 @@
       
           <h1 id="6-21自我总结"><a href="#6-21自我总结" class="headerlink" title="6.21自我总结"></a>6.21自我总结</h1><h2 id="一-爬取斗图网"><a href="#一-爬取斗图网" class="headerlink" title="一.爬取斗图网"></a>一.爬取斗图网</h2><h3 id="1-摘要"><a href="#1-摘要" class="headerlink" title="1.摘要"></a>1.摘要</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">使用xpath匹配规则查找对应信息文件</span><br><span class="line">将请求伪装成浏览器</span><br><span class="line">Referer 防跨域请求</span><br></pre></td></tr></table></figure>
 <h3 id="2-爬取代码"><a href="#2-爬取代码" class="headerlink" title="2.爬取代码"></a>2.爬取代码</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#导入模块</span></span><br><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"></span><br><span class="line"><span class="comment">#爬取网址</span></span><br><span class="line">url = <span class="string">'http://www.doutula.com/'</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#伪装成成浏览器请求</span></span><br><span class="line"><span class="comment">#找到request200,200代表请求成功的里面的内容,按F12里面找</span></span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="string">Referer: http://www.doutula.com/  Referer为防跨域请求,我看了下图片都是这个所有也可以不加上去,这个简单来说就是你只能通过这个网址来找到图片,如果他和url不同我们也把他加入再hearders里面,和下面保存一起</span></span><br><span class="line"><span class="string">User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.131 Safari/537.36</span></span><br><span class="line"><span class="string">'''</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#编程字典,为了把我们请求伪装成浏览器</span></span><br><span class="line">hearders = &#123;<span class="string">'User-Agent'</span>:<span class="string">'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.131 Safari/537.36'</span>,&#125;</span><br><span class="line"></span><br><span class="line">response = requests.get(url,headers=hearders) <span class="comment">#hearders是请求头,body是请求主体</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#成功拿到响应</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#查找的内容</span></span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="string">data-original="http://ww4.sinaimg.cn/bmiddle/9150e4e5gy1g48gluqdp6j203c03ct92.jpg" </span></span><br><span class="line"><span class="string">'''</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#我们用xpath进行查找</span></span><br><span class="line"><span class="comment">#我们去页面找,他对应的xpath</span></span><br><span class="line">img_xpath = <span class="string">'.//img/@data-original'</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#解析</span></span><br><span class="line"><span class="keyword">from</span> lxml.html <span class="keyword">import</span> etree</span><br><span class="line"><span class="comment">#把爬取的内容变成html格式</span></span><br><span class="line">html = etree.HTML(response.text) <span class="comment">#我们请求下来的内容要以text格式</span></span><br><span class="line"><span class="comment">#把xpath的匹配规则丢进去</span></span><br><span class="line">img_url = html.xpath(img_xpath)</span><br><span class="line"><span class="comment">#print(img_url)</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#保存文件</span></span><br><span class="line"><span class="comment">#创建个文件夹</span></span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"></span><br><span class="line"><span class="comment">#创建当前文件夹位置一个img文件夹</span></span><br><span class="line">img_file_path = os.path.join(os.path.dirname(__file__),<span class="string">'img'</span>)  <span class="comment">#获得文件夹名</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> <span class="keyword">not</span> os.path.exists(img_file_path): <span class="comment">#没有文件夹名创建文件夹</span></span><br><span class="line">    os.mkdir(img_file_path)</span><br><span class="line"></span><br><span class="line"><span class="comment">#把图片保存进该文件夹</span></span><br><span class="line">count = <span class="number">1</span> <span class="comment">#用于计数</span></span><br><span class="line"><span class="keyword">for</span> img <span class="keyword">in</span> img_url:</span><br><span class="line"></span><br><span class="line">    img_path = os.path.join(img_file_path,<span class="string">f'第<span class="subst">&#123;count&#125;</span>张.jpg'</span>)    <span class="comment">#创建图片名称</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">with</span> open(img_path,<span class="string">'wb'</span>) <span class="keyword">as</span> fw:</span><br><span class="line"></span><br><span class="line">        <span class="comment">#获取图片的二进制形式</span></span><br><span class="line">        img_response = requests.get(img)</span><br><span class="line">        img_response = img_response.content</span><br><span class="line"></span><br><span class="line">        <span class="comment">#写入文件</span></span><br><span class="line">        fw.write(img_response)</span><br><span class="line">        count +=<span class="number">1</span></span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://sir0.net/%E7%88%AC%E5%8F%96%E8%B1%86%E7%93%A3%E7%94%B5%E5%BD%B1%E6%8E%92%E5%90%8D%E7%9A%84%E4%BB%A3%E7%A0%81%E4%BB%A5%E5%8F%8A%E6%80%9D%E8%B7%AF/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="sir0.net">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="吴梦梦、刘玥和SL炮叔">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/%E7%88%AC%E5%8F%96%E8%B1%86%E7%93%A3%E7%94%B5%E5%BD%B1%E6%8E%92%E5%90%8D%E7%9A%84%E4%BB%A3%E7%A0%81%E4%BB%A5%E5%8F%8A%E6%80%9D%E8%B7%AF/" class="post-title-link" itemprop="url">爬取豆瓣电影排名的代码以及思路</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-03-07 23:00:57" itemprop="dateCreated datePublished" datetime="2020-03-07T23:00:57+08:00">2020-03-07</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-03-06 11:39:53" itemprop="dateModified" datetime="2020-03-06T11:39:53+08:00">2020-03-06</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p><code>博问上到有人问的,后自己帮他代码修正了一下,其实蛮简单的一个爬虫</code></p>
+<h2 id="代码以及思路"><a href="#代码以及思路" class="headerlink" title="代码以及思路"></a>代码以及思路</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> requests_html <span class="keyword">import</span> HTMLSession</span><br><span class="line"></span><br><span class="line">session = HTMLSession()  <span class="comment">#定义一个session对象,和reuqests模块中的session是一样的</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_movie</span><span class="params">()</span>:</span></span><br><span class="line">    </span><br><span class="line">    movie_list=[]</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">0</span>, <span class="number">10</span>):  <span class="comment">#前250名</span></span><br><span class="line">        </span><br><span class="line">        print(<span class="string">f'<span class="subst">&#123;i+<span class="number">1</span>&#125;</span>页'</span>)</span><br><span class="line">        link = <span class="string">f'https://movie.douban.com/top250?start=<span class="subst">&#123;i*<span class="number">25</span>&#125;</span>'</span> <span class="comment">#这里呢稍微点几页你就知道规律了</span></span><br><span class="line">        print(link)</span><br><span class="line">        response = session.get(link)   <span class="comment">#这里很多人都有误区总是喜欢加User-Agen,个人感觉他反爬的时候用到这个再加,人家都没设这方面的反爬加了也没啥意义</span></span><br><span class="line">        </span><br><span class="line">        div_list = response.html.find(<span class="string">'.info'</span>)  <span class="comment">#你也可以获取info类下的电影信息</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> each <span class="keyword">in</span> div_list:</span><br><span class="line">            movie = each.text  <span class="comment">#获取里面所有字符串</span></span><br><span class="line">            movie_list.append(movie)  <span class="comment">#加列表你可以存数据库,这随意</span></span><br><span class="line">    <span class="keyword">return</span> movie_list</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    print(get_movie())</span><br></pre></td></tr></table></figure>
       
     </div>
 
@@ -809,6 +659,88 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://sir0.net/%E5%89%8D%E7%AB%AF%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E4%B9%A6%E5%86%99%E4%BB%A5%E5%8F%8A%E5%B8%B8%E7%94%A8%E7%9A%84%E6%96%B9%E6%B3%95/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="sir0.net">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="吴梦梦、刘玥和SL炮叔">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/%E5%89%8D%E7%AB%AF%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E4%B9%A6%E5%86%99%E4%BB%A5%E5%8F%8A%E5%B8%B8%E7%94%A8%E7%9A%84%E6%96%B9%E6%B3%95/" class="post-title-link" itemprop="url">前端正则表达式书写以及常用的方法</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-03-07 23:00:57" itemprop="dateCreated datePublished" datetime="2020-03-07T23:00:57+08:00">2020-03-07</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-03-06 11:39:40" itemprop="dateModified" datetime="2020-03-06T11:39:40+08:00">2020-03-06</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="0917自我总结"><a href="#0917自我总结" class="headerlink" title="0917自我总结"></a>0917自我总结</h1><h1 id="前端正则表达式书写"><a href="#前端正则表达式书写" class="headerlink" title="前端正则表达式书写"></a>前端正则表达式书写</h1><h2 id="一-写法"><a href="#一-写法" class="headerlink" title="一.写法"></a>一.写法</h2><h3 id="写法一"><a href="#写法一" class="headerlink" title="写法一"></a>写法一</h3><p>/正则表达式/修饰符<br><code>修饰符</code></p>
+<ul>
+<li><strong>/i (忽略大小写)</strong></li>
+<li><strong>/g (全文查找出现的所有匹配字符)</strong></li>
+<li><strong>/m (多行查找)</strong></li>
+<li><strong>/gi(全文查找、忽略大小写)</strong></li>
+<li><strong>/ig(全文查找、忽略大小写)</strong></li>
+</ul>
+<p>例子:/a/gi 查找内容中的a<br>不写修饰符默认只匹配一个</p>
+<h3 id="写法二"><a href="#写法二" class="headerlink" title="写法二"></a>写法二</h3><p>let a = new RegExp(‘/正则表达式/‘,’修饰符’)</p>
+<h2 id="二-常用几个方法"><a href="#二-常用几个方法" class="headerlink" title="二.常用几个方法"></a>二.常用几个方法</h2><h3 id="1-match"><a href="#1-match" class="headerlink" title="1.match"></a>1.match</h3><p>方法可在字符串内检索指定的值，或找到一个或多个正则表达式的匹配。<br>返回的内容</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[<span class="string">"匹配到的内容"</span>, index: <span class="number">3</span>, input: <span class="string">"字符串对象"</span>, groups: undefined]</span><br></pre></td></tr></table></figure>
+<p>如果regexp修饰符为/g则返回对象为一个数组<br>语法：<br /><br>1.<code>stringObject</code>.<code>match</code>(<code>str</code>)<br>2.<code>stringObject</code>.<code>match</code>(<code>regexp</code>)<br>拿查找字符串abc 中的a举例<br><code>&#39;aabc&#39;</code> .<code>match</code>(<code>&#39;a&#39;</code>) <code>只匹配第一个</code><br><code>&#39;aabc&#39;</code> .<code>match</code>(<code>/a/</code>) <code>只匹配第一个</code></p>
+<h3 id="2-replace"><a href="#2-replace" class="headerlink" title="2.replace"></a>2.replace</h3><p>用于字符串中一些字符替换另一些字符，或替换一个与正则表达式相匹配的子串<br>语法：<br /><br>1.<code>stringObject</code>.<code>replace</code>(<code>&#39;查找的第一个字符串&#39;</code>,<code>&#39;修改后的字符串&#39;</code>)<br>2.<code>stringObject</code>.<code>replace</code>(<code>regexp(正则表达式匹配到的内容所有替换)</code>,<code>&#39;修改后的字符串&#39;</code>)</p>
+<h3 id="3-search"><a href="#3-search" class="headerlink" title="3.search"></a>3.search</h3><p>他用法与match类似不过他返回的是索引<br>语法：<br /><br>1.<code>stringObject</code>.<code>match</code>(<code>&#39;searchvalue&#39;</code>)<br>2.<code>stringObject</code>.<code>match</code>(<code>regexp</code>)</p>
+<h3 id="4-test"><a href="#4-test" class="headerlink" title="4.test"></a>4.test</h3><p>方法用于检测一个字符串是否匹配某个模式，如果字符串中含有匹配的文本，则返回 true，否则返回 false。<br>语法:<br><code>regexp</code>.<code>test</code>(<code>stringObject</code>)<br>如</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">/a/.test(<span class="string">'a'</span>) <span class="comment">#返回true</span></span><br><span class="line">/a/.test(<span class="string">'ac'</span>) <span class="comment">#返回true</span></span><br><span class="line">/a/.test(<span class="string">'c'</span>) <span class="comment">#返回false</span></span><br></pre></td></tr></table></figure>
+<h3 id="5-exec"><a href="#5-exec" class="headerlink" title="5.exec"></a>5.exec</h3><p>方法就是用来检索字符串中正则表达式的匹配，如果匹配到了那么就返回一个存放有结果的数组，如果没有匹配到就返回一个null<br><code>regexp</code>.<code>exec</code>(<code>stringObject</code>)<br>其实和match类似,不过就是填写的位置返一下<br>但是有一点</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">console.log(<span class="string">'c'</span>.exec(<span class="string">'c'</span>));  <span class="comment">#会报错</span></span><br><span class="line">console.log(<span class="string">'c'</span>.match(<span class="string">'c'</span>)); <span class="comment">#会匹配c</span></span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://sir0.net/%E5%89%8D%E7%AB%AF%E5%AE%9E%E7%8E%B0%E6%96%87%E4%BB%B6%E4%B8%8B%E8%BD%BD%E6%89%80%E6%9C%89%E6%96%B9%E5%BC%8F/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -859,6 +791,70 @@
 <h2 id="三-js中ajax实现音频或者视频不跳转进行文件下载"><a href="#三-js中ajax实现音频或者视频不跳转进行文件下载" class="headerlink" title="三.js中ajax实现音频或者视频不跳转进行文件下载"></a>三.js中ajax实现音频或者视频不跳转进行文件下载</h2><p>写代码的思路<br><code>先请求音频的链接,再把返回值转换成二进制,再根据他二进制对象生成新链接,再创建a标签,点击a标签</code></p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//这是vue里面的写的普通页面也差不多</span></span><br><span class="line">&lt;script&gt;</span><br><span class="line">    <span class="keyword">this</span>.$axios(&#123;</span><br><span class="line">    method: <span class="string">'get'</span>,</span><br><span class="line">    url: row.src,</span><br><span class="line">    responseType: <span class="string">'blob'</span>  <span class="comment">//这个不能少,让response二进制形式,如果你按照网上教程不设置这个将返回值进行BLOB([])进行处理可能会出现解析错误</span></span><br><span class="line">&#125;).then(<span class="function"><span class="params">response</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> href = URL.createObjectURL(response.data); <span class="comment">//根据二进制对象创造新的链接</span></span><br><span class="line">    <span class="keyword">const</span> a = <span class="built_in">document</span>.createElement(<span class="string">'a'</span>);</span><br><span class="line">    a.setAttribute(<span class="string">'href'</span>, href);</span><br><span class="line">    a.setAttribute(<span class="string">'download'</span>, row.title);</span><br><span class="line">    a.click();</span><br><span class="line">    URL.revokeObjectURL(href);</span><br><span class="line">&#125;</span><br><span class="line">&lt;<span class="regexp">/script&gt;</span></span><br></pre></td></tr></table></figure>
 <h2 id="四-fetch实现"><a href="#四-fetch实现" class="headerlink" title="四.fetch实现"></a>四.fetch实现</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//原理和ajax一模一样</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">request</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  fetch(<span class="string">'&lt;接口地址&gt;'</span>, &#123;</span><br><span class="line">    method: <span class="string">'POST'</span>,</span><br><span class="line">    headers: &#123;</span><br><span class="line">      <span class="string">'Content-Type'</span>: <span class="string">'application/json'</span>,</span><br><span class="line">    &#125;,</span><br><span class="line">    body: <span class="string">'&lt;请求参数：json字符串&gt;'</span>,</span><br><span class="line">  &#125;)</span><br><span class="line">    .then(<span class="function"><span class="params">res</span> =&gt;</span> res.blob())</span><br><span class="line">    .then(<span class="function"><span class="params">data</span> =&gt;</span> &#123;</span><br><span class="line">      <span class="keyword">let</span> blobUrl = <span class="built_in">window</span>.URL.createObjectURL(data);</span><br><span class="line">      download(blobUrl);</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">download</span>(<span class="params">blobUrl</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> a = <span class="built_in">document</span>.createElement(<span class="string">'a'</span>);</span><br><span class="line">  a.download = <span class="string">'&lt;文件名&gt;'</span>;</span><br><span class="line">  a.href = blobUrl;</span><br><span class="line">  a.click();</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">request();</span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://sir0.net/%E5%89%8D%E7%AB%AF%E8%87%AA%E5%AD%A6%E6%80%BB%E7%BB%93/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="sir0.net">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="吴梦梦、刘玥和SL炮叔">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/%E5%89%8D%E7%AB%AF%E8%87%AA%E5%AD%A6%E6%80%BB%E7%BB%93/" class="post-title-link" itemprop="url">前端自学总结</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-03-07 23:00:57" itemprop="dateCreated datePublished" datetime="2020-03-07T23:00:57+08:00">2020-03-07</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-03-06 11:38:49" itemprop="dateModified" datetime="2020-03-06T11:38:49+08:00">2020-03-06</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="一-软件相关"><a href="#一-软件相关" class="headerlink" title="一.软件相关"></a>一.软件相关</h2><h3 id="vs实用插件"><a href="#vs实用插件" class="headerlink" title="vs实用插件"></a><a href="https://www.cnblogs.com/pythonywy/p/10804710.html" target="_blank" rel="noopener">vs实用插件</a></h3><h2 id="二-基础"><a href="#二-基础" class="headerlink" title="二.基础"></a>二.基础</h2><h3 id="html基础"><a href="#html基础" class="headerlink" title="html基础"></a><a href="https://www.cnblogs.com/pythonywy/p/11265345.html" target="_blank" rel="noopener">html基础</a></h3><h3 id="console的各种输出格式"><a href="#console的各种输出格式" class="headerlink" title="console的各种输出格式"></a><a href="https://www.cnblogs.com/pythonywy/p/11650338.html" target="_blank" rel="noopener">console的各种输出格式</a></h3><h3 id="audio标签以及audio对象"><a href="#audio标签以及audio对象" class="headerlink" title="audio标签以及audio对象"></a><a href="https://www.cnblogs.com/pythonywy/p/11669487.html" target="_blank" rel="noopener">audio标签以及audio对象</a></h3><h3 id="HTML标签嵌套规则"><a href="#HTML标签嵌套规则" class="headerlink" title="HTML标签嵌套规则"></a><a href="https://www.cnblogs.com/pythonywy/p/11437227.html" target="_blank" rel="noopener">HTML标签嵌套规则</a></h3><h3 id="css基础-css基础选择器"><a href="#css基础-css基础选择器" class="headerlink" title="css基础,css基础选择器"></a><a href="https://www.cnblogs.com/pythonywy/p/11266221.html#4312247" target="_blank" rel="noopener">css基础,css基础选择器</a></h3><h3 id="CSS高级选择器"><a href="#CSS高级选择器" class="headerlink" title="CSS高级选择器"></a><a href="https://www.cnblogs.com/pythonywy/p/11276513.html" target="_blank" rel="noopener">CSS高级选择器</a></h3><h3 id="HTML标签嵌套规则-1"><a href="#HTML标签嵌套规则-1" class="headerlink" title="HTML标签嵌套规则"></a><a href="https://www.cnblogs.com/pythonywy/p/11437227.html" target="_blank" rel="noopener">HTML标签嵌套规则</a></h3><h3 id="HTTP中get和post"><a href="#HTTP中get和post" class="headerlink" title="HTTP中get和post"></a><a href="https://www.cnblogs.com/pythonywy/p/11449043.html" target="_blank" rel="noopener">HTTP中get和post</a></h3><h3 id="前端实现文件下载所有方式"><a href="#前端实现文件下载所有方式" class="headerlink" title="前端实现文件下载所有方式"></a><a href="https://www.cnblogs.com/pythonywy/p/11671303.html" target="_blank" rel="noopener">前端实现文件下载所有方式</a></h3><h2 id="三-样式操作"><a href="#三-样式操作" class="headerlink" title="三.样式操作"></a>三.样式操作</h2><h3 id="HTML中的三元表达式-灵活的使用or逻辑判断"><a href="#HTML中的三元表达式-灵活的使用or逻辑判断" class="headerlink" title="HTML中的三元表达式,灵活的使用or逻辑判断"></a><a href="https://www.cnblogs.com/pythonywy/p/11419705.html" target="_blank" rel="noopener">HTML中的三元表达式,灵活的使用or逻辑判断</a></h3><h3 id="文本属性-边界圆角-背景属性-精灵图案例"><a href="#文本属性-边界圆角-背景属性-精灵图案例" class="headerlink" title="文本属性,边界圆角,背景属性,精灵图案例"></a><a href="https://www.cnblogs.com/pythonywy/p/11278674.html" target="_blank" rel="noopener">文本属性,边界圆角,背景属性,精灵图案例</a></h3><h3 id="显示方式"><a href="#显示方式" class="headerlink" title="显示方式"></a><a href="https://www.cnblogs.com/pythonywy/p/11303207.html" target="_blank" rel="noopener">显示方式</a></h3><h3 id="CSS定位和滚动条"><a href="#CSS定位和滚动条" class="headerlink" title="CSS定位和滚动条"></a><a href="https://www.cnblogs.com/pythonywy/p/11305321.html" target="_blank" rel="noopener">CSS定位和滚动条</a></h3><h3 id="HTML识别后台传输或者js变量中字符串里的-‘-n’-并成功换行显示"><a href="#HTML识别后台传输或者js变量中字符串里的-‘-n’-并成功换行显示" class="headerlink" title="HTML识别后台传输或者js变量中字符串里的 ‘\n’ 并成功换行显示"></a><a href="https://www.cnblogs.com/pythonywy/p/11623593.html" target="_blank" rel="noopener">HTML识别后台传输或者js变量中字符串里的 ‘\n’ 并成功换行显示</a></h3><h3 id="css盒子布局-浮动布局以及显影与简单的动画"><a href="#css盒子布局-浮动布局以及显影与简单的动画" class="headerlink" title="css盒子布局,浮动布局以及显影与简单的动画"></a><a href="https://www.cnblogs.com/pythonywy/p/11305228.html" target="_blank" rel="noopener">css盒子布局,浮动布局以及显影与简单的动画</a></h3><h3 id="好看的鼠标hover效果"><a href="#好看的鼠标hover效果" class="headerlink" title="好看的鼠标hover效果"></a><a href="https://www.cnblogs.com/pythonywy/p/11548543.html" target="_blank" rel="noopener">好看的鼠标hover效果</a></h3><h3 id="关于hover与after-before已及first-letter-first-line的联用"><a href="#关于hover与after-before已及first-letter-first-line的联用" class="headerlink" title="关于hover与after,before已及first-letter,first-line的联用"></a><a href="https://www.cnblogs.com/pythonywy/p/11557351.html" target="_blank" rel="noopener">关于hover与after,before已及first-letter,first-line的联用</a></h3><h3 id="前端正则表达式书写以及常用的方法"><a href="#前端正则表达式书写以及常用的方法" class="headerlink" title="前端正则表达式书写以及常用的方法"></a><a href="https://www.cnblogs.com/pythonywy/p/11532035.html" target="_blank" rel="noopener">前端正则表达式书写以及常用的方法</a></h3><h2 id="四-js"><a href="#四-js" class="headerlink" title="四.js"></a>四.js</h2><h3 id="JavaScript的概念-引入-基本数据类型"><a href="#JavaScript的概念-引入-基本数据类型" class="headerlink" title="JavaScript的概念,引入,基本数据类型"></a><a href="https://www.cnblogs.com/pythonywy/p/11305633.html" target="_blank" rel="noopener">JavaScript的概念,引入,基本数据类型</a></h3><h3 id="js基本操作"><a href="#js基本操作" class="headerlink" title="js基本操作"></a><a href="https://www.cnblogs.com/pythonywy/p/11305670.html" target="_blank" rel="noopener">js基本操作</a></h3><h3 id="js获取屏幕以及元素宽高的方法"><a href="#js获取屏幕以及元素宽高的方法" class="headerlink" title="js获取屏幕以及元素宽高的方法"></a><a href="https://www.cnblogs.com/pythonywy/p/11631243.html" target="_blank" rel="noopener">js获取屏幕以及元素宽高的方法</a></h3><h3 id="js中scroll滚动相关"><a href="#js中scroll滚动相关" class="headerlink" title="js中scroll滚动相关"></a><a href="https://www.cnblogs.com/pythonywy/p/11617664.html" target="_blank" rel="noopener">js中scroll滚动相关</a></h3><h3 id="js鼠标滚轮事件上滚下滚判断"><a href="#js鼠标滚轮事件上滚下滚判断" class="headerlink" title="js鼠标滚轮事件上滚下滚判断"></a><a href="https://www.cnblogs.com/pythonywy/p/11627992.html" target="_blank" rel="noopener">js鼠标滚轮事件上滚下滚判断</a></h3><h3 id="原生js获得八种方式-事件操作"><a href="#原生js获得八种方式-事件操作" class="headerlink" title="原生js获得八种方式,事件操作"></a><a href="https://www.cnblogs.com/pythonywy/p/11369847.html" target="_blank" rel="noopener">原生js获得八种方式,事件操作</a></h3><h3 id="js-jq获取兄弟节点-父节点-子节点"><a href="#js-jq获取兄弟节点-父节点-子节点" class="headerlink" title="js|jq获取兄弟节点,父节点,子节点"></a><a href="https://www.cnblogs.com/pythonywy/p/11378875.html" target="_blank" rel="noopener">js|jq获取兄弟节点,父节点,子节点</a></h3><h3 id="js中-和-区别"><a href="#js中-和-区别" class="headerlink" title="js中==和===区别"></a><a href="https://www.cnblogs.com/pythonywy/p/11408350.html" target="_blank" rel="noopener">js中==和===区别</a></h3><h3 id="js获取时间-循环执行任务-延迟执行任务"><a href="#js获取时间-循环执行任务-延迟执行任务" class="headerlink" title="js获取时间,循环执行任务,延迟执行任务"></a><a href="https://www.cnblogs.com/pythonywy/p/11543926.html" target="_blank" rel="noopener">js获取时间,循环执行任务,延迟执行任务</a></h3><h3 id="JavaScript-三种弹窗方式"><a href="#JavaScript-三种弹窗方式" class="headerlink" title="JavaScript-三种弹窗方式"></a><a href="https://www.cnblogs.com/pythonywy/p/11544880.html" target="_blank" rel="noopener">JavaScript-三种弹窗方式</a></h3><h3 id="原生js对cookie的增删改查"><a href="#原生js对cookie的增删改查" class="headerlink" title="原生js对cookie的增删改查"></a><a href="https://www.cnblogs.com/pythonywy/p/11590701.html" target="_blank" rel="noopener">原生js对cookie的增删改查</a></h3><h3 id="form表单提交与ajax消息传递"><a href="#form表单提交与ajax消息传递" class="headerlink" title="form表单提交与ajax消息传递"></a><a href="https://www.cnblogs.com/pythonywy/p/11437167.html" target="_blank" rel="noopener">form表单提交与ajax消息传递</a></h3><h2 id="五-jq"><a href="#五-jq" class="headerlink" title="五.jq"></a>五.jq</h2><h3 id="jq初始-选择器-事件-内容操作-样式操作"><a href="#jq初始-选择器-事件-内容操作-样式操作" class="headerlink" title="jq初始,选择器,事件,内容操作,样式操作"></a><a href="https://www.cnblogs.com/pythonywy/p/11305663.html" target="_blank" rel="noopener">jq初始,选择器,事件,内容操作,样式操作</a></h3><h3 id="jQuery跳转到另一个页面"><a href="#jQuery跳转到另一个页面" class="headerlink" title="jQuery跳转到另一个页面"></a><a href="https://www.cnblogs.com/pythonywy/p/11408329.html" target="_blank" rel="noopener">jQuery跳转到另一个页面</a></h3><h2 id="六-模板"><a href="#六-模板" class="headerlink" title="六.模板"></a>六.模板</h2><h3 id="样式模板快捷键设置"><a href="#样式模板快捷键设置" class="headerlink" title="样式模板快捷键设置"></a><a href="https://www.cnblogs.com/pythonywy/p/11341976.html" target="_blank" rel="noopener">样式模板快捷键设置</a></h3><h2 id="七-CSS3动画"><a href="#七-CSS3动画" class="headerlink" title="七.CSS3动画"></a>七.CSS3动画</h2><h3 id="CSS3动画的使用"><a href="#CSS3动画的使用" class="headerlink" title="CSS3动画的使用"></a><a href="https://www.cnblogs.com/pythonywy/p/11563474.html" target="_blank" rel="noopener">CSS3动画的使用</a></h3><h3 id="css3动画如何解决动画的播放、暂停和重新开始"><a href="#css3动画如何解决动画的播放、暂停和重新开始" class="headerlink" title="css3动画如何解决动画的播放、暂停和重新开始"></a><a href="https://www.cnblogs.com/pythonywy/p/11563382.html" target="_blank" rel="noopener">css3动画如何解决动画的播放、暂停和重新开始</a></h3><h2 id="八-博客园美化"><a href="#八-博客园美化" class="headerlink" title="八.博客园美化"></a>八.博客园美化</h2><h3 id="寻找在博客园相册中图片链接"><a href="#寻找在博客园相册中图片链接" class="headerlink" title="寻找在博客园相册中图片链接"></a><a href="https://www.cnblogs.com/pythonywy/p/10774625.html" target="_blank" rel="noopener">寻找在博客园相册中图片链接</a></h3><h3 id="js写个小时钟"><a href="#js写个小时钟" class="headerlink" title="js写个小时钟"></a><a href="https://www.cnblogs.com/pythonywy/p/11543962.html" target="_blank" rel="noopener">js写个小时钟</a></h3><h3 id="博客园美化夜间模式"><a href="#博客园美化夜间模式" class="headerlink" title="博客园美化夜间模式"></a><a href="https://www.cnblogs.com/pythonywy/p/11544485.html" target="_blank" rel="noopener">博客园美化夜间模式</a></h3><h3 id="博客园美化首页随笔展示美化"><a href="#博客园美化首页随笔展示美化" class="headerlink" title="博客园美化首页随笔展示美化"></a><a href="https://www.cnblogs.com/pythonywy/p/11369888.html" target="_blank" rel="noopener">博客园美化首页随笔展示美化</a></h3><h3 id="博客园美化首页随笔同时一天发布内容分开分开版块展示"><a href="#博客园美化首页随笔同时一天发布内容分开分开版块展示" class="headerlink" title="博客园美化首页随笔同时一天发布内容分开分开版块展示"></a><a href="https://www.cnblogs.com/pythonywy/p/11374654.html" target="_blank" rel="noopener">博客园美化首页随笔同时一天发布内容分开分开版块展示</a></h3><h3 id="博客园美化小火箭"><a href="#博客园美化小火箭" class="headerlink" title="博客园美化小火箭"></a><a href="https://www.cnblogs.com/pythonywy/p/11437066.html" target="_blank" rel="noopener">博客园美化小火箭</a></h3><h3 id="博客园美化阅读模式"><a href="#博客园美化阅读模式" class="headerlink" title="博客园美化阅读模式"></a><a href="https://www.cnblogs.com/pythonywy/p/11615889.html" target="_blank" rel="noopener">博客园美化阅读模式</a></h3><h3 id="博客园美化博客随笔目录"><a href="#博客园美化博客随笔目录" class="headerlink" title="博客园美化博客随笔目录"></a><a href="https://www.cnblogs.com/pythonywy/p/11572044.html" target="_blank" rel="noopener">博客园美化博客随笔目录</a></h3><h2 id="九-QQ"><a href="#九-QQ" class="headerlink" title="九.QQ"></a>九.QQ</h2><h3 id="页面QQ临时对话的实现"><a href="#页面QQ临时对话的实现" class="headerlink" title="页面QQ临时对话的实现"></a><a href="https://www.cnblogs.com/pythonywy/p/11633676.html" target="_blank" rel="noopener">页面QQ临时对话的实现</a></h3>
       
     </div>
 
@@ -943,7 +939,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">130</span>
+          <span class="site-state-item-count">128</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

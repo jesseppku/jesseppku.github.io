@@ -153,265 +153,6 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://sir0.net/%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA%E8%BF%87%E7%A8%8B%E4%B8%AD%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="sir0.net">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="吴梦梦、刘玥和SL炮叔">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA%E8%BF%87%E7%A8%8B%E4%B8%AD%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86/" class="post-title-link" itemprop="url">个人博客搭建过程中异常处理</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-03-07 23:01:31" itemprop="dateCreated datePublished" datetime="2020-03-07T23:01:31+08:00">2020-03-07</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-03-06 11:40:03" itemprop="dateModified" datetime="2020-03-06T11:40:03+08:00">2020-03-06</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="个人博客搭建过程中异常处理"><a href="#个人博客搭建过程中异常处理" class="headerlink" title="个人博客搭建过程中异常处理"></a>个人博客搭建过程中异常处理</h2><h3 id="错误分析"><a href="#错误分析" class="headerlink" title="错误分析"></a>错误分析</h3><p>如果你使用Hexo遇到同样的问题,这里有一些常见问题的解决方案。</p>
-<h4 id="YAML-Parsing-Error"><a href="#YAML-Parsing-Error" class="headerlink" title="YAML Parsing Error"></a>YAML Parsing Error</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">JS-YAML: incomplete explicit mapping pair; a key node is missed at line 18, column 29:      last_updated: Last updated: %s</span><br></pre></td></tr></table></figure>
-<ol>
-- 参数中包含冒号，请用加引号，如`Last updated: %s`
-</ol>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">JS-YAML: bad indentation of a mapping entry at line 18, column 31:      last_updated：&quot;Last updated: %s&quot;</span><br></pre></td></tr></table></figure>
-<ol>
-- 字段后面的冒号必须为**英文冒号**，如：last_updated:
-- 字段冒号后面必须跟一个空格，如：last_updated: “Last updated: %s”
-</ol>
-#### EMFILE Error
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Error: EMFILE, too many open files</span><br></pre></td></tr></table></figure>
-生成大量的文件时，可能遇到EMFILE错误。
-可以运行以下命令来增加允许同步I / O操作的数量。
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ ulimit -n 10000</span><br></pre></td></tr></table></figure>
-#### Process Out of Memory
-当`hexo g`时，遇到以下错误：
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">FATAL ERROR: CALL_AND_RETRY_LAST Allocation failed - process out of memory</span><br></pre></td></tr></table></figure>
-如下，更改`hexo-cli`文件的第一行，来增大nodejs堆内存.该bug已在<a href="https://github.com/hexojs/hexo/issues/1735" target="_blank" rel="noopener">新版本</a>修复。
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">#!&#x2F;usr&#x2F;bin&#x2F;env node --max_old_space_size&#x3D;8192</span><br></pre></td></tr></table></figure>
-#### Git Deployment Problems
-<ol>
-- RPC failed
-</ol>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">error: RPC failed; result&#x3D;22, HTTP code &#x3D; 403fatal: &#39;username.github.io&#39; does not appear to be a git repository</span><br></pre></td></tr></table></figure>
-确保你有你的电脑上设置git正确或尝试使用HTTPS存储库URL。
-<ol>
-- Error: ENOENT: no such file or directory
-</ol>
-这个需要有一定的git的知识，因为可能是由于写错了标签,类别,或文件名，导致本地和github冲突了，Git不能自动合并这一变化所以它打破了自动分支。
-解决办法：
-<ol>
-- 检查文章的标签和类别,确保本地和github上是相同的。
-- 合并分支（Commit）。
-- 清除，重构。在站点目录下，命令行（即Git Bash）运行`hexo clean`和`hexo g`
-- 手动将站点目录下的`public`文件夹复制到您的桌面
-- 从你的master分支切换到部署在本地分支。
-- 从桌面复制`public`文件夹到本地分支。
-- 合并分支到github（Commit）。
-- 切回master分支。
-</ol>
-#### Server Problems
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Error: listen EADDRINUSE</span><br></pre></td></tr></table></figure>
-你可能使用相同的端口，同时开启了两个Hexo服务器。如果需要同时开启，可以尝试修改端口设置：
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server -p 5000</span><br></pre></td></tr></table></figure>
-#### Plugin Installation Problems
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm ERR! node-waf configure build</span><br></pre></td></tr></table></figure>
-这个错误可能发生在试图安装一个用Cc++或另一个javascript语言编写的插件。确保您已经安装了正确的编译器在您的计算机上。
-#### Error with DTrace (Mac OS X)
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123; [Error: Cannot find module &#39;.&#x2F;build&#x2F;Release&#x2F;DTraceProviderBindings&#39;] code: &#39;MODULE_NOT_FOUND&#39; &#125;&#123; [Error: Cannot find module &#39;.&#x2F;build&#x2F;default&#x2F;DTraceProviderBindings&#39;] code: &#39;MODULE_NOT_FOUND&#39; &#125;&#123; [Error: Cannot find module &#39;.&#x2F;build&#x2F;Debug&#x2F;DTraceProviderBindings&#39;] code: &#39;MODULE_NOT_FOUND&#39; &#125;</span><br></pre></td></tr></table></figure>
-DTrace安装可能有问题，重装:
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm install hexo --no-optional</span><br></pre></td></tr></table></figure>
-详见 <a href="https://github.com/hexojs/hexo/issues/1326#issuecomment-113871796" target="_blank" rel="noopener">#1326</a>
-#### Iterate Data Model on Jade or Swig
-Hexo使用仓库的数据模型。这不是一个数组,所以你可能需要将对象转换为iterable。
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;% for post in site.posts.toArray() %&#125;&#123;% endfor %&#125;</span><br></pre></td></tr></table></figure>
-#### Data Not Updated
-一些数据不能更新或新生成的文件的最后一个版本完全相同。清理缓存，再试一次：
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo clean</span><br></pre></td></tr></table></figure>
-#### No command is executed
-那个不能使用除`help`、`init`和`version`以外的命令行（即Git Bash）时, 有可能时站点目录下的`package.json`文件，缺少`hexo` ，如下:
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;  &quot;hexo&quot;: &#123;    &quot;version&quot;: &quot;3.2.2&quot;  &#125;&#125;</span><br></pre></td></tr></table></figure>
-#### Escape Contents
-Hexo使用Nunjucks渲染的页面. `{ { } }`或`{ % % }`将解析和可能会引起麻烦， 如果要在博文中出现，必须使用三引号：
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-Hello 
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">​&#96;&#96;&#96;#### ENOSPC Error (Linux)如果运行命令&#96;$ hexo server&#96; 返回一个错误:</span><br></pre></td></tr></table></figure>
-Error: watch ENOSPC …
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">可以通过运行&#96;$ npm dedupe&#96;或者以下命令行（即Git Bash）：</span><br></pre></td></tr></table></figure>
-$ echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf &amp;&amp; sudo sysctl -p
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">来增加测试时，你可以看见的文件数量。#### EMPERM Error (Windows Subsystem for Linux)如果在Windows Subsystem for Linux，运行命令&#96;$ hexo server&#96; 返回这个错误:</span><br></pre></td></tr></table></figure>
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://sir0.net/%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA%E7%BA%BF%E4%B8%8A%E5%AE%9E%E6%96%BD%E6%96%B9%E6%A1%88/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="sir0.net">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="吴梦梦、刘玥和SL炮叔">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA%E7%BA%BF%E4%B8%8A%E5%AE%9E%E6%96%BD%E6%96%B9%E6%A1%88/" class="post-title-link" itemprop="url">个人博客搭建线上实施方案</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-03-07 23:01:31" itemprop="dateCreated datePublished" datetime="2020-03-07T23:01:31+08:00">2020-03-07</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-03-06 11:38:32" itemprop="dateModified" datetime="2020-03-06T11:38:32+08:00">2020-03-06</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="个人博客搭建线上实施方案"><a href="#个人博客搭建线上实施方案" class="headerlink" title="个人博客搭建线上实施方案"></a>个人博客搭建线上实施方案</h2><p><code>在hexo本地实施没有问题的基础上</code></p>
-<h4 id="实施方案"><a href="#实施方案" class="headerlink" title="实施方案"></a>实施方案</h4><h5 id="方案一：GithubPages"><a href="#方案一：GithubPages" class="headerlink" title="方案一：GithubPages"></a>方案一：GithubPages</h5><ol>
-- 创建<a href="https://github.com/" target="_blank" rel="noopener">Github</a>账号
-- 创建仓库， 仓库名为：<Github账号名称>.github.io
-- 将本地Hexo博客推送到GithubPages
-3.1. 安装`hexo-deployer-git`插件。在命令行（即Git Bash）运行以下命令即可：
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm install hexo-deployer-git --save</span><br></pre></td></tr></table></figure>
-3.2. 添加SSH key。
-
-<ul>
-<li>创建一个 SSH key 。在命令行（即Git Bash）输入以下命令， 回车三下即可：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ ssh-keygen -t rsa -C &quot;邮箱地址&quot;</span><br></pre></td></tr></table></figure></li>
-<li>添加到 github。 复制密钥文件内容（路径形如<code>C:\Users\Administrator\.ssh\id_rsa.pub</code>），粘贴到<a href="https://github.com/settings/keys" target="_blank" rel="noopener">New SSH Key</a>即可。</li>
-<li>测试是否添加成功。在命令行（即Git Bash）依次输入以下命令，返回“You’ve successfully authenticated”即成功：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ ssh -T git@github.com$ yes</span><br></pre></td></tr></table></figure>
-
-</li>
-</ul>
-<p>3.3. 修改<code>_config.yml</code>（在站点目录下）。文件末尾修改为：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># Deployment## Docs: https:&#x2F;&#x2F;hexo.io&#x2F;docs&#x2F;deployment.htmldeploy:  type: git  repo: git@github.com:&lt;Github账号名称&gt;&#x2F;&lt;Github账号名称&gt;.github.io.git  branch: master</span><br></pre></td></tr></table></figure>
-<p>注意：上面仓库地址写ssh地址，不写http地址。<br>3.4. 推送到GithubPages。在命令行（即Git Bash）依次输入以下命令， 返回<code>INFO Deploy done: git</code>即成功推送：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo g$ hexo d</span><br></pre></td></tr></table></figure>
-<ul>
-<li>等待1分钟左右，浏览器访问网址： <code>https://&lt;Github账号名称&gt;.github.io</code></ol>
-至此，您的Hexo博客已经搭建在GithubPages, 域名为`https://<Github账号名称>.github.io`。
-##### 方案二：GithubPages + 域名
-在方案一的基础上，添加自定义域名（您购买的域名）。
-<ol></li>
-<li>域名解析。<br>类型选择为 CNAME；<br>主机记录即域名前缀，填写为www；<br>记录值填写为&lt;Github账号名称&gt;.github.io；<br>解析线路，TTL 默认即可。</li>
-<li>仓库设置。</li>
-</ul>
-<p>2.1. 打开博客仓库设置：<code>https://github.com/&lt;Github账号名称&gt;/&lt;Github账号名称&gt;.github.io/settings</code><br>2.2. 在Custom domain下，填写自定义域名，点击<code>save</code>。<br>2.3. 在站点目录的<code>source</code>文件夹下，创建并打开<code>CNAME.txt</code>，写入你的域名（如<code>www.simon96.online</code>），保存，并重命名为<code>CNAME</code>。</p>
-<ul>
-<li>等待10分钟左右。<br>浏览器访问自定义域名。<br>至此，您的Hexo博客已经解析到自定义域名，<code>https://&lt;Github账号名称&gt;.github.io</code>依然可用。</ol>
-##### 方案三：GithubPages + CodingPages + 域名
-GithubPages 在国内较慢，百度不收录，而CodingPages 在国外较快。所以在方案二的基础上，添加CodingPages 。
-<ol></li>
-<li>创建<a href="https://coding.net/" target="_blank" rel="noopener">Coding</a>账号</li>
-<li>创建仓库， 仓库名为：&lt;Coding账号名称&gt;</li>
-<li>进入项目里『代码』页面，点击『一键开启静态 Pages』，稍等片刻CodingPages即可部署成功。</li>
-<li>将本地Hexo博客推送到CodingPages</li>
-</ul>
-<p>4.1. 鉴于创建GithubPages 时，已经生成过公钥。可直接复制密钥文件内容（路径形如<code>C:\Users\Administrator\.ssh\id_rsa.pub</code>）， 粘贴到<a href="https://dev.tencent.com/user/account/setting/keys" target="_blank" rel="noopener">新增公钥</a>。<br>4.2. 测试是否添加成功。在命令行（即Git Bash）依次输入以下命令，返回“You’ve successfully authenticated”即成功：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ ssh -T git@git.coding.net$ yes</span><br></pre></td></tr></table></figure>
-<p>4.3. 修改<code>_config.yml</code>（在存放Hexo初始化文件的路径下）。文件末尾修改为：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># Deployment## Docs: https:&#x2F;&#x2F;hexo.io&#x2F;docs&#x2F;deployment.htmldeploy:- type: git  repo: git@github.com:&lt;Github账号名称&gt;&#x2F;&lt;Github账号名称&gt;.github.io.git  branch: master- type: git  repo: git@git.dev.tencent.com:&lt;Coding账号名称&gt;&#x2F;&lt;Coding账号名称&gt;.git  branch: master</span><br></pre></td></tr></table></figure>
-<p>4.4. 推送到GithubPages。在命令行（即Git Bash）依次输入以下命令， 返回<code>INFO Deploy done: git</code>即成功推送：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo g$ hexo d</span><br></pre></td></tr></table></figure>
-<ul>
-<li>域名解析<ol></li>
-<li>添加 CNAME 记录指向 &lt;Coding账号名称&gt;.coding.me<br>类型选择为 CNAME；<br>主机记录即域名前缀，填写为www；<br>记录值填写为&lt;Github账号名称&gt;.coding.me；<br>解析线路，TTL 默认即可。</li>
-<li>添加 两条A 记录指向 192.30.252.153和192.30.252.154<br>类型选择为 A；<br>主机记录即域名前缀，填写为@；<br>记录值填写为192.30.252.153和192.30.252.154；<br>解析线路，境外或谷歌。</li>
-<li>在『Pages 服务』设置页（<code>https://dev.tencent.com/u/&lt;Coding账号名称&gt;/p/&lt;Coding账号名称&gt;/git/pages/settings</code>）中绑定自定义域名。</ol>
-</ol>
-至此，您的Hexo博客已经解析到自定义域名，`https://<Github账号名称>.github.io`和`https://<Coding账号名称>.coding.me`依然可用。
-##### 方案四:码云上部署
-和 git类似
-root,url中需要手动设置仓库路径
-如
-url: http://pythonywy.gitee.io/my-blog<br />
-root: /my-blog/
-已经主题设置里面的所有样式链接如果加载不出来开头加上/仓库名称/</li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://sir0.net/%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%E4%B8%BB%E9%A2%98%E7%BE%8E%E5%8C%96/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1021,84 +762,6 @@ hexo-generator-sitemap<br />
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://sir0.net/%E5%85%B3%E4%BA%8Escrapy%E4%B8%ADscrapy.Request%E4%B8%AD%E7%9A%84%E5%B1%9E%E6%80%A7/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="sir0.net">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="吴梦梦、刘玥和SL炮叔">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/%E5%85%B3%E4%BA%8Escrapy%E4%B8%ADscrapy.Request%E4%B8%AD%E7%9A%84%E5%B1%9E%E6%80%A7/" class="post-title-link" itemprop="url">关于scrapy中scrapy.Request中的属性</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-03-07 23:01:31" itemprop="dateCreated datePublished" datetime="2020-03-07T23:01:31+08:00">2020-03-07</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-03-06 11:39:39" itemprop="dateModified" datetime="2020-03-06T11:39:39+08:00">2020-03-06</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="一-源码"><a href="#一-源码" class="headerlink" title="一.源码"></a>一.源码</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, url, callback=None, method=<span class="string">'GET'</span>, headers=None, body=None,</span></span></span><br><span class="line"><span class="function"><span class="params">             cookies=None, meta=None, encoding=<span class="string">'utf-8'</span>, priority=<span class="number">0</span>,</span></span></span><br><span class="line"><span class="function"><span class="params">             dont_filter=False, errback=None, flags=None)</span>:</span></span><br></pre></td></tr></table></figure>
-<h2 id="一-url-必须"><a href="#一-url-必须" class="headerlink" title="一.url(必须)"></a>一.url(必须)</h2><p><code>填写的参数</code>:请求的地址<br><code>数据类型</code>:str</p>
-<h2 id="二-callback"><a href="#二-callback" class="headerlink" title="二.callback"></a>二.callback</h2><p><code>填写的参数</code>:响应返回的回调函数(必须是类当中或者父类当中的方法),默认为<code>parse</code>方法<br><code>数据类型</code>:str</p>
-<h2 id="三-method"><a href="#三-method" class="headerlink" title="三.method"></a>三.method</h2><p><code>填写的参数</code>:请求的方式<br><code>数据类型</code>:str</p>
-<h2 id="四-headers"><a href="#四-headers" class="headerlink" title="四.headers"></a>四.headers</h2><p><code>填写的参数</code>:请求头<br><code>数据类型</code>:dict</p>
-<h2 id="五-meta"><a href="#五-meta" class="headerlink" title="五.meta"></a>五.meta</h2><p><code>填写的参数</code>:我是这样理解的理解成传输时候一个类似容器的东西<br><code>数据类型</code>:dict<br><code>取</code>response.meta[‘key’]可以获得设置的value</p>
-<h2 id="六-dont-filter"><a href="#六-dont-filter" class="headerlink" title="六.dont_filter"></a>六.dont_filter</h2><p><code>填写的参数</code>:表明该请求不由调度器过滤。这是当你想使用多次执行相同的请求,忽略重复的过滤器。默认为False.<br><code>数据类型</code>:bool</p>
-<h2 id="七-encoding"><a href="#七-encoding" class="headerlink" title="七.encoding"></a>七.encoding</h2><p><code>填写的参数</code>:编码格式<br><code>数据类型</code>:str</p>
-<h2 id="八-errback"><a href="#八-errback" class="headerlink" title="八.errback"></a>八.errback</h2><p><code>填写的参数</code>:响应返回的错误的回调函数(必须是类当中或者父类当中的方法)默认返回’dealerr’方法<br><code>数据类型</code>:dict</p>
-<h2 id="九-body补充点post参数提交"><a href="#九-body补充点post参数提交" class="headerlink" title="九.body补充点post参数提交"></a>九.body补充点post参数提交</h2><p>方法一.</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">scrapy.FormRequest(url=url,formdata=formdata)</span><br><span class="line"><span class="comment">#这里的formdata是dict格式的，里面不能存在数字，如果有数字用引号括起来；</span></span><br></pre></td></tr></table></figure>
-<p>方法二.</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">scrapy.Request(url=url,method=<span class="string">"POST"</span>,body=formdata)</span><br><span class="line"><span class="comment">#这里的formdata必须得是字符串，如果是表单格式，那么需要用json.dumps()转为字符串格式；</span></span><br></pre></td></tr></table></figure>
-<h2 id="十-priority和flags-我没怎么用资料都是网上的"><a href="#十-priority和flags-我没怎么用资料都是网上的" class="headerlink" title="十.priority和flags(我没怎么用资料都是网上的)"></a>十.priority和flags(我没怎么用资料都是网上的)</h2><p>priority是优先级,(默认为0,越大优先级越大),实际应用中我没用过.<br>flags网上说指针,我没怎么用,也没深究,如果有知道的人欢迎补充</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://sir0.net/%E5%85%B3%E4%BA%8Ehover%E4%B8%8Eafter,before%E5%B7%B2%E5%8F%8Afirst-letter,first-line%E7%9A%84%E8%81%94%E7%94%A8/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1165,6 +828,84 @@ hexo-generator-sitemap<br />
 </tbody>
 </table>
 同理:first-letter与:first-line联用写法一直不过他只修改样式,而`不能`对元素中内容`进行新增内容`已及`新增内容样式的修改`
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://sir0.net/%E5%85%B3%E4%BA%8Escrapy%E4%B8%ADscrapy.Request%E4%B8%AD%E7%9A%84%E5%B1%9E%E6%80%A7/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="sir0.net">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="吴梦梦、刘玥和SL炮叔">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/%E5%85%B3%E4%BA%8Escrapy%E4%B8%ADscrapy.Request%E4%B8%AD%E7%9A%84%E5%B1%9E%E6%80%A7/" class="post-title-link" itemprop="url">关于scrapy中scrapy.Request中的属性</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-03-07 23:01:31" itemprop="dateCreated datePublished" datetime="2020-03-07T23:01:31+08:00">2020-03-07</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-03-06 11:39:39" itemprop="dateModified" datetime="2020-03-06T11:39:39+08:00">2020-03-06</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="一-源码"><a href="#一-源码" class="headerlink" title="一.源码"></a>一.源码</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, url, callback=None, method=<span class="string">'GET'</span>, headers=None, body=None,</span></span></span><br><span class="line"><span class="function"><span class="params">             cookies=None, meta=None, encoding=<span class="string">'utf-8'</span>, priority=<span class="number">0</span>,</span></span></span><br><span class="line"><span class="function"><span class="params">             dont_filter=False, errback=None, flags=None)</span>:</span></span><br></pre></td></tr></table></figure>
+<h2 id="一-url-必须"><a href="#一-url-必须" class="headerlink" title="一.url(必须)"></a>一.url(必须)</h2><p><code>填写的参数</code>:请求的地址<br><code>数据类型</code>:str</p>
+<h2 id="二-callback"><a href="#二-callback" class="headerlink" title="二.callback"></a>二.callback</h2><p><code>填写的参数</code>:响应返回的回调函数(必须是类当中或者父类当中的方法),默认为<code>parse</code>方法<br><code>数据类型</code>:str</p>
+<h2 id="三-method"><a href="#三-method" class="headerlink" title="三.method"></a>三.method</h2><p><code>填写的参数</code>:请求的方式<br><code>数据类型</code>:str</p>
+<h2 id="四-headers"><a href="#四-headers" class="headerlink" title="四.headers"></a>四.headers</h2><p><code>填写的参数</code>:请求头<br><code>数据类型</code>:dict</p>
+<h2 id="五-meta"><a href="#五-meta" class="headerlink" title="五.meta"></a>五.meta</h2><p><code>填写的参数</code>:我是这样理解的理解成传输时候一个类似容器的东西<br><code>数据类型</code>:dict<br><code>取</code>response.meta[‘key’]可以获得设置的value</p>
+<h2 id="六-dont-filter"><a href="#六-dont-filter" class="headerlink" title="六.dont_filter"></a>六.dont_filter</h2><p><code>填写的参数</code>:表明该请求不由调度器过滤。这是当你想使用多次执行相同的请求,忽略重复的过滤器。默认为False.<br><code>数据类型</code>:bool</p>
+<h2 id="七-encoding"><a href="#七-encoding" class="headerlink" title="七.encoding"></a>七.encoding</h2><p><code>填写的参数</code>:编码格式<br><code>数据类型</code>:str</p>
+<h2 id="八-errback"><a href="#八-errback" class="headerlink" title="八.errback"></a>八.errback</h2><p><code>填写的参数</code>:响应返回的错误的回调函数(必须是类当中或者父类当中的方法)默认返回’dealerr’方法<br><code>数据类型</code>:dict</p>
+<h2 id="九-body补充点post参数提交"><a href="#九-body补充点post参数提交" class="headerlink" title="九.body补充点post参数提交"></a>九.body补充点post参数提交</h2><p>方法一.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">scrapy.FormRequest(url=url,formdata=formdata)</span><br><span class="line"><span class="comment">#这里的formdata是dict格式的，里面不能存在数字，如果有数字用引号括起来；</span></span><br></pre></td></tr></table></figure>
+<p>方法二.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">scrapy.Request(url=url,method=<span class="string">"POST"</span>,body=formdata)</span><br><span class="line"><span class="comment">#这里的formdata必须得是字符串，如果是表单格式，那么需要用json.dumps()转为字符串格式；</span></span><br></pre></td></tr></table></figure>
+<h2 id="十-priority和flags-我没怎么用资料都是网上的"><a href="#十-priority和flags-我没怎么用资料都是网上的" class="headerlink" title="十.priority和flags(我没怎么用资料都是网上的)"></a>十.priority和flags(我没怎么用资料都是网上的)</h2><p>priority是优先级,(默认为0,越大优先级越大),实际应用中我没用过.<br>flags网上说指针,我没怎么用,也没深究,如果有知道的人欢迎补充</p>
+
       
     </div>
 
@@ -1413,6 +1154,148 @@ hexo-generator-sitemap<br />
   
   
 
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://sir0.net/%E5%9B%BD%E5%BA%86%E7%BB%AD%E5%86%99%E5%95%86%E5%93%81%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F(%E4%BA%8C)/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="sir0.net">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="吴梦梦、刘玥和SL炮叔">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/%E5%9B%BD%E5%BA%86%E7%BB%AD%E5%86%99%E5%95%86%E5%93%81%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F(%E4%BA%8C)/" class="post-title-link" itemprop="url">国庆续写商品管理系统(二)</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-03-07 23:01:31" itemprop="dateCreated datePublished" datetime="2020-03-07T23:01:31+08:00">2020-03-07</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-03-06 11:38:47" itemprop="dateModified" datetime="2020-03-06T11:38:47+08:00">2020-03-06</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p><code>国庆有点懒散更新的内容不多,大家国庆快乐</code></p>
+<h2 id="一-做的事情"><a href="#一-做的事情" class="headerlink" title="一.做的事情"></a>一.做的事情</h2><p><a href="https://www.cnblogs.com/pythonywy/p/11483157.html#4349683" target="_blank" rel="noopener">上次写到点我查看</a></p>
+<ul>
+<li>设置中国时区</li>
+<li>修改表单存储位置</li>
+<li>设计商品相关的表,主要是总库存,退货,进货,销售</li>
+<li>优化登入验证码,去除<code>1iO0</code>这些让人难以区分的内容</li>
+<li>重新设计文件目录</li>
+</ul>
+<h2 id="二-配置相关"><a href="#二-配置相关" class="headerlink" title="二.配置相关"></a>二.配置相关</h2><p><code>setting.py</code></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">Django settings for drf_test project.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">Generated by 'django-admin startproject' using Django 1.11.22.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">For more information on this file, see</span></span><br><span class="line"><span class="string">https://docs.djangoproject.com/en/1.11/topics/settings/</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">For the full list of settings and their values, see</span></span><br><span class="line"><span class="string">https://docs.djangoproject.com/en/1.11/ref/settings/</span></span><br><span class="line"><span class="string">"""</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="comment"># Build paths inside the project like this: os.path.join(BASE_DIR, ...)</span></span><br><span class="line">BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># Quick-start development settings - unsuitable for production</span></span><br><span class="line"><span class="comment"># See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># SECURITY WARNING: keep the secret key used in production secret!</span></span><br><span class="line">SECRET_KEY = <span class="string">'ppa5l3jvxr4k^ow*4o+0_^7@&amp;amp;sa3x+!hb_$artwraa%60iq@g7'</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># SECURITY WARNING: don't run with debug turned on in production!</span></span><br><span class="line">DEBUG = <span class="literal">True</span></span><br><span class="line"></span><br><span class="line">ALLOWED_HOSTS = []</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># Application definition</span></span><br><span class="line"></span><br><span class="line">INSTALLED_APPS = [</span><br><span class="line">    <span class="string">'django.contrib.admin'</span>,</span><br><span class="line">    <span class="string">'django.contrib.auth'</span>,</span><br><span class="line">    <span class="string">'django.contrib.contenttypes'</span>,</span><br><span class="line">    <span class="string">'django.contrib.sessions'</span>,</span><br><span class="line">    <span class="string">'django.contrib.messages'</span>,</span><br><span class="line">    <span class="string">'django.contrib.staticfiles'</span>,</span><br><span class="line">    <span class="string">'drf_api'</span>,</span><br><span class="line">]</span><br><span class="line"></span><br><span class="line">MIDDLEWARE = [</span><br><span class="line">    <span class="string">'django.middleware.security.SecurityMiddleware'</span>,</span><br><span class="line">    <span class="string">'django.contrib.sessions.middleware.SessionMiddleware'</span>,</span><br><span class="line">    <span class="string">'django.middleware.common.CommonMiddleware'</span>,</span><br><span class="line">    <span class="comment"># 'django.middleware.csrf.CsrfViewMiddleware',</span></span><br><span class="line">    <span class="string">'django.contrib.auth.middleware.AuthenticationMiddleware'</span>,</span><br><span class="line">    <span class="string">'django.contrib.messages.middleware.MessageMiddleware'</span>,</span><br><span class="line">    <span class="string">'django.middleware.clickjacking.XFrameOptionsMiddleware'</span>,</span><br><span class="line">]</span><br><span class="line"></span><br><span class="line">ROOT_URLCONF = <span class="string">'drf_test.urls'</span></span><br><span class="line"></span><br><span class="line">TEMPLATES = [</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="string">'BACKEND'</span>: <span class="string">'django.template.backends.django.DjangoTemplates'</span>,</span><br><span class="line">        <span class="string">'DIRS'</span>: [os.path.join(BASE_DIR, <span class="string">'templates'</span>)]</span><br><span class="line">        ,</span><br><span class="line">        <span class="string">'APP_DIRS'</span>: <span class="literal">True</span>,</span><br><span class="line">        <span class="string">'OPTIONS'</span>: &#123;</span><br><span class="line">            <span class="string">'context_processors'</span>: [</span><br><span class="line">                <span class="string">'django.template.context_processors.debug'</span>,</span><br><span class="line">                <span class="string">'django.template.context_processors.request'</span>,</span><br><span class="line">                <span class="string">'django.contrib.auth.context_processors.auth'</span>,</span><br><span class="line">                <span class="string">'django.contrib.messages.context_processors.messages'</span>,</span><br><span class="line">            ],</span><br><span class="line">        &#125;,</span><br><span class="line">    &#125;,</span><br><span class="line">]</span><br><span class="line"></span><br><span class="line">WSGI_APPLICATION = <span class="string">'drf_test.wsgi.application'</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># Database</span></span><br><span class="line"><span class="comment"># https://docs.djangoproject.com/en/1.11/ref/settings/#databases</span></span><br><span class="line"></span><br><span class="line">DATABASES = &#123;</span><br><span class="line">    <span class="string">'default'</span>: &#123;</span><br><span class="line">        <span class="string">'ENGINE'</span>: <span class="string">'django.db.backends.mysql'</span>,   <span class="comment"># 数据库引擎</span></span><br><span class="line">        <span class="string">'NAME'</span>: <span class="string">'mib'</span>,         <span class="comment"># 你要存储数据的库名，事先要创建之</span></span><br><span class="line">        <span class="string">'USER'</span>: <span class="string">'root'</span>,         <span class="comment"># 数据库用户名</span></span><br><span class="line">        <span class="string">'PASSWORD'</span>: <span class="string">'16745'</span>,     <span class="comment"># 密码</span></span><br><span class="line">        <span class="string">'HOST'</span>: <span class="string">'localhost'</span>,    <span class="comment"># IP</span></span><br><span class="line">        <span class="string">'PORT'</span>: <span class="string">'3306'</span>,         <span class="comment"># 数据库使用的端口</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># Password validation</span></span><br><span class="line"><span class="comment"># https://docs.djangoproject.com/en/1.11/ref/settings/#auth-password-validators</span></span><br><span class="line"></span><br><span class="line">AUTH_PASSWORD_VALIDATORS = [</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="string">'NAME'</span>: <span class="string">'django.contrib.auth.password_validation.UserAttributeSimilarityValidator'</span>,</span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="string">'NAME'</span>: <span class="string">'django.contrib.auth.password_validation.MinimumLengthValidator'</span>,</span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="string">'NAME'</span>: <span class="string">'django.contrib.auth.password_validation.CommonPasswordValidator'</span>,</span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="string">'NAME'</span>: <span class="string">'django.contrib.auth.password_validation.NumericPasswordValidator'</span>,</span><br><span class="line">    &#125;,</span><br><span class="line">]</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># Internationalization</span></span><br><span class="line"><span class="comment"># https://docs.djangoproject.com/en/1.11/topics/i18n/</span></span><br><span class="line"></span><br><span class="line">LANGUAGE_CODE = <span class="string">'zh-hans'</span></span><br><span class="line"></span><br><span class="line">TIME_ZONE = <span class="string">'Asia/Shanghai'</span></span><br><span class="line"></span><br><span class="line">USE_I18N = <span class="literal">True</span></span><br><span class="line"></span><br><span class="line">USE_L10N = <span class="literal">True</span></span><br><span class="line"></span><br><span class="line">USE_TZ = <span class="literal">False</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># Static files (CSS, JavaScript, Images)</span></span><br><span class="line"><span class="comment"># https://docs.djangoproject.com/en/1.11/howto/static-files/</span></span><br><span class="line"></span><br><span class="line">STATIC_URL = <span class="string">'/static/'</span></span><br><span class="line">STATICFILES_DIRS=(os.path.join(BASE_DIR,<span class="string">'static'</span>),)</span><br><span class="line">AUTH_USER_MODEL = <span class="string">"drf_api.UserInfo"</span></span><br><span class="line">MEDIA_URL  = <span class="string">"/img/"</span></span><br><span class="line">MEDIA_ROOT = os.path.join(BASE_DIR, <span class="string">"img"</span>)</span><br></pre></td></tr></table></figure>
+<h2 id="三-验证码相关"><a href="#三-验证码相关" class="headerlink" title="三.验证码相关"></a>三.验证码相关</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> django.shortcuts <span class="keyword">import</span> render,HttpResponse,redirect</span><br><span class="line"><span class="keyword">from</span> django.http <span class="keyword">import</span> JsonResponse</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> PIL <span class="keyword">import</span> Image,ImageDraw,ImageFont</span><br><span class="line"><span class="keyword">import</span> random</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> io <span class="keyword">import</span> BytesIO</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> django.contrib <span class="keyword">import</span> auth</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> drf_api.userinfo_form <span class="keyword">import</span> Register</span><br><span class="line"><span class="keyword">from</span> drf_api <span class="keyword">import</span> models</span><br><span class="line"><span class="keyword">from</span> rest_framework.throttling <span class="keyword">import</span> SimpleRateThrottle</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">test</span><span class="params">(request)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> render(request, <span class="string">'aa.html'</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">register</span><span class="params">(request)</span>:</span></span><br><span class="line">    <span class="keyword">if</span> request.method==<span class="string">'GET'</span>:</span><br><span class="line">        form=Register()</span><br><span class="line">        <span class="keyword">return</span> render(request, <span class="string">'register.html'</span>, &#123;<span class="string">'form'</span>:form&#125;)</span><br><span class="line">    <span class="keyword">elif</span> request.is_ajax():</span><br><span class="line">        response=&#123;<span class="string">'code'</span>:<span class="number">100</span>,<span class="string">'msg'</span>:<span class="literal">None</span>&#125;</span><br><span class="line">        form = Register(request.POST)</span><br><span class="line">        <span class="keyword">if</span> form.is_valid():</span><br><span class="line">            <span class="comment">#校验通过的数据</span></span><br><span class="line">            clean_data=form.cleaned_data</span><br><span class="line">            <span class="comment">#把re_pwd剔除</span></span><br><span class="line">            clean_data.pop(<span class="string">'re_pwd'</span>)</span><br><span class="line">            <span class="comment">#取出头像</span></span><br><span class="line">            avatar=request.FILES.get(<span class="string">'avatar'</span>)</span><br><span class="line">            <span class="keyword">if</span> avatar:</span><br><span class="line">                clean_data[<span class="string">'avatar'</span>]=avatar</span><br><span class="line">            user=models.UserInfo.objects.create_user(**clean_data)</span><br><span class="line">            <span class="keyword">if</span> user:</span><br><span class="line">                response[<span class="string">'msg'</span>] = <span class="string">'创建成功'</span></span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                response[<span class="string">'code'</span>] = <span class="number">103</span></span><br><span class="line">                response[<span class="string">'msg'</span>] = <span class="string">'创建失败'</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            response[<span class="string">'code'</span>]=<span class="number">101</span></span><br><span class="line">            <span class="comment">#把校验不通过的数据返回</span></span><br><span class="line">            response[<span class="string">'msg'</span>]=form.errors</span><br><span class="line">            print(type(form.errors))</span><br><span class="line">        <span class="keyword">return</span> JsonResponse(response,safe=<span class="literal">False</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">login</span><span class="params">(request)</span>:</span></span><br><span class="line">    <span class="keyword">if</span> request.method==<span class="string">'GET'</span>:</span><br><span class="line">        <span class="keyword">return</span> render(request, <span class="string">'login.html'</span>)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        print(request.POST)</span><br><span class="line">        user_name=request.POST.get(<span class="string">'name'</span>)</span><br><span class="line">        pwd=request.POST.get(<span class="string">'pwd'</span>)</span><br><span class="line">        code=request.POST.get(<span class="string">'code'</span>)</span><br><span class="line"></span><br><span class="line">        user=auth.authenticate(username=user_name,password=pwd)</span><br><span class="line">        print(user)</span><br><span class="line">        <span class="keyword">if</span> request.session.get(<span class="string">'code'</span>).upper() !=code.upper(): <span class="comment">#忽略大小写</span></span><br><span class="line">            <span class="keyword">return</span> HttpResponse(<span class="string">'验证码错误'</span>)</span><br><span class="line">        <span class="keyword">elif</span> <span class="keyword">not</span> user:</span><br><span class="line">            <span class="keyword">return</span> HttpResponse(<span class="string">'账号密码错误'</span>)</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            auth.login(request,user)</span><br><span class="line">            <span class="keyword">return</span> HttpResponse(<span class="string">'登入成功'</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_code</span><span class="params">(request)</span>:</span></span><br><span class="line">    <span class="keyword">if</span> request.method == <span class="string">'GET'</span>:</span><br><span class="line">        img = Image.new(<span class="string">'RGB'</span>, (<span class="number">350</span>, <span class="number">40</span>), (random.randint(<span class="number">0</span>, <span class="number">255</span>), random.randint(<span class="number">0</span>, <span class="number">255</span>), random.randint(<span class="number">0</span>, <span class="number">255</span>)))</span><br><span class="line">        <span class="comment"># 写文字</span></span><br><span class="line">        <span class="comment"># 生成一个字体对象</span></span><br><span class="line">        font = ImageFont.truetype(<span class="string">'/static/Gabriola.ttf'</span>, <span class="number">34</span>)</span><br><span class="line">        <span class="comment"># 调用方法，返回一个画板对象</span></span><br><span class="line">        draw = ImageDraw.Draw(img)</span><br><span class="line"></span><br><span class="line">        new_text =<span class="string">''</span></span><br><span class="line">        x = <span class="number">100</span></span><br><span class="line">        <span class="comment"># 生成随机8位数字</span></span><br><span class="line">        text_chiose = <span class="string">'zxcvbnmasdfghjklqwertyup23456789ZXCVBNMASDFGHJKLQWERTYUP'</span></span><br><span class="line">        text_list=random.sample(text_chiose,<span class="number">8</span>)</span><br><span class="line">        <span class="keyword">for</span> text <span class="keyword">in</span> text_list:</span><br><span class="line">            x+=<span class="number">20</span></span><br><span class="line">            y = random.randint(<span class="number">1</span>,<span class="number">5</span>)</span><br><span class="line">            draw.text((x, y), text, (random.randint(<span class="number">0</span>, <span class="number">255</span>), random.randint(<span class="number">0</span>, <span class="number">255</span>), random.randint(<span class="number">0</span>, <span class="number">255</span>)),</span><br><span class="line">                      font=font)</span><br><span class="line">            new_text +=text</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        <span class="comment"># 加点线</span></span><br><span class="line">        width = <span class="number">320</span></span><br><span class="line">        height = <span class="number">35</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">2</span>):</span><br><span class="line">            x1 = random.randint(<span class="number">0</span>, width)</span><br><span class="line">            x2 = random.randint(<span class="number">0</span>, width)</span><br><span class="line">            y1 = random.randint(<span class="number">0</span>, height)</span><br><span class="line">            y2 = random.randint(<span class="number">0</span>, height)</span><br><span class="line">            <span class="comment"># 在图片上画线</span></span><br><span class="line">            draw.line((x1, y1, x2, y2), fill=(random.randint(<span class="number">0</span>, <span class="number">255</span>), random.randint(<span class="number">0</span>, <span class="number">255</span>), random.randint(<span class="number">0</span>, <span class="number">255</span>)))</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">10</span>):</span><br><span class="line">            <span class="comment"># 画点</span></span><br><span class="line">            draw.point([random.randint(<span class="number">0</span>, width), random.randint(<span class="number">0</span>, height)], fill=(random.randint(<span class="number">0</span>, <span class="number">255</span>), random.randint(<span class="number">0</span>, <span class="number">255</span>), random.randint(<span class="number">0</span>, <span class="number">255</span>)))</span><br><span class="line">            x = random.randint(<span class="number">0</span>, width)</span><br><span class="line">            y = random.randint(<span class="number">0</span>, height)</span><br><span class="line">            <span class="comment"># 画弧形</span></span><br><span class="line">            draw.arc((x, y, x + <span class="number">4</span>, y + <span class="number">4</span>), <span class="number">0</span>, <span class="number">90</span>, fill=(random.randint(<span class="number">0</span>, <span class="number">255</span>), random.randint(<span class="number">0</span>, <span class="number">255</span>), random.randint(<span class="number">0</span>, <span class="number">255</span>)))</span><br><span class="line">        print(new_text)</span><br><span class="line">        <span class="comment">#存在session中</span></span><br><span class="line">        request.session[<span class="string">'code'</span>]=new_text</span><br><span class="line">        <span class="comment">#存内存</span></span><br><span class="line">        f = BytesIO()</span><br><span class="line">        img.save(f, <span class="string">'png'</span>)</span><br><span class="line">        <span class="keyword">return</span> HttpResponse(f.getvalue())</span><br></pre></td></tr></table></figure>
+<h2 id="四-模型相关"><a href="#四-模型相关" class="headerlink" title="四.模型相关"></a>四.模型相关</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> django.db <span class="keyword">import</span> models</span><br><span class="line"><span class="keyword">from</span> django.contrib.auth.models <span class="keyword">import</span> AbstractUser</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> rest_framework <span class="keyword">import</span> mixins</span><br><span class="line"><span class="comment"># Create your models here.</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">UserInfo</span><span class="params">(AbstractUser)</span>:</span></span><br><span class="line">    avatar = models.FileField(upload_to=<span class="string">'avatar/'</span>, default=<span class="string">'avatar/default.png'</span>)</span><br><span class="line">    <span class="class"><span class="keyword">class</span> <span class="title">Meta</span>:</span></span><br><span class="line">        verbose_name=<span class="string">'用户表'</span></span><br><span class="line">        verbose_name_plural = verbose_name</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span>  <span class="title">Commodity</span><span class="params">(models.Model)</span>:</span></span><br><span class="line">    id = models.SmallIntegerField(primary_key=<span class="literal">True</span>,db_column=<span class="string">'序号'</span>)</span><br><span class="line">    name = models.CharField(max_length=<span class="number">60</span>,db_column=<span class="string">'商品名'</span>,null=<span class="literal">True</span>)</span><br><span class="line">    inventory = models.IntegerField(db_column=<span class="string">'库存'</span>,null=<span class="literal">True</span>)</span><br><span class="line">    cost = models.DecimalField (max_digits=<span class="number">60</span>,decimal_places=<span class="number">2</span>,db_column=<span class="string">'单件成本'</span>,null=<span class="literal">True</span>)</span><br><span class="line">    selling_price= models.DecimalField (max_digits=<span class="number">60</span>,decimal_places=<span class="number">2</span>,db_column=<span class="string">'销售价格'</span>,null=<span class="literal">True</span>)</span><br><span class="line">    quantity_in = models.IntegerField(db_column=<span class="string">'进货总数量'</span>,null=<span class="literal">True</span>)</span><br><span class="line">    sales_volume = models.IntegerField(db_column=<span class="string">'销售量总数量'</span>,null=<span class="literal">True</span>)</span><br><span class="line">    return_volume = models.IntegerField(db_column=<span class="string">'退货总数量'</span>,null=<span class="literal">True</span>)</span><br><span class="line">    is_delete = models.BooleanField(default=<span class="literal">False</span>, db_column=<span class="string">'是否删除'</span>)</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__str__</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> self.name</span><br><span class="line"></span><br><span class="line">    <span class="class"><span class="keyword">class</span> <span class="title">Meta</span>:</span></span><br><span class="line">        db_table = <span class="string">"库存表"</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">DaySales</span><span class="params">(models.Model)</span>:</span></span><br><span class="line">    id = models.SmallIntegerField(primary_key=<span class="literal">True</span>, db_column=<span class="string">'日期序号'</span>)</span><br><span class="line">    date = models.DateTimeField(auto_now_add=<span class="literal">True</span>,db_column=<span class="string">'日期'</span>)</span><br><span class="line">    number = models.DecimalField(max_digits=<span class="number">60</span>, decimal_places=<span class="number">2</span>, db_column=<span class="string">'营业总额'</span>, null=<span class="literal">True</span>)</span><br><span class="line">    is_delete = models.BooleanField(default=<span class="literal">False</span>, db_column=<span class="string">'是否删除'</span>)</span><br><span class="line">    date_changed = models.DateTimeField(auto_now=<span class="literal">True</span>,db_column=<span class="string">'最后修改日期'</span>)</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__str__</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> self.date</span><br><span class="line">    <span class="class"><span class="keyword">class</span> <span class="title">Meta</span>:</span></span><br><span class="line">        db_table = <span class="string">"日销售表"</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">DayStock</span><span class="params">(models.Model)</span>:</span></span><br><span class="line">    id = models.SmallIntegerField(primary_key=<span class="literal">True</span>, db_column=<span class="string">'日期序号'</span>)</span><br><span class="line">    date = models.DateTimeField(auto_now_add=<span class="literal">True</span>,db_column=<span class="string">'日期'</span>)</span><br><span class="line">    number  = models.DecimalField(max_digits=<span class="number">60</span>, decimal_places=<span class="number">2</span>, db_column=<span class="string">'进货总额'</span>, null=<span class="literal">True</span>)</span><br><span class="line">    is_delete = models.BooleanField(default=<span class="literal">False</span>, db_column=<span class="string">'是否删除'</span>)</span><br><span class="line">    date_changed = models.DateTimeField(auto_now=<span class="literal">True</span>,db_column=<span class="string">'最后修改日期'</span>)</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__str__</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> self.date</span><br><span class="line">    <span class="class"><span class="keyword">class</span> <span class="title">Meta</span>:</span></span><br><span class="line">        db_table = <span class="string">"日进货表"</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">DayReturn</span><span class="params">(models.Model)</span>:</span></span><br><span class="line">    id = models.SmallIntegerField(primary_key=<span class="literal">True</span>, db_column=<span class="string">'日期序号'</span>)</span><br><span class="line">    date = models.DateTimeField(auto_now_add=<span class="literal">True</span>,db_column=<span class="string">'日期'</span>)</span><br><span class="line">    number  = models.DecimalField(max_digits=<span class="number">60</span>, decimal_places=<span class="number">2</span>, db_column=<span class="string">'退货总额'</span>, null=<span class="literal">True</span>)</span><br><span class="line">    is_delete = models.BooleanField(default=<span class="literal">False</span>, db_column=<span class="string">'是否删除'</span>)</span><br><span class="line">    date_changed = models.DateTimeField(auto_now=<span class="literal">True</span>,db_column=<span class="string">'最后修改日期'</span>)</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__str__</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> self.date</span><br><span class="line">    <span class="class"><span class="keyword">class</span> <span class="title">Meta</span>:</span></span><br><span class="line">        db_table = <span class="string">"日退货表"</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">CommoditySales</span><span class="params">(models.Model)</span>:</span></span><br><span class="line">    id = models.SmallIntegerField(primary_key=<span class="literal">True</span>, db_column=<span class="string">'日期序号'</span>)</span><br><span class="line">    name = models.CharField(max_length=<span class="number">60</span>,db_column=<span class="string">'商品名'</span>,null=<span class="literal">True</span>)</span><br><span class="line">    data = models.ForeignKey(<span class="string">'DaySales'</span>,<span class="string">'id'</span>,db_column=<span class="string">'销售日期'</span>,null=<span class="literal">True</span>)</span><br><span class="line">    selling_price= models.DecimalField (max_digits=<span class="number">60</span>,decimal_places=<span class="number">2</span>,db_column=<span class="string">'销售价格'</span>,null=<span class="literal">True</span>)</span><br><span class="line">    sales_volume = models.IntegerField(db_column=<span class="string">'销售量数量'</span>,null=<span class="literal">True</span>)</span><br><span class="line">    batch = models.IntegerField(db_column=<span class="string">'批号'</span>,null=<span class="literal">True</span>)</span><br><span class="line">    is_delete = models.BooleanField(default=<span class="literal">False</span>, db_column=<span class="string">'是否删除'</span>)</span><br><span class="line">    date_changed = models.DateTimeField(auto_now=<span class="literal">True</span>,db_column=<span class="string">'最后修改日期'</span>)</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__str__</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> self.name</span><br><span class="line">    <span class="class"><span class="keyword">class</span> <span class="title">Meta</span>:</span></span><br><span class="line">        db_table = <span class="string">"商品销售表"</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">CommodityStock</span><span class="params">(models.Model)</span>:</span></span><br><span class="line">    id = models.SmallIntegerField(primary_key=<span class="literal">True</span>, db_column=<span class="string">'日期序号'</span>)</span><br><span class="line">    name = models.CharField(max_length=<span class="number">60</span>,db_column=<span class="string">'商品名'</span>,null=<span class="literal">True</span>)</span><br><span class="line">    data = models.ForeignKey(<span class="string">'DayStock'</span>,<span class="string">'id'</span>,db_column=<span class="string">'进货日期'</span>,null=<span class="literal">True</span>)</span><br><span class="line">    cost = models.DecimalField (max_digits=<span class="number">60</span>,decimal_places=<span class="number">2</span>,db_column=<span class="string">'单件成本'</span>,null=<span class="literal">True</span>)</span><br><span class="line">    Stock_volume = models.IntegerField( db_column=<span class="string">'进货数量'</span>, null=<span class="literal">True</span>)</span><br><span class="line">    batch = models.IntegerField(db_column=<span class="string">'批号'</span>,null=<span class="literal">True</span>)</span><br><span class="line">    is_delete = models.BooleanField(default=<span class="literal">False</span>, db_column=<span class="string">'是否删除'</span>)</span><br><span class="line">    date_changed = models.DateTimeField(auto_now=<span class="literal">True</span>,db_column=<span class="string">'最后修改日期'</span>)</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__str__</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> self.name</span><br><span class="line">    <span class="class"><span class="keyword">class</span> <span class="title">Meta</span>:</span></span><br><span class="line">        db_table = <span class="string">"商品进货表"</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">CommodityReturn</span><span class="params">(models.Model)</span>:</span></span><br><span class="line">    id = models.SmallIntegerField(primary_key=<span class="literal">True</span>, db_column=<span class="string">'日期序号'</span>)</span><br><span class="line">    name = models.CharField(max_length=<span class="number">60</span>,db_column=<span class="string">'商品名'</span>,null=<span class="literal">True</span>)</span><br><span class="line">    data = models.ForeignKey(<span class="string">'DayReturn'</span>,<span class="string">'id'</span>,db_column=<span class="string">'退货日期'</span>,null=<span class="literal">True</span>)</span><br><span class="line">    cost = models.DecimalField (max_digits=<span class="number">60</span>,decimal_places=<span class="number">2</span>,db_column=<span class="string">'退货价格'</span>,null=<span class="literal">True</span>)</span><br><span class="line">    return_volume = models.IntegerField( db_column=<span class="string">'退货数量'</span>, null=<span class="literal">True</span>)</span><br><span class="line">    batch = models.IntegerField(db_column=<span class="string">'批号'</span>,null=<span class="literal">True</span>)</span><br><span class="line">    is_delete = models.BooleanField(default=<span class="literal">False</span>, db_column=<span class="string">'是否删除'</span>)</span><br><span class="line">    date_changed = models.DateTimeField(auto_now=<span class="literal">True</span>,db_column=<span class="string">'最后修改日期'</span>)</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__str__</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> self.name</span><br><span class="line">    <span class="class"><span class="keyword">class</span> <span class="title">Meta</span>:</span></span><br><span class="line">        db_table = <span class="string">"商品退货表"</span></span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://sir0.net/%E5%9B%BD%E5%A4%96%E7%94%B5%E5%95%86%E7%BD%91%E7%AB%99snapdeal%E7%88%AC%E5%8F%96%E6%B5%81%E7%A8%8B/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="sir0.net">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="吴梦梦、刘玥和SL炮叔">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/%E5%9B%BD%E5%A4%96%E7%94%B5%E5%95%86%E7%BD%91%E7%AB%99snapdeal%E7%88%AC%E5%8F%96%E6%B5%81%E7%A8%8B/" class="post-title-link" itemprop="url">国外电商网站snapdeal爬取流程</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-03-07 23:01:31" itemprop="dateCreated datePublished" datetime="2020-03-07T23:01:31+08:00">2020-03-07</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-03-06 11:38:38" itemprop="dateModified" datetime="2020-03-06T11:38:38+08:00">2020-03-06</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="首页爬取"><a href="#首页爬取" class="headerlink" title="首页爬取"></a>首页爬取</h2><p>1.首页获取各个目录的url 如所有优惠all_offers的其中url<code>https://www.snapdeal.com/products/men-apparel-shirts?sort=plrty</code><br>2.访问他的url获取bcrumbLabelId是由于js简单渲染出来的在<code>id=&quot;labelId&quot; value=&quot;(.*?)</code> 中,如果取不到值该页面为一个优惠卷页面或者其他页面<br>3.url重新拼接<code>http://www.snapdeal.com/acors/json/product/get/search/{bcrumbLabelId}/0/20</code> ,0为起始,20为取的条数(固定)<br>4.会获得一个商品的页面非json,其中<code>&lt;div class=&quot;jsNumberFound hidden&quot;&gt;(.*?)&lt;/div&gt;</code> 获取他的总条数<br>如果起始页码&lt;总条数,起始页码+20&gt;总条数 获得总条数-起始页码<br>如果起始页码&gt;总条数 返回的html页面其中一个标签内值为<a href=""></a><br>5.可以通过正则或者xpath获取他的详情页的url<br>6.访问详情页url,返回的数据与页面显示的内容相同</p>
+<h2 id="如果是关键字搜索"><a href="#如果是关键字搜索" class="headerlink" title="如果是关键字搜索"></a>如果是关键字搜索</h2><p>1.访问<code>https://www.snapdeal.com/search?keyword={搜索的内容}</code><br>2.批量<code>http://www.snapdeal.com/acors/json/product/get/search/0/10/20?keyword={搜索的内容}</code> 其中/0/20/20,0为固定,10为起始,20为取的条数(固定),<br>3.会获得一个商品的页面非json,其中<code>&lt;div class=&quot;jsNumberFound hidden&quot;&gt;(.*?)&lt;/div&gt;</code>获取他的总条数<br>如果起始页码&lt;总条数,起始页码+20&gt;总条数 获得总条数-起始页码<br>如果起始页码&gt;总条数 返回的html页面其中一个标签内值为<a href=""></a><br>4.可以通过正则或者xpath获取他的详情页的url<br>5.访问详情页url,返回的数据与页面显示的内容相同</p>
+<h2 id="思路都有了代码还难吗"><a href="#思路都有了代码还难吗" class="headerlink" title="思路都有了代码还难吗"></a>思路都有了代码还难吗</h2>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
   </div>
 
   
@@ -1483,7 +1366,7 @@ hexo-generator-sitemap<br />
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">130</span>
+          <span class="site-state-item-count">128</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

@@ -153,152 +153,6 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://sir0.net/%E5%89%8D%E7%AB%AF%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E4%B9%A6%E5%86%99%E4%BB%A5%E5%8F%8A%E5%B8%B8%E7%94%A8%E7%9A%84%E6%96%B9%E6%B3%95/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="sir0.net">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="吴梦梦、刘玥和SL炮叔">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/%E5%89%8D%E7%AB%AF%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E4%B9%A6%E5%86%99%E4%BB%A5%E5%8F%8A%E5%B8%B8%E7%94%A8%E7%9A%84%E6%96%B9%E6%B3%95/" class="post-title-link" itemprop="url">前端正则表达式书写以及常用的方法</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-03-07 23:00:57" itemprop="dateCreated datePublished" datetime="2020-03-07T23:00:57+08:00">2020-03-07</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-03-06 11:39:40" itemprop="dateModified" datetime="2020-03-06T11:39:40+08:00">2020-03-06</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="0917自我总结"><a href="#0917自我总结" class="headerlink" title="0917自我总结"></a>0917自我总结</h1><h1 id="前端正则表达式书写"><a href="#前端正则表达式书写" class="headerlink" title="前端正则表达式书写"></a>前端正则表达式书写</h1><h2 id="一-写法"><a href="#一-写法" class="headerlink" title="一.写法"></a>一.写法</h2><h3 id="写法一"><a href="#写法一" class="headerlink" title="写法一"></a>写法一</h3><p>/正则表达式/修饰符<br><code>修饰符</code></p>
-<ul>
-<li><strong>/i (忽略大小写)</strong></li>
-<li><strong>/g (全文查找出现的所有匹配字符)</strong></li>
-<li><strong>/m (多行查找)</strong></li>
-<li><strong>/gi(全文查找、忽略大小写)</strong></li>
-<li><strong>/ig(全文查找、忽略大小写)</strong></li>
-</ul>
-<p>例子:/a/gi 查找内容中的a<br>不写修饰符默认只匹配一个</p>
-<h3 id="写法二"><a href="#写法二" class="headerlink" title="写法二"></a>写法二</h3><p>let a = new RegExp(‘/正则表达式/‘,’修饰符’)</p>
-<h2 id="二-常用几个方法"><a href="#二-常用几个方法" class="headerlink" title="二.常用几个方法"></a>二.常用几个方法</h2><h3 id="1-match"><a href="#1-match" class="headerlink" title="1.match"></a>1.match</h3><p>方法可在字符串内检索指定的值，或找到一个或多个正则表达式的匹配。<br>返回的内容</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[<span class="string">"匹配到的内容"</span>, index: <span class="number">3</span>, input: <span class="string">"字符串对象"</span>, groups: undefined]</span><br></pre></td></tr></table></figure>
-<p>如果regexp修饰符为/g则返回对象为一个数组<br>语法：<br /><br>1.<code>stringObject</code>.<code>match</code>(<code>str</code>)<br>2.<code>stringObject</code>.<code>match</code>(<code>regexp</code>)<br>拿查找字符串abc 中的a举例<br><code>&#39;aabc&#39;</code> .<code>match</code>(<code>&#39;a&#39;</code>) <code>只匹配第一个</code><br><code>&#39;aabc&#39;</code> .<code>match</code>(<code>/a/</code>) <code>只匹配第一个</code></p>
-<h3 id="2-replace"><a href="#2-replace" class="headerlink" title="2.replace"></a>2.replace</h3><p>用于字符串中一些字符替换另一些字符，或替换一个与正则表达式相匹配的子串<br>语法：<br /><br>1.<code>stringObject</code>.<code>replace</code>(<code>&#39;查找的第一个字符串&#39;</code>,<code>&#39;修改后的字符串&#39;</code>)<br>2.<code>stringObject</code>.<code>replace</code>(<code>regexp(正则表达式匹配到的内容所有替换)</code>,<code>&#39;修改后的字符串&#39;</code>)</p>
-<h3 id="3-search"><a href="#3-search" class="headerlink" title="3.search"></a>3.search</h3><p>他用法与match类似不过他返回的是索引<br>语法：<br /><br>1.<code>stringObject</code>.<code>match</code>(<code>&#39;searchvalue&#39;</code>)<br>2.<code>stringObject</code>.<code>match</code>(<code>regexp</code>)</p>
-<h3 id="4-test"><a href="#4-test" class="headerlink" title="4.test"></a>4.test</h3><p>方法用于检测一个字符串是否匹配某个模式，如果字符串中含有匹配的文本，则返回 true，否则返回 false。<br>语法:<br><code>regexp</code>.<code>test</code>(<code>stringObject</code>)<br>如</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">/a/.test(<span class="string">'a'</span>) <span class="comment">#返回true</span></span><br><span class="line">/a/.test(<span class="string">'ac'</span>) <span class="comment">#返回true</span></span><br><span class="line">/a/.test(<span class="string">'c'</span>) <span class="comment">#返回false</span></span><br></pre></td></tr></table></figure>
-<h3 id="5-exec"><a href="#5-exec" class="headerlink" title="5.exec"></a>5.exec</h3><p>方法就是用来检索字符串中正则表达式的匹配，如果匹配到了那么就返回一个存放有结果的数组，如果没有匹配到就返回一个null<br><code>regexp</code>.<code>exec</code>(<code>stringObject</code>)<br>其实和match类似,不过就是填写的位置返一下<br>但是有一点</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">console.log(<span class="string">'c'</span>.exec(<span class="string">'c'</span>));  <span class="comment">#会报错</span></span><br><span class="line">console.log(<span class="string">'c'</span>.match(<span class="string">'c'</span>)); <span class="comment">#会匹配c</span></span><br></pre></td></tr></table></figure>
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://sir0.net/%E5%89%8D%E7%AB%AF%E8%87%AA%E5%AD%A6%E6%80%BB%E7%BB%93/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="sir0.net">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="吴梦梦、刘玥和SL炮叔">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/%E5%89%8D%E7%AB%AF%E8%87%AA%E5%AD%A6%E6%80%BB%E7%BB%93/" class="post-title-link" itemprop="url">前端自学总结</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-03-07 23:00:57" itemprop="dateCreated datePublished" datetime="2020-03-07T23:00:57+08:00">2020-03-07</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-03-06 11:38:49" itemprop="dateModified" datetime="2020-03-06T11:38:49+08:00">2020-03-06</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="一-软件相关"><a href="#一-软件相关" class="headerlink" title="一.软件相关"></a>一.软件相关</h2><h3 id="vs实用插件"><a href="#vs实用插件" class="headerlink" title="vs实用插件"></a><a href="https://www.cnblogs.com/pythonywy/p/10804710.html" target="_blank" rel="noopener">vs实用插件</a></h3><h2 id="二-基础"><a href="#二-基础" class="headerlink" title="二.基础"></a>二.基础</h2><h3 id="html基础"><a href="#html基础" class="headerlink" title="html基础"></a><a href="https://www.cnblogs.com/pythonywy/p/11265345.html" target="_blank" rel="noopener">html基础</a></h3><h3 id="console的各种输出格式"><a href="#console的各种输出格式" class="headerlink" title="console的各种输出格式"></a><a href="https://www.cnblogs.com/pythonywy/p/11650338.html" target="_blank" rel="noopener">console的各种输出格式</a></h3><h3 id="audio标签以及audio对象"><a href="#audio标签以及audio对象" class="headerlink" title="audio标签以及audio对象"></a><a href="https://www.cnblogs.com/pythonywy/p/11669487.html" target="_blank" rel="noopener">audio标签以及audio对象</a></h3><h3 id="HTML标签嵌套规则"><a href="#HTML标签嵌套规则" class="headerlink" title="HTML标签嵌套规则"></a><a href="https://www.cnblogs.com/pythonywy/p/11437227.html" target="_blank" rel="noopener">HTML标签嵌套规则</a></h3><h3 id="css基础-css基础选择器"><a href="#css基础-css基础选择器" class="headerlink" title="css基础,css基础选择器"></a><a href="https://www.cnblogs.com/pythonywy/p/11266221.html#4312247" target="_blank" rel="noopener">css基础,css基础选择器</a></h3><h3 id="CSS高级选择器"><a href="#CSS高级选择器" class="headerlink" title="CSS高级选择器"></a><a href="https://www.cnblogs.com/pythonywy/p/11276513.html" target="_blank" rel="noopener">CSS高级选择器</a></h3><h3 id="HTML标签嵌套规则-1"><a href="#HTML标签嵌套规则-1" class="headerlink" title="HTML标签嵌套规则"></a><a href="https://www.cnblogs.com/pythonywy/p/11437227.html" target="_blank" rel="noopener">HTML标签嵌套规则</a></h3><h3 id="HTTP中get和post"><a href="#HTTP中get和post" class="headerlink" title="HTTP中get和post"></a><a href="https://www.cnblogs.com/pythonywy/p/11449043.html" target="_blank" rel="noopener">HTTP中get和post</a></h3><h3 id="前端实现文件下载所有方式"><a href="#前端实现文件下载所有方式" class="headerlink" title="前端实现文件下载所有方式"></a><a href="https://www.cnblogs.com/pythonywy/p/11671303.html" target="_blank" rel="noopener">前端实现文件下载所有方式</a></h3><h2 id="三-样式操作"><a href="#三-样式操作" class="headerlink" title="三.样式操作"></a>三.样式操作</h2><h3 id="HTML中的三元表达式-灵活的使用or逻辑判断"><a href="#HTML中的三元表达式-灵活的使用or逻辑判断" class="headerlink" title="HTML中的三元表达式,灵活的使用or逻辑判断"></a><a href="https://www.cnblogs.com/pythonywy/p/11419705.html" target="_blank" rel="noopener">HTML中的三元表达式,灵活的使用or逻辑判断</a></h3><h3 id="文本属性-边界圆角-背景属性-精灵图案例"><a href="#文本属性-边界圆角-背景属性-精灵图案例" class="headerlink" title="文本属性,边界圆角,背景属性,精灵图案例"></a><a href="https://www.cnblogs.com/pythonywy/p/11278674.html" target="_blank" rel="noopener">文本属性,边界圆角,背景属性,精灵图案例</a></h3><h3 id="显示方式"><a href="#显示方式" class="headerlink" title="显示方式"></a><a href="https://www.cnblogs.com/pythonywy/p/11303207.html" target="_blank" rel="noopener">显示方式</a></h3><h3 id="CSS定位和滚动条"><a href="#CSS定位和滚动条" class="headerlink" title="CSS定位和滚动条"></a><a href="https://www.cnblogs.com/pythonywy/p/11305321.html" target="_blank" rel="noopener">CSS定位和滚动条</a></h3><h3 id="HTML识别后台传输或者js变量中字符串里的-‘-n’-并成功换行显示"><a href="#HTML识别后台传输或者js变量中字符串里的-‘-n’-并成功换行显示" class="headerlink" title="HTML识别后台传输或者js变量中字符串里的 ‘\n’ 并成功换行显示"></a><a href="https://www.cnblogs.com/pythonywy/p/11623593.html" target="_blank" rel="noopener">HTML识别后台传输或者js变量中字符串里的 ‘\n’ 并成功换行显示</a></h3><h3 id="css盒子布局-浮动布局以及显影与简单的动画"><a href="#css盒子布局-浮动布局以及显影与简单的动画" class="headerlink" title="css盒子布局,浮动布局以及显影与简单的动画"></a><a href="https://www.cnblogs.com/pythonywy/p/11305228.html" target="_blank" rel="noopener">css盒子布局,浮动布局以及显影与简单的动画</a></h3><h3 id="好看的鼠标hover效果"><a href="#好看的鼠标hover效果" class="headerlink" title="好看的鼠标hover效果"></a><a href="https://www.cnblogs.com/pythonywy/p/11548543.html" target="_blank" rel="noopener">好看的鼠标hover效果</a></h3><h3 id="关于hover与after-before已及first-letter-first-line的联用"><a href="#关于hover与after-before已及first-letter-first-line的联用" class="headerlink" title="关于hover与after,before已及first-letter,first-line的联用"></a><a href="https://www.cnblogs.com/pythonywy/p/11557351.html" target="_blank" rel="noopener">关于hover与after,before已及first-letter,first-line的联用</a></h3><h3 id="前端正则表达式书写以及常用的方法"><a href="#前端正则表达式书写以及常用的方法" class="headerlink" title="前端正则表达式书写以及常用的方法"></a><a href="https://www.cnblogs.com/pythonywy/p/11532035.html" target="_blank" rel="noopener">前端正则表达式书写以及常用的方法</a></h3><h2 id="四-js"><a href="#四-js" class="headerlink" title="四.js"></a>四.js</h2><h3 id="JavaScript的概念-引入-基本数据类型"><a href="#JavaScript的概念-引入-基本数据类型" class="headerlink" title="JavaScript的概念,引入,基本数据类型"></a><a href="https://www.cnblogs.com/pythonywy/p/11305633.html" target="_blank" rel="noopener">JavaScript的概念,引入,基本数据类型</a></h3><h3 id="js基本操作"><a href="#js基本操作" class="headerlink" title="js基本操作"></a><a href="https://www.cnblogs.com/pythonywy/p/11305670.html" target="_blank" rel="noopener">js基本操作</a></h3><h3 id="js获取屏幕以及元素宽高的方法"><a href="#js获取屏幕以及元素宽高的方法" class="headerlink" title="js获取屏幕以及元素宽高的方法"></a><a href="https://www.cnblogs.com/pythonywy/p/11631243.html" target="_blank" rel="noopener">js获取屏幕以及元素宽高的方法</a></h3><h3 id="js中scroll滚动相关"><a href="#js中scroll滚动相关" class="headerlink" title="js中scroll滚动相关"></a><a href="https://www.cnblogs.com/pythonywy/p/11617664.html" target="_blank" rel="noopener">js中scroll滚动相关</a></h3><h3 id="js鼠标滚轮事件上滚下滚判断"><a href="#js鼠标滚轮事件上滚下滚判断" class="headerlink" title="js鼠标滚轮事件上滚下滚判断"></a><a href="https://www.cnblogs.com/pythonywy/p/11627992.html" target="_blank" rel="noopener">js鼠标滚轮事件上滚下滚判断</a></h3><h3 id="原生js获得八种方式-事件操作"><a href="#原生js获得八种方式-事件操作" class="headerlink" title="原生js获得八种方式,事件操作"></a><a href="https://www.cnblogs.com/pythonywy/p/11369847.html" target="_blank" rel="noopener">原生js获得八种方式,事件操作</a></h3><h3 id="js-jq获取兄弟节点-父节点-子节点"><a href="#js-jq获取兄弟节点-父节点-子节点" class="headerlink" title="js|jq获取兄弟节点,父节点,子节点"></a><a href="https://www.cnblogs.com/pythonywy/p/11378875.html" target="_blank" rel="noopener">js|jq获取兄弟节点,父节点,子节点</a></h3><h3 id="js中-和-区别"><a href="#js中-和-区别" class="headerlink" title="js中==和===区别"></a><a href="https://www.cnblogs.com/pythonywy/p/11408350.html" target="_blank" rel="noopener">js中==和===区别</a></h3><h3 id="js获取时间-循环执行任务-延迟执行任务"><a href="#js获取时间-循环执行任务-延迟执行任务" class="headerlink" title="js获取时间,循环执行任务,延迟执行任务"></a><a href="https://www.cnblogs.com/pythonywy/p/11543926.html" target="_blank" rel="noopener">js获取时间,循环执行任务,延迟执行任务</a></h3><h3 id="JavaScript-三种弹窗方式"><a href="#JavaScript-三种弹窗方式" class="headerlink" title="JavaScript-三种弹窗方式"></a><a href="https://www.cnblogs.com/pythonywy/p/11544880.html" target="_blank" rel="noopener">JavaScript-三种弹窗方式</a></h3><h3 id="原生js对cookie的增删改查"><a href="#原生js对cookie的增删改查" class="headerlink" title="原生js对cookie的增删改查"></a><a href="https://www.cnblogs.com/pythonywy/p/11590701.html" target="_blank" rel="noopener">原生js对cookie的增删改查</a></h3><h3 id="form表单提交与ajax消息传递"><a href="#form表单提交与ajax消息传递" class="headerlink" title="form表单提交与ajax消息传递"></a><a href="https://www.cnblogs.com/pythonywy/p/11437167.html" target="_blank" rel="noopener">form表单提交与ajax消息传递</a></h3><h2 id="五-jq"><a href="#五-jq" class="headerlink" title="五.jq"></a>五.jq</h2><h3 id="jq初始-选择器-事件-内容操作-样式操作"><a href="#jq初始-选择器-事件-内容操作-样式操作" class="headerlink" title="jq初始,选择器,事件,内容操作,样式操作"></a><a href="https://www.cnblogs.com/pythonywy/p/11305663.html" target="_blank" rel="noopener">jq初始,选择器,事件,内容操作,样式操作</a></h3><h3 id="jQuery跳转到另一个页面"><a href="#jQuery跳转到另一个页面" class="headerlink" title="jQuery跳转到另一个页面"></a><a href="https://www.cnblogs.com/pythonywy/p/11408329.html" target="_blank" rel="noopener">jQuery跳转到另一个页面</a></h3><h2 id="六-模板"><a href="#六-模板" class="headerlink" title="六.模板"></a>六.模板</h2><h3 id="样式模板快捷键设置"><a href="#样式模板快捷键设置" class="headerlink" title="样式模板快捷键设置"></a><a href="https://www.cnblogs.com/pythonywy/p/11341976.html" target="_blank" rel="noopener">样式模板快捷键设置</a></h3><h2 id="七-CSS3动画"><a href="#七-CSS3动画" class="headerlink" title="七.CSS3动画"></a>七.CSS3动画</h2><h3 id="CSS3动画的使用"><a href="#CSS3动画的使用" class="headerlink" title="CSS3动画的使用"></a><a href="https://www.cnblogs.com/pythonywy/p/11563474.html" target="_blank" rel="noopener">CSS3动画的使用</a></h3><h3 id="css3动画如何解决动画的播放、暂停和重新开始"><a href="#css3动画如何解决动画的播放、暂停和重新开始" class="headerlink" title="css3动画如何解决动画的播放、暂停和重新开始"></a><a href="https://www.cnblogs.com/pythonywy/p/11563382.html" target="_blank" rel="noopener">css3动画如何解决动画的播放、暂停和重新开始</a></h3><h2 id="八-博客园美化"><a href="#八-博客园美化" class="headerlink" title="八.博客园美化"></a>八.博客园美化</h2><h3 id="寻找在博客园相册中图片链接"><a href="#寻找在博客园相册中图片链接" class="headerlink" title="寻找在博客园相册中图片链接"></a><a href="https://www.cnblogs.com/pythonywy/p/10774625.html" target="_blank" rel="noopener">寻找在博客园相册中图片链接</a></h3><h3 id="js写个小时钟"><a href="#js写个小时钟" class="headerlink" title="js写个小时钟"></a><a href="https://www.cnblogs.com/pythonywy/p/11543962.html" target="_blank" rel="noopener">js写个小时钟</a></h3><h3 id="博客园美化夜间模式"><a href="#博客园美化夜间模式" class="headerlink" title="博客园美化夜间模式"></a><a href="https://www.cnblogs.com/pythonywy/p/11544485.html" target="_blank" rel="noopener">博客园美化夜间模式</a></h3><h3 id="博客园美化首页随笔展示美化"><a href="#博客园美化首页随笔展示美化" class="headerlink" title="博客园美化首页随笔展示美化"></a><a href="https://www.cnblogs.com/pythonywy/p/11369888.html" target="_blank" rel="noopener">博客园美化首页随笔展示美化</a></h3><h3 id="博客园美化首页随笔同时一天发布内容分开分开版块展示"><a href="#博客园美化首页随笔同时一天发布内容分开分开版块展示" class="headerlink" title="博客园美化首页随笔同时一天发布内容分开分开版块展示"></a><a href="https://www.cnblogs.com/pythonywy/p/11374654.html" target="_blank" rel="noopener">博客园美化首页随笔同时一天发布内容分开分开版块展示</a></h3><h3 id="博客园美化小火箭"><a href="#博客园美化小火箭" class="headerlink" title="博客园美化小火箭"></a><a href="https://www.cnblogs.com/pythonywy/p/11437066.html" target="_blank" rel="noopener">博客园美化小火箭</a></h3><h3 id="博客园美化阅读模式"><a href="#博客园美化阅读模式" class="headerlink" title="博客园美化阅读模式"></a><a href="https://www.cnblogs.com/pythonywy/p/11615889.html" target="_blank" rel="noopener">博客园美化阅读模式</a></h3><h3 id="博客园美化博客随笔目录"><a href="#博客园美化博客随笔目录" class="headerlink" title="博客园美化博客随笔目录"></a><a href="https://www.cnblogs.com/pythonywy/p/11572044.html" target="_blank" rel="noopener">博客园美化博客随笔目录</a></h3><h2 id="九-QQ"><a href="#九-QQ" class="headerlink" title="九.QQ"></a>九.QQ</h2><h3 id="页面QQ临时对话的实现"><a href="#页面QQ临时对话的实现" class="headerlink" title="页面QQ临时对话的实现"></a><a href="https://www.cnblogs.com/pythonywy/p/11633676.html" target="_blank" rel="noopener">页面QQ临时对话的实现</a></h3>
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://sir0.net/%E5%89%8D%E5%90%8E%E7%AB%AF%E5%88%86%E7%A6%BB%E9%A1%B9%E7%9B%AE%E4%B8%80%E5%8F%B0%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%B8%8A%E7%BA%BF/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1557,6 +1411,298 @@ having 判断内容
   
   
 
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://sir0.net/%E6%95%B0%E6%8D%AE%E5%BA%93%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="sir0.net">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="吴梦梦、刘玥和SL炮叔">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/%E6%95%B0%E6%8D%AE%E5%BA%93%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/" class="post-title-link" itemprop="url">数据库数据类型</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-03-07 23:00:57" itemprop="dateCreated datePublished" datetime="2020-03-07T23:00:57+08:00">2020-03-07</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-03-06 11:40:10" itemprop="dateModified" datetime="2020-03-06T11:40:10+08:00">2020-03-06</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="07-14自我总结"><a href="#07-14自我总结" class="headerlink" title="07.14自我总结"></a>07.14自我总结</h1><h2 id="MYSQL数据库数据类型"><a href="#MYSQL数据库数据类型" class="headerlink" title="MYSQL数据库数据类型"></a>MYSQL数据库数据类型</h2><h2 id="一-整数类型和浮点数典型"><a href="#一-整数类型和浮点数典型" class="headerlink" title="一.整数类型和浮点数典型"></a>一.整数类型和浮点数典型</h2><h3 id="1-有符号-没符号"><a href="#1-有符号-没符号" class="headerlink" title="1.有符号/没符号"></a>1.有符号/没符号</h3><p>对于整数和负整数来说，默认情况下是有符号范围的<br><code>默认</code>是<code>有符号</code><br><code>有符号和没符号其实就是有没有包括负数,有符号是包括负数的</code><br>设置成无符号:<br>alter table 表名 变量名 数据类型 unsigned;</p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: center;"></th>
+<th style="text-align: center;">严格模式</th>
+<th style="text-align: center;">非严格模式</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">有符号</td>
+<td style="text-align: center;">（-，+） 超出范围会报错</td>
+<td style="text-align: center;">（-，+） 超出范围取极值</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">无符号</td>
+<td style="text-align: center;">（0，+） 超出范围会报错</td>
+<td style="text-align: center;">（0，+） 超出范围取极值</td>
+</tr>
+</tbody>
+</table>
+### 2.严选/非严选
+我们`不推荐使用非严格模式下`建立table，因为它会可能造成数据丢失的情况，所以我们必须在5.6版本中将mysql设置为严格模式。
+方法一：select@@sql_mode; @表示全局变量；@@表示会话级变量（局部）
+​ 临时设置set @@sql_mode ='NO_ENGINE_SUBSTITUTION,STRICT_TRANS_TABLES ';
+方法二:直接修改配置文件;
+​ [mysqld]
+​ sql_mode=NO_ENGINE_SUBSTITUTION,STRICT_TRANS_TABLES 并重启服务端mysql后生效.
+
+<ul>
+<li>严选情况下,数据超过他的设置范围他会报错</li>
+<li>非严选情况下,数据超过他的设置范围不会报错,但是只存他设置大小的那一部分的数据,多余的会丢掉</li>
+</ul>
+<h3 id="3-常见的类型"><a href="#3-常见的类型" class="headerlink" title="3.常见的类型"></a>3.常见的类型</h3><h4 id="1-整数型"><a href="#1-整数型" class="headerlink" title="1.整数型"></a>1.整数型</h4><table>
+<thead>
+<tr class="header">
+<th>数据类型</th>
+<th>字节数</th>
+<th>符号范围</th>
+<th>有符号范围</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>TINYINT</td>
+<td>1</td>
+<td>0~255</td>
+<td>-128~127</td>
+</tr>
+<tr class="even">
+<td>SMALLINT</td>
+<td>2</td>
+<td>0~65535</td>
+<td>-32768~32767</td>
+</tr>
+<tr class="odd">
+<td>MEDIUMINT</td>
+<td>3</td>
+<td>0~16777215</td>
+<td>-8388608~8388607</td>
+</tr>
+<tr class="even">
+<td>INT</td>
+<td>4</td>
+<td>0~4294967295</td>
+<td>-2147483648~2147483647</td>
+</tr>
+<tr class="odd">
+<td>BIGINT</td>
+<td>8</td>
+<td>0~18446744073709551615</td>
+<td>-9223372036854775808<br />~9223372036854775807</td>
+</tr>
+</tbody>
+</table>
+### 2.浮点型
+<table>
+<thead>
+<tr class="header">
+<th>数据类型</th>
+<th>字节数</th>
+<th>符号范围</th>
+<th>有符号范围</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>float</td>
+<td>4</td>
+<td>1.175494351E-38 
+~3.402823466E +38</td>
+<td>-3.402823466E+38~
+-1.175494351E-38</td>
+</tr>
+<tr class="even">
+<td>double</td>
+<td>8</td>
+<td>2.2250738585072014E-308
+~1.7976931348623157E+308</td>
+<td>-1.7976931348623157E+308
+~-2.2250738585072014E- 308</td>
+</tr>
+<tr class="odd">
+<td>decimal[(M[,D])]</td>
+<td>最大与
+double相同</td>
+<td>不固定</td>
+<td>不固定 10.2 decimal(3,1);</td>
+</tr>
+</tbody>
+</table>
+## 二.字符串类型
+### 1.char 与varchar
+char:定长字符串,字符长度0-255个字节之间,存储时占用固定字节空间
+相对于varchar来讲
+优点: 读取存储速度快于varchar
+varchar:可变长度字符串,字符长度在0-65532个字节,存储式占用空间实际字节长度+1,而+1是存的他的长度
+`原因`:因为char我们如果规定6,然后输入3个字符,他后面的内容会用宫格来填充,而varchar不会用空格填充,所有存的时候空间节省了,而读的时候需要发送字符的数量所有读取会变慢
+### 2.binary 与 varbinary
+BINARY和VARBINARY类类似于CHAR和VARCHAR，不同的是它们包含二进制字符串而不要二进制字符串<br />
+输入值的和char 与varchar差不多的填充效果
+### 3.text与blob
+blob:没有编码的二进制大字符串.(了解即可)
+text:具备编码的大字符串;
+都有四种
+
+<ul>
+<li>tinyblob,tinytext:</li>
+<li>blob,text</li>
+<li>mediumblob,mediumtext</li>
+<li>longblob,longtext</li>
+</ul>
+<h3 id="4-enum与set"><a href="#4-enum与set" class="headerlink" title="4.enum与set"></a>4.enum与set</h3><p>规定这个里面输入内容是什么,你可以输入他的内容,也可以输入他的索引<br>enum与set区别,enum只能输一个,set能输入一个或多个,且用集合的形式输入<br>*<em>注意: mysql会自动将字符串后面的空格删掉 所以你的数据在存储前应该先把空格处理掉 *</em></p>
+<h2 id="三-时间类型"><a href="#三-时间类型" class="headerlink" title="三.时间类型"></a>三.时间类型</h2><ul>
+<li>year :格式YYYT</li>
+<li>data:格式YYYY-MM-DD</li>
+<li>time:格式HH:MM:SS</li>
+<li>datatime:格式YYYY-MM-DD HH:MM:SS</li>
+<li>timestamp :格式YYYY-MM-DD HH:MM:SS (不用输入默认为数据插入时候的插入时间)</li>
+</ul>
+<p><strong>注意：</strong></p>
+<ul>
+<li>0-69 翻译为 2000-2069； 70-99 翻译为1790-1999</li>
+<li>year、date、time既可以用字符串也可以用数字输入值；current_time和now()输入系统当前日期</li>
+<li>time不仅可以表示一天的时间，也可以表示两个时间的时间间隔</li>
+<li>‘D HH:MM:SS’格式的字符串，D表示日（0-34），HH的实际值为D*24+HH</li>
+<li>datetime、timestamp只能以字符串形式输入</li>
+<li>在使用timestamp时，输入current_timestamp输入系统当前日期和时间</li>
+<li>在使用timestamp时，输入null或不输入，系统会自动输入当前日期和时间</li>
+</ul>
+<p>​<br>​</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://sir0.net/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%94%A8%E6%88%B7%E7%AE%A1%E7%90%86/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="sir0.net">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="吴梦梦、刘玥和SL炮叔">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%94%A8%E6%88%B7%E7%AE%A1%E7%90%86/" class="post-title-link" itemprop="url">数据库用户管理</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-03-07 23:00:57" itemprop="dateCreated datePublished" datetime="2020-03-07T23:00:57+08:00">2020-03-07</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-03-06 11:39:49" itemprop="dateModified" datetime="2020-03-06T11:39:49+08:00">2020-03-06</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="07-21自我总结"><a href="#07-21自我总结" class="headerlink" title="07.21自我总结"></a>07.21自我总结</h1><h1 id="数据库用户管理"><a href="#数据库用户管理" class="headerlink" title="数据库用户管理"></a>数据库用户管理</h1><h2 id="一-用户创建语法"><a href="#一-用户创建语法" class="headerlink" title="一.用户创建语法"></a>一.用户创建语法</h2><p>语法:<br>create user 用户名@”ip地址” “identified” by 密码;<br>举例:<br>create user tom@”192.168.101” identified by “123”;<br>创建除本机以外其他ip第能登入<br>create user 用户名@”%” “identified” by 密码;</p>
+<h2 id="二-用户授权"><a href="#二-用户授权" class="headerlink" title="二.用户授权"></a>二.用户授权</h2><h3 id="1-给权限"><a href="#1-给权限" class="headerlink" title="1.给权限"></a>1.给权限</h3><p>grant all on <em>.</em> to toms@”%” identified by “123”;</p>
+<ul>
+<li>all:增删改查所有权限</li>
+<li>all的地方可以修改对于的方式updata,select等待select后面可以跟字段表示只能查看某个字段</li>
+<li>on后面库名.表明,*表示所有</li>
+<li>to后面跟账号和账号ip</li>
+<li>如果创建账号时候没有创建密码可以在授权这里加上密码</li>
+</ul>
+<h3 id="2-收回权限"><a href="#2-收回权限" class="headerlink" title="2.收回权限"></a>2.收回权限</h3><p>REVOKE all privileges [column] on 库名.表名 from user@”host”;<br>column 不填表示所有字段</p>
+<h3 id="3-删除用户"><a href="#3-删除用户" class="headerlink" title="3.删除用户"></a>3.删除用户</h3><p>drop user@”host”</p>
+<h3 id="4-刷新权限表"><a href="#4-刷新权限表" class="headerlink" title="4.刷新权限表"></a>4.刷新权限表</h3><p>flush privileges;<br /><br>刷新权限表 一些时候权限信息可能会有所延迟 可以执行该语句立即刷新权限信息</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
   </div>
 
   
@@ -1627,7 +1773,7 @@ having 判断内容
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">130</span>
+          <span class="site-state-item-count">128</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
