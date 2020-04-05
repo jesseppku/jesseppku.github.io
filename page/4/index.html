@@ -153,6 +153,240 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://sir0.net/%E5%8F%AF%E5%8F%98%E9%95%BF%E5%8F%82%E6%95%B0,%E5%87%BD%E6%95%B0%E7%9A%84%E5%B5%8C%E5%A5%97,%E5%90%8D%E7%A7%B0%E7%A9%BA%E9%97%B4,%E5%85%B3%E9%94%AE%E5%AD%97/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="sir0.net">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="吴梦梦、刘玥和SL炮叔">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/%E5%8F%AF%E5%8F%98%E9%95%BF%E5%8F%82%E6%95%B0,%E5%87%BD%E6%95%B0%E7%9A%84%E5%B5%8C%E5%A5%97,%E5%90%8D%E7%A7%B0%E7%A9%BA%E9%97%B4,%E5%85%B3%E9%94%AE%E5%AD%97/" class="post-title-link" itemprop="url">可变长参数,函数的嵌套,名称空间,关键字</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-03-07 23:01:31" itemprop="dateCreated datePublished" datetime="2020-03-07T23:01:31+08:00">2020-03-07</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-03-06 11:38:35" itemprop="dateModified" datetime="2020-03-06T11:38:35+08:00">2020-03-06</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="5-30自我总结"><a href="#5-30自我总结" class="headerlink" title="5.30自我总结"></a>5.30自我总结</h1><h2 id="一-可变长参数"><a href="#一-可变长参数" class="headerlink" title="一.可变长参数"></a>一.可变长参数</h2><h3 id="1-可变长形参之"><a href="#1-可变长形参之" class="headerlink" title="1.可变长形参之(*)"></a>1.可变长形参之(*)</h3><p>形参中的 会将溢出的位置实参全部接收，然后存储元组的形式，然后把元组赋值给 后的参数。需要注意的是：*后的参数名约定俗成为args。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">sum_self</span><span class="params">(*args)</span>:</span></span><br><span class="line">    res = <span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> num <span class="keyword">in</span> args:</span><br><span class="line">        res += num</span><br><span class="line">    <span class="keyword">return</span> res</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">res = sum_self(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>)</span><br><span class="line">print(res)</span><br><span class="line"><span class="comment">#10</span></span><br></pre></td></tr></table></figure>
+<h3 id="2-可变长实参之"><a href="#2-可变长实参之" class="headerlink" title="2.可变长实参之(*)"></a>2.可变长实参之(*)</h3><p>实参中的 ， 会将 后参数的值循环取出，打散成位置实参。以后但凡碰到实参中带 的，它就是位置实参，应该马上打散成位置实参去看。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">func</span><span class="params">(x, y, z, *args)</span>:</span></span><br><span class="line">    print(x, y, z, args)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">func(<span class="number">1</span>, *(<span class="number">1</span>, <span class="number">2</span>), <span class="number">3</span>, <span class="number">4</span>)</span><br><span class="line"><span class="comment">#1 1 2 (3,4)</span></span><br></pre></td></tr></table></figure>
+<h3 id="3-可变长形参之"><a href="#3-可变长形参之" class="headerlink" title="3.可变长形参之(**)"></a>3.可变长形参之(**)</h3><p>形参中的<strong>会将溢出的关键字实参全部接收，然后存储字典的形式，然后把字典赋值给</strong>后的参数。需要注意的是：**后的参数名约定俗成为kwargs。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">func</span><span class="params">(**kwargw)</span>:</span></span><br><span class="line">    print(kwargw)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">func(a=<span class="number">5</span>)</span><br><span class="line"><span class="comment">#&#123;'a': 5&#125;</span></span><br></pre></td></tr></table></figure>
+<h3 id="4-可变长实参之"><a href="#4-可变长实参之" class="headerlink" title="4.可变长实参之(**)"></a>4.可变长实参之(**)</h3><p>实参中的<strong>，</strong>会将<strong>后参数的值循环取出，打散成关键字实参。以后但凡碰到实参中带</strong>的，它就是关键字实参，应该马上打散成关键字实参去看。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">func</span><span class="params">(x, y, z, **kwargs)</span>:</span></span><br><span class="line">    print(x, y, z, kwargs)</span><br><span class="line">func(<span class="number">1</span>, <span class="number">3</span>, <span class="number">4</span>, **&#123;<span class="string">'a'</span>: <span class="number">1</span>, <span class="string">'b'</span>: <span class="number">2</span>&#125;)</span><br><span class="line"><span class="comment">#1 3 4 &#123;'a': 1, 'b': 2&#125;</span></span><br></pre></td></tr></table></figure>
+<h3 id="5-可变长参数应用"><a href="#5-可变长参数应用" class="headerlink" title="5.可变长参数应用"></a>5.可变长参数应用</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">index</span><span class="params">(name, age, sex)</span>:</span></span><br><span class="line">    print(<span class="string">f"name: <span class="subst">&#123;name&#125;</span>, age: <span class="subst">&#123;age&#125;</span>, sex: <span class="subst">&#123;sex&#125;</span>"</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">wrapper</span><span class="params">(*args, **kwargs)</span>:</span></span><br><span class="line">    print(<span class="string">f"args: <span class="subst">&#123;args&#125;</span>"</span>)</span><br><span class="line">    print(<span class="string">f"kwargs: <span class="subst">&#123;kwargs&#125;</span>"</span>)</span><br><span class="line">    index(*args, **kwargs)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">wrapper(name=<span class="string">'nick'</span>, sex=<span class="string">'male'</span>, age=<span class="number">19</span>)</span><br><span class="line"></span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="string">args: ()</span></span><br><span class="line"><span class="string">kwargs: &#123;'name': 'nick', 'sex': 'male', 'age': 19&#125;</span></span><br><span class="line"><span class="string">name: nick, age: 19, sex: male</span></span><br><span class="line"><span class="string">'''</span></span><br></pre></td></tr></table></figure>
+<h2 id="二-关于函数的嵌套"><a href="#二-关于函数的嵌套" class="headerlink" title="二.关于函数的嵌套"></a>二.关于函数的嵌套</h2><p>最好返回值为函数名,不要是函数调用<br>如</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#第一种</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">f1</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">f2</span><span class="params">()</span>:</span></span><br><span class="line">        print(<span class="string">'asdad'</span>)</span><br><span class="line">    <span class="keyword">return</span> f2</span><br><span class="line">f2 = f1()</span><br><span class="line">f2()</span><br><span class="line"><span class="comment">#第二种</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">f1</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">f2</span><span class="params">()</span>:</span></span><br><span class="line">        print(<span class="string">'asdad'</span>)</span><br><span class="line">    <span class="keyword">return</span> f2()</span><br><span class="line">f1()</span><br><span class="line"></span><br><span class="line"><span class="comment">#最好用第一种方法运行,第二种运行可能会造成一些不必要的麻烦</span></span><br></pre></td></tr></table></figure>
+<p>函数内部的函数只能在函数内部调用，不能在函数外部调用<br>如</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">f1</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">f2</span><span class="params">()</span>:</span></span><br><span class="line">        print(<span class="string">'asdad'</span>)</span><br><span class="line"></span><br><span class="line">f2() 会报错 ,f2没有定义</span><br></pre></td></tr></table></figure>
+<h2 id="三-名称空间"><a href="#三-名称空间" class="headerlink" title="三.名称空间"></a>三.名称空间</h2><h3 id="1-内置名称空间"><a href="#1-内置名称空间" class="headerlink" title="1.内置名称空间"></a>1.内置名称空间</h3><p>名称空间（name spaces）：在<a href="https://www.cnblogs.com/nickchen121/p/10731690.html" target="_blank" rel="noopener">内存管理</a>那一章节时，我们曾说到变量的创建其实就是在内存中开辟了一个新的空间。但是我们一直在回避变量名的存储，其实在内存中有一块内存存储变量名与变量间的绑定关系的空间，而这个空间称为名称空间。<br>生命周期：在python启动时候,python关闭时候</p>
+<h3 id="2-全局名称空间"><a href="#2-全局名称空间" class="headerlink" title="2.全局名称空间"></a>2.全局名称空间</h3><p>全局名称空间：除了内置和局部的名字之外，其余都存放在全局名称空间.<br>生命周期：在文件执行时生效，在文件执行结束后失效</p>
+<h3 id="3-局部名称空间"><a href="#3-局部名称空间" class="headerlink" title="3.局部名称空间"></a>3.局部名称空间</h3><p>局部名称空间：用于存放函数调用期间函数体产生的名字.`<br>生命周期：在文件执行时函数调用期间时生效，在函数执行结束后失效<br>如:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">x = <span class="number">1</span>                    <span class="comment"># 其中X,f1为全局名称空间,print为内置名称空间,f2为局部名称空间</span></span><br><span class="line"></span><br><span class="line">print(x) </span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">f1</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">f2</span><span class="params">()</span>:</span></span><br><span class="line">        print(<span class="string">'from f2'</span>)</span><br><span class="line">    f2()</span><br><span class="line"></span><br><span class="line">f1()</span><br></pre></td></tr></table></figure>
+<p>关于三种名称空间的加载顺序:<br>内置名称空间→全局名称空间→局部名称空间<br>名称空间的查找顺序<br>如</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">x=<span class="number">1</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">f1</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">f2</span><span class="params">()</span>:</span></span><br><span class="line">        x = <span class="number">3</span> </span><br><span class="line">        print(x)</span><br><span class="line">    f2()</span><br><span class="line">x=<span class="number">3</span></span><br><span class="line">f1()</span><br><span class="line">print(x)</span><br></pre></td></tr></table></figure>
+<p>关于查找:<br>如果查找的起点在局部名称空间内,他会先在局部空间他的位置开始自之下而上开始寻找,如果在局部空间内找不到,再去全局名称空间开始寻找如果还没找打他会去去内置名称空间寻找<code>他不会去另外的局部空间进行查找</code><br>如果起点在全局名称空间,他不会去局部空间开始查找,他会去全局开始寻找,如果全局没找到他会去内置名称空间寻找.</p>
+<h2 id="四-关键字"><a href="#四-关键字" class="headerlink" title="四.关键字"></a>四.关键字</h2><h3 id="1-global关键字"><a href="#1-global关键字" class="headerlink" title="1..global关键字"></a>1..global关键字</h3><p>修改全局作用域中的变量。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">x = <span class="number">1</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">f1</span><span class="params">()</span>:</span></span><br><span class="line">    x = <span class="number">2</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">f2</span><span class="params">()</span>:</span></span><br><span class="line">        <span class="keyword">global</span> x  <span class="comment"># 修改全局</span></span><br><span class="line">        x = <span class="number">3</span></span><br><span class="line">    f2()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">f1()</span><br><span class="line">print(x)</span><br><span class="line"><span class="comment">#3</span></span><br></pre></td></tr></table></figure>
+<h3 id="2-nonlocal关键字"><a href="#2-nonlocal关键字" class="headerlink" title="2.nonlocal关键字"></a>2.nonlocal关键字</h3><p>修改局部作用域中的变量。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">x = <span class="number">1</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">f1</span><span class="params">()</span>:</span></span><br><span class="line">    x = <span class="number">2</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">f2</span><span class="params">()</span>:</span></span><br><span class="line">        <span class="keyword">nonlocal</span> x</span><br><span class="line">        x = <span class="number">3</span></span><br><span class="line"></span><br><span class="line">    f2()</span><br><span class="line">    print(x)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">f1()</span><br></pre></td></tr></table></figure>
+<h3 id="3-注意点"><a href="#3-注意点" class="headerlink" title="3.注意点"></a>3.注意点</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span>,两个关键字必写在须在局部名称空间变量名第一次出现的上面</span><br><span class="line"><span class="number">2.</span>在局部想要修改全局的可变类型，不需要任何声明，可以直接修改。</span><br><span class="line"><span class="number">3.</span>在局部如果想要修改全局的不可变类型，需要借助<span class="keyword">global</span>声明，声明为全局的变量，即可直接修改。</span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://sir0.net/%E5%AE%A2%E6%88%B7%E7%AB%AF%E4%B8%8E%E6%9C%8D%E5%8A%A1%E7%AB%AF%E5%A4%9A%E5%8A%9F%E8%83%BD%E4%BC%A0%E8%BE%93%E7%BB%83%E6%89%8B%E5%B0%8F%E7%A8%8B%E5%BA%8F/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="sir0.net">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="吴梦梦、刘玥和SL炮叔">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/%E5%AE%A2%E6%88%B7%E7%AB%AF%E4%B8%8E%E6%9C%8D%E5%8A%A1%E7%AB%AF%E5%A4%9A%E5%8A%9F%E8%83%BD%E4%BC%A0%E8%BE%93%E7%BB%83%E6%89%8B%E5%B0%8F%E7%A8%8B%E5%BA%8F/" class="post-title-link" itemprop="url">客户端与服务端多功能传输练手小程序</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-03-07 23:01:31" itemprop="dateCreated datePublished" datetime="2020-03-07T23:01:31+08:00">2020-03-07</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-03-06 11:38:32" itemprop="dateModified" datetime="2020-03-06T11:38:32+08:00">2020-03-06</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="客户端与服务端多功能传输小程序"><a href="#客户端与服务端多功能传输小程序" class="headerlink" title="客户端与服务端多功能传输小程序"></a>客户端与服务端多功能传输小程序</h1><p>server.py</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> threading <span class="keyword">import</span> Thread,Event,Lock</span><br><span class="line"><span class="keyword">from</span> concurrent.futures <span class="keyword">import</span>  ThreadPoolExecutor</span><br><span class="line"><span class="keyword">from</span> socket <span class="keyword">import</span> socket</span><br><span class="line"><span class="keyword">from</span> struct <span class="keyword">import</span> pack,unpack</span><br><span class="line"><span class="keyword">from</span> json <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">PATH = os.path.dirname(os.path.abspath(__file__))</span><br><span class="line">SERVERPATH = os.path.join(PATH,<span class="string">'server'</span>)</span><br><span class="line">CLIENTPATH = os.path.join(PATH,<span class="string">'client'</span>)</span><br><span class="line"><span class="keyword">if</span> <span class="keyword">not</span> os.path.exists(SERVERPATH):os.mkdir(SERVERPATH)</span><br><span class="line"><span class="keyword">if</span> <span class="keyword">not</span> os.path.exists(CLIENTPATH):os.mkdir(CLIENTPATH)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">server = socket()</span><br><span class="line">server.bind((<span class="string">'192.168.11.206'</span>,<span class="number">8000</span>))</span><br><span class="line">server.listen(<span class="number">5</span>)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">register</span><span class="params">(conn)</span>:</span></span><br><span class="line">    print(<span class="string">'客户端连接到了注册程序'</span>)</span><br><span class="line">    <span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">        data = loads(conn.recv(<span class="number">1024</span>).decode(<span class="string">'utf8'</span>))</span><br><span class="line">        file_path = os.path.join(PATH, <span class="string">f'<span class="subst">&#123;data[<span class="number">0</span>]&#125;</span>.json'</span>)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> os.path.exists(file_path):</span><br><span class="line">            print(<span class="string">'客户端注册的文件已经存在'</span>)</span><br><span class="line">            conn.send(<span class="string">'客户端注册的文件已经存在'</span>.encode(<span class="string">'utf8'</span>))</span><br><span class="line">            <span class="keyword">continue</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">with</span> open(file_path, <span class="string">'w'</span>, encoding=<span class="string">'utf8'</span>) <span class="keyword">as</span> fw:</span><br><span class="line">                dump(data, fw)</span><br><span class="line">            print(<span class="string">'客户端注册成功'</span>)</span><br><span class="line">            conn.send(<span class="string">'客户端注册成功'</span>.encode(<span class="string">'utf8'</span>))</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">login</span><span class="params">(conn)</span>:</span></span><br><span class="line">    print(<span class="string">'客户端连接到了登入程序'</span>)</span><br><span class="line">    <span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">        data = loads(conn.recv(<span class="number">1024</span>).decode(<span class="string">'utf8'</span>))</span><br><span class="line">        file_path = os.path.join(PATH, <span class="string">f'<span class="subst">&#123;data[<span class="number">0</span>]&#125;</span>.json'</span>)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> os.path.exists(file_path):</span><br><span class="line">            print(<span class="string">'客户端账号不存在'</span>)</span><br><span class="line">            conn.send(<span class="string">'客户端账号不存在'</span>.encode(<span class="string">'utf8'</span>))</span><br><span class="line">            <span class="keyword">continue</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">with</span> open(file_path, <span class="string">'r'</span>, encoding=<span class="string">'utf8'</span>) <span class="keyword">as</span> fr:</span><br><span class="line">                <span class="keyword">if</span> data == load(fr):</span><br><span class="line">                    print(<span class="string">'客户端登入成功'</span>)</span><br><span class="line">                    conn.send(<span class="string">'客户端登入成功'</span>.encode(<span class="string">'utf8'</span>))</span><br><span class="line">                    <span class="keyword">break</span></span><br><span class="line">                <span class="keyword">else</span>:</span><br><span class="line">                    conn.send(<span class="string">'客户端账号密码错误'</span>.encode(<span class="string">'utf8'</span>))</span><br><span class="line">                    <span class="keyword">continue</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">download</span><span class="params">()</span>:</span></span><br><span class="line">    print(<span class="string">'客户端连接到了下载程序'</span>)</span><br><span class="line">    <span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">        cmd = conn.recv(<span class="number">1024</span>).decode(<span class="string">'utf8'</span>)</span><br><span class="line">        <span class="keyword">if</span> cmd == <span class="string">'download'</span>: conn.send(dumps((os.listdir(SERVERPATH))).encode(<span class="string">'utf8'</span>))</span><br><span class="line"></span><br><span class="line">        flie_name_size = conn.recv(<span class="number">1024</span>).decode(<span class="string">'utf8'</span>)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> flie_name_size == <span class="string">'服务端没有文件'</span>:</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line"></span><br><span class="line">        file_name = loads(flie_name_size)[<span class="number">0</span>]</span><br><span class="line">        file_size = loads(flie_name_size)[<span class="number">1</span>]</span><br><span class="line">        file_path = os.path.join(SERVERPATH, file_name)</span><br><span class="line"></span><br><span class="line">        print(file_path)</span><br><span class="line">        <span class="keyword">with</span> open(file_path, <span class="string">'rb'</span>) <span class="keyword">as</span> fr:</span><br><span class="line">            fr.seek(file_size)</span><br><span class="line">            data = fr.read()</span><br><span class="line">            print(data)</span><br><span class="line">            conn.send(pack(<span class="string">'i'</span>, len(data)))</span><br><span class="line">            conn.send(data)</span><br><span class="line">        print(<span class="string">'服务端文件发送完毕'</span>)</span><br><span class="line">        <span class="keyword">break</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">run</span><span class="params">(conn)</span>:</span></span><br><span class="line">    <span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">        <span class="keyword">try</span>:</span><br><span class="line">            print(<span class="string">'等待客户端选择功能'</span>)</span><br><span class="line">            action = conn.recv(<span class="number">1024</span>).decode(<span class="string">'utf8'</span>)</span><br><span class="line">            <span class="keyword">if</span> action == <span class="string">'register'</span>:</span><br><span class="line">                res = p_1.submit(register,conn)</span><br><span class="line">                res.result()</span><br><span class="line">            <span class="keyword">elif</span> action == <span class="string">'login'</span>:</span><br><span class="line">                res =p_2.submit(login,conn)</span><br><span class="line">                res.result()</span><br><span class="line">            <span class="keyword">elif</span> action == <span class="string">'download'</span>:</span><br><span class="line">                res =p_3.submit(download,conn)</span><br><span class="line">                res.result()</span><br><span class="line">            <span class="keyword">elif</span> action == <span class="string">'out'</span>:<span class="keyword">break</span></span><br><span class="line">        <span class="keyword">except</span> ConnectionResetError:</span><br><span class="line">            print(<span class="string">'客户端已经断开'</span>)</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">print(<span class="string">'服务端已经启动'</span>)</span><br><span class="line">p_1 = ThreadPoolExecutor(<span class="number">2</span>)</span><br><span class="line">p_2 = ThreadPoolExecutor(<span class="number">2</span>)</span><br><span class="line">p_3 = ThreadPoolExecutor(<span class="number">2</span>)</span><br><span class="line">p_4 = ThreadPoolExecutor(<span class="number">2</span>)</span><br><span class="line">print(<span class="string">'线程池准备完毕'</span>)</span><br><span class="line"><span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">    conn,adder = server.accept()</span><br><span class="line">    p_4.submit(run,conn)</span><br></pre></td></tr></table></figure>
+<p><code>client.py</code></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> threading <span class="keyword">import</span> Thread,Event,Lock</span><br><span class="line"><span class="keyword">from</span> socket <span class="keyword">import</span> socket</span><br><span class="line"><span class="keyword">from</span> struct <span class="keyword">import</span> pack,unpack</span><br><span class="line"><span class="keyword">from</span> json <span class="keyword">import</span> loads,dumps</span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">PATH = os.path.dirname(os.path.abspath(__file__))</span><br><span class="line">SERVERPATH = os.path.join(PATH,<span class="string">'server'</span>)</span><br><span class="line">CLIENTPATH = os.path.join(PATH,<span class="string">'client'</span>)</span><br><span class="line"><span class="keyword">if</span> <span class="keyword">not</span> os.path.exists(SERVERPATH):os.mkdir(SERVERPATH)</span><br><span class="line"><span class="keyword">if</span> <span class="keyword">not</span> os.path.exists(CLIENTPATH):os.mkdir(CLIENTPATH)</span><br><span class="line"></span><br><span class="line">client = socket()</span><br><span class="line">client.connect((<span class="string">'192.168.11.206'</span>,<span class="number">8000</span>))</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">register</span><span class="params">()</span>:</span></span><br><span class="line">    print(<span class="string">'欢迎使用注册功能'</span>)</span><br><span class="line">    <span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">        name = input(<span class="string">'请输入你的名字'</span>)</span><br><span class="line">        pwd = input(<span class="string">'请输入你的密码'</span>)</span><br><span class="line"></span><br><span class="line">        client.send(dumps((name, pwd)).encode(<span class="string">'utf8'</span>))</span><br><span class="line">        data = client.recv(<span class="number">1024</span>).decode(<span class="string">'utf8'</span>)</span><br><span class="line">        print(data)</span><br><span class="line">        <span class="keyword">if</span>  data == <span class="string">'客户端注册成功'</span>:</span><br><span class="line">            print(<span class="string">'注册成功'</span>)</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            print(<span class="string">'账户已经存在'</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">login</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">        name = input(<span class="string">'请输入你的名字'</span>)</span><br><span class="line">        pwd = input(<span class="string">'请输入你的密码'</span>)</span><br><span class="line"></span><br><span class="line">        client.send(dumps((name, pwd)).encode(<span class="string">'utf8'</span>))</span><br><span class="line">        data = client.recv(<span class="number">1024</span>).decode(<span class="string">'utf8'</span>)</span><br><span class="line">        <span class="keyword">if</span> data ==<span class="string">'客户端登入成功'</span>:</span><br><span class="line">            print(<span class="string">'登入成功'</span>)</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            print(<span class="string">'登入失败'</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">download</span><span class="params">()</span>:</span></span><br><span class="line">    print(<span class="string">'欢迎使用注册功能'</span>)</span><br><span class="line">    <span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">        client.send(<span class="string">'download'</span>.encode(<span class="string">'utf8'</span>))</span><br><span class="line">        file_lis = loads(client.recv(<span class="number">1024</span>).decode(<span class="string">'utf8'</span>))</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> a,b <span class="keyword">in</span> enumerate(file_lis):</span><br><span class="line">            print(a,b)</span><br><span class="line">        <span class="keyword">if</span> file_lis ==[]:</span><br><span class="line">            client.send(<span class="string">'服务端没有文件'</span>.encode(<span class="string">'utf8'</span>))</span><br><span class="line">            print(<span class="string">'服务端没有文件'</span>)</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">        <span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">            file_index = int(input(<span class="string">'请选择你要下载文件的序号'</span>))</span><br><span class="line">            <span class="keyword">try</span>:</span><br><span class="line">                file_name = file_lis[file_index]</span><br><span class="line">                <span class="keyword">break</span></span><br><span class="line">            <span class="keyword">except</span>:</span><br><span class="line">                print(<span class="string">'好好输入'</span>)</span><br><span class="line">                <span class="keyword">continue</span></span><br><span class="line"></span><br><span class="line">        file_name = file_lis[file_index]</span><br><span class="line">        file_path = os.path.join(CLIENTPATH,file_name)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">try</span>:</span><br><span class="line">            <span class="keyword">with</span> open(file_path,<span class="string">'rb'</span>) <span class="keyword">as</span> fr:</span><br><span class="line">                file_size = len(fr.read())</span><br><span class="line">        <span class="keyword">except</span>:</span><br><span class="line">            file_size = <span class="number">0</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        client.send(dumps((file_name,file_size)).encode(<span class="string">'utf8'</span>))</span><br><span class="line"></span><br><span class="line">        size = unpack(<span class="string">'i'</span>,client.recv(<span class="number">4</span>))[<span class="number">0</span>]</span><br><span class="line"></span><br><span class="line">        print(size)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">while</span> file_size != size:</span><br><span class="line">            data = client.recv(<span class="number">1024</span>)</span><br><span class="line">            <span class="keyword">with</span> open(file_path,<span class="string">'ab'</span>) <span class="keyword">as</span> fa:</span><br><span class="line">                fa.write(data)</span><br><span class="line">            <span class="keyword">with</span> open(file_path, <span class="string">'rb'</span>) <span class="keyword">as</span> fr:</span><br><span class="line">                file_size = len(fr.read())</span><br><span class="line">                print(file_size)</span><br><span class="line"></span><br><span class="line">        print(<span class="string">'下载完成'</span>)</span><br><span class="line">        <span class="keyword">break</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">run</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">        msg = <span class="string">'''</span></span><br><span class="line"><span class="string">        输入0 注册功能</span></span><br><span class="line"><span class="string">        输入1 登入功能</span></span><br><span class="line"><span class="string">        输入2 下载功能</span></span><br><span class="line"><span class="string">        输入Q 退出</span></span><br><span class="line"><span class="string">        '''</span></span><br><span class="line"></span><br><span class="line">        print(msg)</span><br><span class="line">        chiose = input(<span class="string">'请选择你要要运行的程序'</span>)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> chiose == <span class="string">'Q'</span>:client.send(<span class="string">'out'</span>.encode(<span class="string">'utf8'</span>));print(<span class="string">'程序退出'</span>);<span class="keyword">break</span></span><br><span class="line">        <span class="keyword">elif</span> chiose == <span class="string">'0'</span>:client.send(<span class="string">'register'</span>.encode(<span class="string">'utf8'</span>));register()</span><br><span class="line">        <span class="keyword">elif</span> chiose == <span class="string">'1'</span>:client.send(<span class="string">'login'</span>.encode(<span class="string">'utf8'</span>));login()</span><br><span class="line">        <span class="keyword">elif</span> chiose == <span class="string">'2'</span>:client.send(<span class="string">'download'</span>.encode(<span class="string">'utf8'</span>));download()</span><br><span class="line">        <span class="keyword">else</span>:print(<span class="string">'好好输入'</span>);<span class="keyword">continue</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    run()</span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://sir0.net/%E7%B1%BB%E7%9A%84%E5%B0%81%E8%A3%85,%E7%B1%BB%E5%86%85%E7%9A%84%E6%96%B9%E6%B3%95%E8%A3%85%E9%A5%B0%E5%99%A8,%E7%B1%BB%E7%9A%84%E6%96%B9%E6%B3%95%E4%BF%AE%E6%94%B9%E4%B8%8E%E5%88%A0%E9%99%A4%E8%A3%85%E9%A5%B0%E5%99%A8,%E7%BB%8F%E5%85%B8%E7%B1%BB%E5%92%8C%E6%96%B0%E5%BC%8F%E7%B1%BB/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="sir0.net">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="吴梦梦、刘玥和SL炮叔">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/%E7%B1%BB%E7%9A%84%E5%B0%81%E8%A3%85,%E7%B1%BB%E5%86%85%E7%9A%84%E6%96%B9%E6%B3%95%E8%A3%85%E9%A5%B0%E5%99%A8,%E7%B1%BB%E7%9A%84%E6%96%B9%E6%B3%95%E4%BF%AE%E6%94%B9%E4%B8%8E%E5%88%A0%E9%99%A4%E8%A3%85%E9%A5%B0%E5%99%A8,%E7%BB%8F%E5%85%B8%E7%B1%BB%E5%92%8C%E6%96%B0%E5%BC%8F%E7%B1%BB/" class="post-title-link" itemprop="url">类的封装,类内的方法装饰器,类的方法修改与删除装饰器,经典类和新式类</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-03-07 23:01:31" itemprop="dateCreated datePublished" datetime="2020-03-07T23:01:31+08:00">2020-03-07</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-03-06 11:38:30" itemprop="dateModified" datetime="2020-03-06T11:38:30+08:00">2020-03-06</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="6-20自我总结"><a href="#6-20自我总结" class="headerlink" title="6.20自我总结"></a>6.20自我总结</h1><h2 id="1-类的封装"><a href="#1-类的封装" class="headerlink" title="1.类的封装"></a>1.类的封装</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">封装：隐藏属性或方法，外部无法使用，内部可以使用，在类定义阶段就执行了，真的想引用，就使用_类名__属性名</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#比如</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">YwY</span>:</span></span><br><span class="line">    __name = <span class="number">1</span> <span class="comment">#其等同于做了这一层处理_YwY__name = 1</span></span><br><span class="line">a = YwY()</span><br><span class="line">print(a.__name)</span><br><span class="line"><span class="comment">#会报错,类外面没法直接引用类里面隐藏的变量</span></span><br><span class="line"><span class="comment">#我们如果直接用类来引用这个变量</span></span><br><span class="line"><span class="comment">#所有我们真的要拿里面的变量的话</span></span><br><span class="line">prnt(a._YwY__name)</span><br><span class="line">    </span><br><span class="line"><span class="comment"># 隐藏模块内的函数/变量_x：from module import *(无法导入), from module import _x（不合理）</span></span><br><span class="line">如</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">YwY</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__func</span><span class="params">()</span>:</span><span class="comment">#其等同于做了这一层处理def _YwY__func()</span></span><br><span class="line">        <span class="keyword">pass</span></span><br><span class="line"><span class="comment">#封装后我们要在类内部使用封装后的变量或者变量名,我们可以直接导入他的变量名或者函数名即可</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">YwY</span>:</span></span><br><span class="line">    __name = <span class="number">1</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__one</span><span class="params">(self)</span>:</span></span><br><span class="line">        print(<span class="string">'1'</span>)</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__two</span><span class="params">(self)</span>:</span></span><br><span class="line">        print(<span class="string">'1'</span>)</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">func</span><span class="params">(self)</span>:</span></span><br><span class="line">        print(self.__name)</span><br><span class="line">        self.__one()</span><br><span class="line">        self.__two()</span><br><span class="line">a = YwY()</span><br><span class="line">a.func()</span><br></pre></td></tr></table></figure>
+<h2 id="2-类的方法修改与删除装饰器"><a href="#2-类的方法修改与删除装饰器" class="headerlink" title="2.类的方法修改与删除装饰器"></a>2.类的方法修改与删除装饰器</h2><h3 id="1-property"><a href="#1-property" class="headerlink" title="1.@property"></a>1.@property</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># @property：被 @property 装饰的函数会从函数变成属性，也就是说直接.函数名，不需要加括号使用</span></span><br><span class="line"><span class="comment">#如下</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Func</span>:</span></span><br><span class="line"><span class="meta">    @property</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">a</span><span class="params">(self)</span>:</span></span><br><span class="line">        print(<span class="string">'1'</span>)</span><br><span class="line">a = Func()</span><br><span class="line">a.a</span><br><span class="line"><span class="comment">#1</span></span><br></pre></td></tr></table></figure>
+<h3 id="2-方法名-setter-方法名-price-deleter"><a href="#2-方法名-setter-方法名-price-deleter" class="headerlink" title="2.@方法名.setter/@方法名.price.deleter"></a>2.@方法名.setter/@方法名.price.deleter</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># @方法名.setter：被 @方法名.setter 装饰的函数装饰函数名字必须和方法名字相同，方法名修改，会执行这个装饰的函数,</span></span><br><span class="line"><span class="comment">#coding=utf-8</span></span><br><span class="line"><span class="comment"># ############### 定义 ###############</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Goods</span>:</span></span><br><span class="line">    <span class="string">"""python3中默认继承object类</span></span><br><span class="line"><span class="string">        以python2、3执行此程序的结果不同，因为只有在python3中才有@xxx.setter  @xxx.deleter</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line"></span><br><span class="line"><span class="meta">    @property    #方法必须先进行@property</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">price</span><span class="params">(self)</span>:</span></span><br><span class="line">        print(<span class="string">'@property'</span>)</span><br><span class="line"></span><br><span class="line"><span class="meta">    @price.setter</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">price</span><span class="params">(self, value)</span>:</span>  <span class="comment">#函数名必须和方法相同</span></span><br><span class="line">        print(<span class="string">'@price.setter'</span>)</span><br><span class="line"></span><br><span class="line"><span class="meta">    @price.deleter</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">price</span><span class="params">(self)</span>:</span></span><br><span class="line">        print(<span class="string">'@price.deleter'</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># ############### 调用 ###############</span></span><br><span class="line">obj = Goods()</span><br><span class="line">obj.price  <span class="comment"># 自动执行 @property 修饰的 price 方法，并获取方法的返回值</span></span><br><span class="line">obj.price = <span class="number">123</span>  <span class="comment"># 自动执行 @price.setter 修饰的 price 方法，并将  123 赋值给方法的参数</span></span><br><span class="line"><span class="keyword">del</span> obj.price  <span class="comment"># 自动执行 @price.deleter 修饰的 price 方法</span></span><br></pre></td></tr></table></figure>
+<h3 id="3-注意"><a href="#3-注意" class="headerlink" title="3.注意"></a>3.注意</h3><ul>
+<li><strong>经典类中的属性只有一种访问方式，其对应被 @property 修饰的方法</strong></li>
+<li><strong>新式类中的属性有三种访问方式，并分别对应了三个被 @property、@方法名.setter、@方法名.deleter 修饰的方法</strong></li>
+</ul>
+<p>由于新式类中具有三种访问方式，我们可以根据它们几个属性的访问特点，分别将三个方法定义为对同一个属性：获取、修改、删除</p>
+<h2 id="3-类的方法绑定"><a href="#3-类的方法绑定" class="headerlink" title="3.类的方法绑定"></a>3.类的方法绑定</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 对象的绑定方法：没有加任何装饰的方法就是对象的绑定方法</span></span><br><span class="line"><span class="comment"># 类的绑定方法：加了@classmethod装饰器的方法就是类的绑定方法,里面的形参必须是cls而不是self,约定俗称</span></span><br><span class="line"><span class="comment"># 非绑定方法：加了@staticmethod装饰器的方法就是非绑定方法，其实就是一个普通的函数,里面的self没有意义</span></span><br></pre></td></tr></table></figure>
+<h2 id="4-经典类和新式类"><a href="#4-经典类和新式类" class="headerlink" title="4.经典类和新式类"></a>4.经典类和新式类</h2><h3 id="1-定义"><a href="#1-定义" class="headerlink" title="1.定义"></a>1.定义</h3><ul>
+<li><h5 id="在python2中，如果明确写了继承object，那么这个类就是新式类；如果没有写，那么就是旧式类（经典类）。"><a href="#在python2中，如果明确写了继承object，那么这个类就是新式类；如果没有写，那么就是旧式类（经典类）。" class="headerlink" title="在python2中，如果明确写了继承object，那么这个类就是新式类；如果没有写，那么就是旧式类（经典类）。"></a>在python2中，如果明确写了继承object，那么这个类就是新式类；如果没有写，那么就是旧式类（经典类）。</h5></li>
+<li><h5 id="在python3中，不管写没写object，这个类都是新式类。"><a href="#在python3中，不管写没写object，这个类都是新式类。" class="headerlink" title="在python3中，不管写没写object，这个类都是新式类。"></a>在python3中，不管写没写object，这个类都是新式类。</h5></li>
+</ul>
+<h3 id="2-调用顺序"><a href="#2-调用顺序" class="headerlink" title="2.调用顺序"></a>2.调用顺序</h3><p>经典类是深度优先<br><img src="https://images.cnblogs.com/cnblogs_com/pythonywy/1452728/o_微信截图_20190620193423.png" alt="http://images.cnblogs.com/cnblogs_com/pythonywy/1452728/o_%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_20190620193423.png" /><br>新式类是广度优先<br><img src="https://images.cnblogs.com/cnblogs_com/pythonywy/1452728/o_微信截图_20190620193406.png" alt="http://images.cnblogs.com/cnblogs_com/pythonywy/1452728/o_%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_20190620193406.png" /></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://sir0.net/%E7%B1%BB%E4%B8%8E%E5%AF%B9%E8%B1%A1,%E7%B1%BB%E7%9A%84%E7%BB%A7%E6%89%BF,%E7%B1%BB%E7%9A%84%E6%B4%BE%E7%94%9F,%E7%B1%BB%E7%9A%84%E7%BB%84%E5%90%88,%E5%A4%9A%E6%80%81/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -881,328 +1115,11 @@
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://sir0.net/%E5%8A%9B%E6%89%A3%E9%A2%98%E7%9B%AE%E6%B1%87%E6%80%BB%EF%BC%88%E5%8F%8D%E8%BD%AC%E5%AD%97%E7%AC%A6%E4%B8%B2%E4%B8%AD%E7%9A%84%E5%8D%95%E8%AF%8D%EF%BC%8CEXCEL%E8%A1%A8%E5%88%97%E5%BA%8F%E5%8F%B7%EF%BC%8C%E6%97%8B%E7%BD%AE%E7%9F%A9%E9%98%B5%EF%BC%89/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="sir0.net">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="吴梦梦、刘玥和SL炮叔">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/%E5%8A%9B%E6%89%A3%E9%A2%98%E7%9B%AE%E6%B1%87%E6%80%BB%EF%BC%88%E5%8F%8D%E8%BD%AC%E5%AD%97%E7%AC%A6%E4%B8%B2%E4%B8%AD%E7%9A%84%E5%8D%95%E8%AF%8D%EF%BC%8CEXCEL%E8%A1%A8%E5%88%97%E5%BA%8F%E5%8F%B7%EF%BC%8C%E6%97%8B%E7%BD%AE%E7%9F%A9%E9%98%B5%EF%BC%89/" class="post-title-link" itemprop="url">力扣题目汇总（反转字符串中的单词，EXCEL表列序号，旋置矩阵）</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-03-07 23:01:31" itemprop="dateCreated datePublished" datetime="2020-03-07T23:01:31+08:00">2020-03-07</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-03-06 11:38:42" itemprop="dateModified" datetime="2020-03-06T11:38:42+08:00">2020-03-06</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="反转字符串中的单词-III"><a href="#反转字符串中的单词-III" class="headerlink" title="反转字符串中的单词 III"></a><a href="https://leetcode-cn.com/problems/reverse-words-in-a-string-iii/" target="_blank" rel="noopener">反转字符串中的单词 III</a></h2><h3 id="1-题目描述"><a href="#1-题目描述" class="headerlink" title="1.题目描述"></a>1.题目描述</h3><ol>
-- 给定一个字符串，你需要反转字符串中每个单词的字符顺序，同时仍保留空格和单词的初始顺序。
-**示例 1:**
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入: &quot;Let&#39;s take LeetCode contest&quot;</span><br><span class="line">输出: &quot;s&#39;teL ekat edoCteeL tsetnoc&quot;</span><br></pre></td></tr></table></figure>
-</ol>
-### 2.解题思路
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">把他弄成列表在一个个值用切片进行反转</span><br></pre></td></tr></table></figure>
-### 3.解题
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">return</span> [ i[::<span class="number">-1</span>] <span class="keyword">for</span> i <span class="keyword">in</span> s]</span><br></pre></td></tr></table></figure>
-## <a href="https://leetcode-cn.com/problems/excel-sheet-column-number/" target="_blank" rel="noopener">Excel表列序号</a>
-### 1.题目描述
-<ol>
-- 给定一个Excel表格中的列名称，返回其相应的列序号。
-例如，
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">A -&gt; 1</span><br><span class="line">   B -&gt; 2</span><br><span class="line">C -&gt; 3</span><br><span class="line">   ...</span><br><span class="line">Z -&gt; 26</span><br><span class="line">   AA -&gt; 27</span><br><span class="line">   AB -&gt; 28 </span><br><span class="line">   ...</span><br></pre></td></tr></table></figure>
-**示例 1:**
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入: &quot;A&quot;</span><br><span class="line">输出: 1</span><br></pre></td></tr></table></figure>
-**示例 2:**
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入: &quot;AB&quot;</span><br><span class="line">输出: 28</span><br></pre></td></tr></table></figure>
-**示例 3:**
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入: &quot;ZY&quot;</span><br><span class="line">输出: 701</span><br></pre></td></tr></table></figure>
-</ol>
-### 2.解题思路
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">这题目可以看成一个数学题目，每个值就相当于前面那个值加后面的值，其实就是发现规律没啥技巧</span><br></pre></td></tr></table></figure>
-### 3.解题
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">titleToNumber</span><span class="params">(self, s: str)</span> -&gt; int:</span></span><br><span class="line">        count = len(s)</span><br><span class="line">        num = <span class="number">0</span></span><br><span class="line">        words = <span class="string">'ABCDEFGHIJKLMNOPQRSTUVWXYZ'</span></span><br><span class="line">        words = <span class="string">','</span>.join(words)</span><br><span class="line">        words_list = words.split(<span class="string">','</span>)</span><br><span class="line">        print(words_list)</span><br><span class="line">        <span class="keyword">if</span> len(s) &lt; <span class="number">2</span>:</span><br><span class="line">            <span class="keyword">return</span> words_list.index(s)+<span class="number">1</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">for</span> nums <span class="keyword">in</span> s :</span><br><span class="line">                count -= <span class="number">1</span></span><br><span class="line">                num += (<span class="number">26</span>**count*(words_list.index(nums) + <span class="number">1</span>))</span><br><span class="line">        <span class="keyword">return</span> num</span><br></pre></td></tr></table></figure>
-## <a href="https://leetcode-cn.com/problems/transpose-matrix/" target="_blank" rel="noopener">转置矩阵</a>
-### 1.题目描述
-
-<ul>
-<li>给定一个矩阵 <code>A</code>， 返回 <code>A</code> 的转置矩阵。<br>矩阵的转置是指将矩阵的主对角线翻转，交换矩阵的行索引与列索引。</li>
-</ul>
-<p><strong>示例 1：</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入：[[1,2,3],[4,5,6],[7,8,9]]</span><br><span class="line">输出：[[1,4,7],[2,5,8],[3,6,9]]</span><br></pre></td></tr></table></figure>
-<p><strong>示例 2：</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入：[[1,2,3],[4,5,6]]</span><br><span class="line">输出：[[1,4],[2,5],[3,6]]</span><br></pre></td></tr></table></figure>
-<p><strong>提示：</strong></p>
-<ol>
-- `1 <= A.length <= 1000`
-- `1 <= A[0].length <= 1000`
-</ol>
-
-<h3 id="2-解题思路"><a href="#2-解题思路" class="headerlink" title="2.解题思路"></a>2.解题思路</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">首先数列的他一个竖着的列表的数量取决于他每个子序列的长度，所有我们用这个生成一个空的列表且列表子列表数量和竖着的列表相同，然后用FOR把内容按竖着加进去。</span><br></pre></td></tr></table></figure>
-<h3 id="3-解题"><a href="#3-解题" class="headerlink" title="3.解题"></a>3.解题</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">transpose</span><span class="params">(self, A: List[List[int]])</span> -&gt; List[List[int]]:</span></span><br><span class="line">            new_a = []</span><br><span class="line">            nums = <span class="number">0</span></span><br><span class="line">            <span class="keyword">for</span> a <span class="keyword">in</span> range(len(A[<span class="number">0</span>])):</span><br><span class="line">                new_a.append([])</span><br><span class="line">            <span class="keyword">for</span> b <span class="keyword">in</span> range(len(A[<span class="number">0</span>])):</span><br><span class="line">                <span class="keyword">for</span> c <span class="keyword">in</span> range(len(A)):</span><br><span class="line">                    new_a[nums].append(A[c][b])</span><br><span class="line">                    <span class="keyword">if</span> len(new_a[nums]) == len(A):</span><br><span class="line">                        nums += <span class="number">1</span></span><br><span class="line">            <span class="keyword">return</span> new_a</span><br></pre></td></tr></table></figure>
-<h1 id="有更加好的思路，或者解题方法评论区留言谢谢"><a href="#有更加好的思路，或者解题方法评论区留言谢谢" class="headerlink" title="``有更加好的思路，或者解题方法评论区留言谢谢`"></a>``有更加好的思路，或者解题方法评论区留言谢谢`</h1>
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://sir0.net/%E5%8A%9B%E6%89%A3%E9%A2%98%E7%9B%AE%E6%B1%87%E6%80%BB%EF%BC%88%E6%9C%BA%E5%99%A8%E4%BA%BA%E8%BF%94%E5%9B%9E%E5%8E%9F%E7%82%B9%EF%BC%8C%E6%8C%89%E5%A5%87%E5%81%B6%E6%8E%92%E5%BA%8F%EF%BC%8C%E6%95%B0%E5%AD%97%E7%9A%84%E8%A1%A5%E6%95%B0)/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="sir0.net">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="吴梦梦、刘玥和SL炮叔">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/%E5%8A%9B%E6%89%A3%E9%A2%98%E7%9B%AE%E6%B1%87%E6%80%BB%EF%BC%88%E6%9C%BA%E5%99%A8%E4%BA%BA%E8%BF%94%E5%9B%9E%E5%8E%9F%E7%82%B9%EF%BC%8C%E6%8C%89%E5%A5%87%E5%81%B6%E6%8E%92%E5%BA%8F%EF%BC%8C%E6%95%B0%E5%AD%97%E7%9A%84%E8%A1%A5%E6%95%B0)/" class="post-title-link" itemprop="url">力扣题目汇总（机器人返回原点，按奇偶排序，数字的补数)</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-03-07 23:01:31" itemprop="dateCreated datePublished" datetime="2020-03-07T23:01:31+08:00">2020-03-07</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-03-06 11:39:51" itemprop="dateModified" datetime="2020-03-06T11:39:51+08:00">2020-03-06</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="机器人能否返回原点"><a href="#机器人能否返回原点" class="headerlink" title="机器人能否返回原点"></a><a href="https://leetcode-cn.com/problems/robot-return-to-origin/" target="_blank" rel="noopener">机器人能否返回原点</a></h2><h3 id="1-题目描述"><a href="#1-题目描述" class="headerlink" title="1.题目描述"></a>1.题目描述</h3><p>在二维平面上，有一个机器人从原点 (0, 0) 开始。给出它的移动顺序，判断这个机器人在完成移动后是否在 <strong>(0, 0) 处结束</strong>。<br>移动顺序由字符串表示。字符 move[i] 表示其第 i 次移动。机器人的有效动作有 <code>R</code>（右），<code>L</code>（左），<code>U</code>（上）和 <code>D</code>（下）。如果机器人在完成所有动作后返回原点，则返回 true。否则，返回 false。<br><strong>注意：</strong>机器人“面朝”的方向无关紧要。 “R” 将始终使机器人向右移动一次，“L” 将始终向左移动等。此外，假设每次移动机器人的移动幅度相同。<br><strong>示例 1:</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入: &quot;UD&quot;</span><br><span class="line">输出: true</span><br><span class="line">解释：机器人向上移动一次，然后向下移动一次。所有动作都具有相同的幅度，因此它最终回到它开始的原点。因此，我们返回 true。</span><br></pre></td></tr></table></figure>
-<p><strong>示例 2:</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入: &quot;LL&quot;</span><br><span class="line">输出: false</span><br><span class="line">解释：机器人向左移动两次。它最终位于原点的左侧，距原点有两次 “移动” 的距离。我们返回 false，因为它在移动结束时没有返回原点。</span><br></pre></td></tr></table></figure>
-<h3 id="2-解题思路"><a href="#2-解题思路" class="headerlink" title="2.解题思路"></a>2.解题思路</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#思路一</span></span><br><span class="line">把水平和垂直分开用两个值代表，LR代表水平加减，UD代表垂直方向加减</span><br><span class="line"><span class="comment">#思路二（再思路一上进行改进）</span></span><br><span class="line">LR字符串存在的个数相同和UD字符串存在的个数相同 及返回原点</span><br></pre></td></tr></table></figure>
-<h3 id="3-解题"><a href="#3-解题" class="headerlink" title="3.解题"></a>3.解题</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#思路一解答</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">judgeCircle</span><span class="params">(self, moves: str)</span> -&gt; bool:</span></span><br><span class="line">        level = <span class="number">0</span></span><br><span class="line">        level_list = [<span class="string">'R'</span>,<span class="string">'L'</span>]</span><br><span class="line">        vertical = <span class="number">0</span></span><br><span class="line">        vertical_list = [<span class="string">'U'</span>,<span class="string">'D'</span>]</span><br><span class="line">        <span class="keyword">for</span> a <span class="keyword">in</span> moves:</span><br><span class="line">            <span class="keyword">if</span> a ==<span class="string">'R'</span>:</span><br><span class="line">                level += <span class="number">1</span></span><br><span class="line">            <span class="keyword">elif</span> a==<span class="string">'L'</span>:</span><br><span class="line">                level -=<span class="number">1</span></span><br><span class="line">            <span class="keyword">elif</span> a ==<span class="string">'U'</span>:</span><br><span class="line">                vertical += <span class="number">1</span></span><br><span class="line">            <span class="keyword">elif</span> a == <span class="string">'D'</span>:</span><br><span class="line">                vertical -= <span class="number">1</span></span><br><span class="line">        <span class="keyword">if</span> level == <span class="number">0</span> <span class="keyword">and</span> vertical ==<span class="number">0</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line"><span class="comment">#思路二解答</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">judgeCircle</span><span class="params">(self, moves)</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        :type moves: str</span></span><br><span class="line"><span class="string">        :rtype: bool</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        <span class="keyword">if</span> moves.count(<span class="string">'D'</span>) == moves.count(<span class="string">'U'</span>) <span class="keyword">and</span> moves.count(<span class="string">'L'</span>) == moves.count(<span class="string">'R'</span>):</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">False</span></span><br></pre></td></tr></table></figure>
-<h2 id="按奇偶排序数组"><a href="#按奇偶排序数组" class="headerlink" title="按奇偶排序数组"></a><a href="https://leetcode-cn.com/problems/sort-array-by-parity/" target="_blank" rel="noopener">按奇偶排序数组</a></h2><h3 id="1-题目描述-1"><a href="#1-题目描述-1" class="headerlink" title="1.题目描述"></a>1.题目描述</h3><p>给定一个非负整数数组 <code>A</code>，返回一个数组，在该数组中， <code>A</code> 的所有偶数元素之后跟着所有奇数元素。<br>你可以返回满足此条件的任何数组作为答案。<br><strong>示例：</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入：[3,1,2,4]</span><br><span class="line">输出：[2,4,3,1]</span><br><span class="line">输出 [4,2,3,1]，[2,4,1,3] 和 [4,2,1,3] 也会被接受。</span><br></pre></td></tr></table></figure>
-<p><strong>提示：</strong></p>
-<ol>
-- `1 <= A.length <= 5000`
-- `0 <= A[i] <= 5000`
-</ol>
-### 2.解题思路
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">利用偶数特效%<span class="number">2</span>余<span class="number">0</span>然后进行对调位置</span><br></pre></td></tr></table></figure>
-### 3.解题
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">sortArrayByParity</span><span class="params">(self, A: List[int])</span> -&gt; List[int]:</span></span><br><span class="line">        i = <span class="number">0</span></span><br><span class="line">        <span class="keyword">for</span> j <span class="keyword">in</span> range(len(A)):</span><br><span class="line">            <span class="keyword">if</span> A[j] % <span class="number">2</span> == <span class="number">0</span>:</span><br><span class="line">                A[i], A[j] = A[j], A[i]</span><br><span class="line">                i += <span class="number">1</span></span><br><span class="line">        <span class="keyword">return</span> A</span><br></pre></td></tr></table></figure>
-## <a href="https://leetcode-cn.com/problems/number-complement/" target="_blank" rel="noopener">数字的补数</a>
-### 1.题目描述
-给定一个正整数，输出它的补数。补数是对该数的二进制表示取反。
-**注意:**
-<ol>
-- 给定的整数保证在32位带符号整数的范围内。
-- 你可以假定二进制数不包含前导零位。
-</ol>
-**示例 1:**
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入: 5</span><br><span class="line">输出: 2</span><br><span class="line">解释: 5的二进制表示为101（没有前导零位），其补数为010。所以你需要输出2。</span><br></pre></td></tr></table></figure>
-**示例 2:**
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入: 1</span><br><span class="line">输出: 0</span><br><span class="line">解释: 1的二进制表示为1（没有前导零位），其补数为0。所以你需要输出0。</span><br></pre></td></tr></table></figure>
-### 2.解题思路
-按照题目描述走，先变成二进制，然后去除前倒数，再01兑换，再二进制变成整型
-### 3.解题
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">findComplement</span><span class="params">(self, num: int)</span> -&gt; int:</span></span><br><span class="line">        num = bin(num)</span><br><span class="line">        num = num[<span class="number">2</span>:]</span><br><span class="line">        new_num = <span class="string">''</span></span><br><span class="line">        <span class="keyword">for</span> a <span class="keyword">in</span> num:</span><br><span class="line">            <span class="keyword">if</span> a == <span class="string">'0'</span>:</span><br><span class="line">                new_num += <span class="string">'1'</span></span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                new_num += <span class="string">'0'</span></span><br><span class="line">        <span class="keyword">return</span> int(new_num,<span class="number">2</span>)</span><br></pre></td></tr></table></figure>
-# ``有更加好的思路，或者解题方法评论区留言谢谢`
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://sir0.net/%E5%8A%9B%E6%89%A3%E9%A2%98%E7%9B%AE%E6%B1%87%E6%80%BB%EF%BC%88%E5%8A%A0%E4%B8%80%EF%BC%8C%E6%97%8B%E8%BD%AC%E6%95%B0%E7%BB%84%EF%BC%8C%E6%95%B4%E6%95%B0%E5%8F%8D%E8%BD%AC%EF%BC%89/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="sir0.net">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="吴梦梦、刘玥和SL炮叔">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/%E5%8A%9B%E6%89%A3%E9%A2%98%E7%9B%AE%E6%B1%87%E6%80%BB%EF%BC%88%E5%8A%A0%E4%B8%80%EF%BC%8C%E6%97%8B%E8%BD%AC%E6%95%B0%E7%BB%84%EF%BC%8C%E6%95%B4%E6%95%B0%E5%8F%8D%E8%BD%AC%EF%BC%89/" class="post-title-link" itemprop="url">力扣题目汇总（加一，旋转数组，整数反转）</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-03-07 23:01:31" itemprop="dateCreated datePublished" datetime="2020-03-07T23:01:31+08:00">2020-03-07</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-03-06 11:39:25" itemprop="dateModified" datetime="2020-03-06T11:39:25+08:00">2020-03-06</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="加一"><a href="#加一" class="headerlink" title="加一"></a><a href="https://leetcode-cn.com/problems/plus-one/" target="_blank" rel="noopener">加一</a></h2><h3 id="1-题目描述"><a href="#1-题目描述" class="headerlink" title="1.题目描述"></a>1.题目描述</h3><ol>
-- <ol>
-- 给定一个由**整数**组成的**非空**数组所表示的非负整数，在该数的基础上加一。
-最高位数字存放在数组的首位， 数组中每个元素只存储一个数字。
-你可以假设除了整数 0 之外，这个整数不会以零开头。
-**示例 1:**
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入: [1,2,3]</span><br><span class="line">输出: [1,2,4]</span><br><span class="line">解释: 输入数组表示数字 123。</span><br></pre></td></tr></table></figure>
-**示例 2:**
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入: [4,3,2,1]</span><br><span class="line">输出: [4,3,2,2]</span><br><span class="line">解释: 输入数组表示数字 4321。</span><br></pre></td></tr></table></figure>
-</ol>
-</ol>
-### 2.解题思路
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#错误思路</span></span><br><span class="line">列表最后一位加<span class="number">1</span>，判断最后一位是否为<span class="number">9</span>然后这样会陷入死循环倒数第二是不是也是<span class="number">9</span>，与其这个我们干脆就把思路换一下</span><br><span class="line"><span class="comment">#更改后的思路</span></span><br><span class="line">列表-数字-数字+<span class="number">1</span>-列表</span><br></pre></td></tr></table></figure>
-### 3.解题
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">plusOne</span><span class="params">(self, digits: List[int])</span> -&gt; List[int]:</span></span><br><span class="line">        num_str = <span class="string">''</span></span><br><span class="line">        <span class="keyword">for</span> a <span class="keyword">in</span> digits:</span><br><span class="line">            num_str += str(a)</span><br><span class="line">        num_str = int(num_str) + <span class="number">1</span></span><br><span class="line">        num_str = str(num_str)</span><br><span class="line">        num_str = <span class="string">','</span>.join(num_str)</span><br><span class="line">        num_str = num_str.split(<span class="string">','</span>)</span><br><span class="line">        <span class="keyword">return</span> [int(b) <span class="keyword">for</span> b <span class="keyword">in</span> num_str]</span><br></pre></td></tr></table></figure>
-## <a href="https://leetcode-cn.com/problems/rotate-array/" target="_blank" rel="noopener">旋转数组</a>
-### 1.题目描述
-<ol>
-- 
-- 给定一个数组，将数组中的元素向右移动  k  个位置，其中  k  是非负数。
-**示例 1:**
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">输入: [1,2,3,4,5,6,7] 和 k &#x3D; 3</span><br><span class="line">输出: [5,6,7,1,2,3,4]</span><br><span class="line">解释:</span><br><span class="line">向右旋转 1 步: [7,1,2,3,4,5,6]</span><br><span class="line">向右旋转 2 步: [6,7,1,2,3,4,5]</span><br><span class="line">向右旋转 3 步: [5,6,7,1,2,3,4]</span><br></pre></td></tr></table></figure>
-**示例 2:**
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">输入: [-1,-100,3,99] 和 k &#x3D; 2</span><br><span class="line">输出: [3,99,-1,-100]</span><br><span class="line">解释: </span><br><span class="line">向右旋转 1 步: [99,-1,-100,3]</span><br><span class="line">向右旋转 2 步: [3,99,-1,-100]</span><br></pre></td></tr></table></figure>
-**说明:**
-
-<ul>
-<li>尽可能想出更多的解决方案，至少有三种不同的方法可以解决这个问题。</li>
-<li>要求使用空间复杂度为 O(1) 的原地算法。</li>
-</ul>
-</ol>
-### 2.解题思路
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">可以看成以K为切分两段字符串，然后前后位置对调，其中要解决就是K大约<span class="number">7</span>后变化，那我们就除<span class="number">7</span>取余数来解决</span><br><span class="line"><span class="comment">#这里7代表给你的列表长度</span></span><br></pre></td></tr></table></figure>
-### 3.解题
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">rotate</span><span class="params">(self, nums: List[int], k: int)</span> -&gt; <span class="keyword">None</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        Do not return anything, modify nums in-place instead.</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        l = len(nums)</span><br><span class="line">        k = k % l</span><br><span class="line">        nums[:] = nums[l-k:] + nums[:l-k]</span><br></pre></td></tr></table></figure>
-## <a href="https://leetcode-cn.com/problems/reverse-integer/" target="_blank" rel="noopener">整数反转</a>
-### 1.题目描述
-给出一个 32 位的有符号整数，你需要将这个整数中每位上的数字进行反转。
-**示例 1:**
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入: 123</span><br><span class="line">输出: 321</span><br></pre></td></tr></table></figure>
-**示例 2:**
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入: -123</span><br><span class="line">输出: -321</span><br></pre></td></tr></table></figure>
-**示例 3:**
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入: 120</span><br><span class="line">输出: 21</span><br></pre></td></tr></table></figure>
-### 2.解题思路
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1.</span>末尾有<span class="number">0</span>去<span class="number">0</span>后反转</span><br><span class="line"><span class="number">2.</span>开头有-，-保持不变后面反转</span><br></pre></td></tr></table></figure>
-### 3.解题
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">reverse</span><span class="params">(self, x: int)</span> -&gt; int:</span></span><br><span class="line">        new_x = <span class="string">'-'</span></span><br><span class="line">        x = str(x)</span><br><span class="line">        x = x[::<span class="number">-1</span>]</span><br><span class="line">        <span class="keyword">while</span> x[<span class="number">-1</span>] == <span class="number">0</span>:</span><br><span class="line">            x = x[:<span class="number">-1</span>]</span><br><span class="line">        <span class="keyword">if</span> x[<span class="number">-1</span>] == <span class="string">'-'</span>:</span><br><span class="line">            x = x[:<span class="number">-1</span>]</span><br><span class="line">            <span class="keyword">while</span> x[<span class="number">-1</span>] == <span class="number">0</span>:</span><br><span class="line">                x = x[:<span class="number">-1</span>]</span><br><span class="line">            new_x += x</span><br><span class="line">            x = new_x</span><br><span class="line">        <span class="keyword">if</span> int(x) &lt; <span class="number">-2</span>**<span class="number">31</span> <span class="keyword">or</span> int(x) &gt;<span class="number">2</span>**<span class="number">31</span><span class="number">-1</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">return</span> int(x)</span><br></pre></td></tr></table></figure>
-# ``有更加好的思路，或者解题方法评论区留言谢谢`
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
   </div>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/3/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/page/13/">13</a><a class="extend next" rel="next" href="/page/5/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/3/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/page/14/">14</a><a class="extend next" rel="next" href="/page/5/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -1268,7 +1185,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">128</span>
+          <span class="site-state-item-count">131</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

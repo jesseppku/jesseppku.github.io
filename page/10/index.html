@@ -153,6 +153,389 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://sir0.net/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E5%A4%87%E4%BB%BD,%E8%BF%81%E7%A7%BB/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="sir0.net">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="吴梦梦、刘玥和SL炮叔">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E5%A4%87%E4%BB%BD,%E8%BF%81%E7%A7%BB/" class="post-title-link" itemprop="url">数据库的备份,迁移</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-03-07 23:00:57" itemprop="dateCreated datePublished" datetime="2020-03-07T23:00:57+08:00">2020-03-07</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-03-06 11:39:14" itemprop="dateModified" datetime="2020-03-06T11:39:14+08:00">2020-03-06</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="08-14自我总结"><a href="#08-14自我总结" class="headerlink" title="08.14自我总结"></a>08.14自我总结</h1><h1 id="数据库的备份"><a href="#数据库的备份" class="headerlink" title="数据库的备份"></a>数据库的备份</h1><h2 id="一数据库的备份"><a href="#一数据库的备份" class="headerlink" title="一数据库的备份"></a>一数据库的备份</h2><h3 id="1-单库备份"><a href="#1-单库备份" class="headerlink" title="1.单库备份"></a>1.单库备份</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mysqldump -uroot -p123 db1 &gt; db1.sql  #库名</span><br><span class="line">mysqldump -uroot -p123 db1 table1 table2 &gt; db1-table1-table2.sql #库名 表名</span><br></pre></td></tr></table></figure>
+<h3 id="2-多库备份"><a href="#2-多库备份" class="headerlink" title="2.多库备份"></a>2.多库备份</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysqldump -uroot -p123 --databases db1 db2 mysql db3 &gt; db1_db2_mysql_db3.sql</span><br></pre></td></tr></table></figure>
+<h3 id="3-备份所有库"><a href="#3-备份所有库" class="headerlink" title="3.备份所有库"></a>3.备份所有库</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysqldump -uroot -p123 --all-databases &gt; all.sql</span><br></pre></td></tr></table></figure>
+<h2 id="二-备份恢复"><a href="#二-备份恢复" class="headerlink" title="二.备份恢复"></a>二.备份恢复</h2><h3 id="1-退出数据库后"><a href="#1-退出数据库后" class="headerlink" title="1.退出数据库后"></a>1.退出数据库后</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql -u -p &lt; filename.sql;</span><br></pre></td></tr></table></figure>
+<h3 id="2-在数据库内"><a href="#2-在数据库内" class="headerlink" title="2.在数据库内"></a>2.在数据库内</h3><ul>
+<li>创建空数据库</li>
+<li>选择数据库</li>
+<li>然后使用source filename; 来进行还原</li>
+</ul>
+<p>例如</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">use db1;</span><br><span class="line">source &#x2F;root&#x2F;db1.sql</span><br></pre></td></tr></table></figure>
+<h2 id="三-数据库迁移"><a href="#三-数据库迁移" class="headerlink" title="三.数据库迁移"></a>三.数据库迁移</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">务必保证在相同版本之间迁移</span><br><span class="line"># mysqldump -h 源IP -uroot -p123 --databases db1 | mysql -h 目标IP -uroot -p456</span><br></pre></td></tr></table></figure>
+<h2 id="四-备份高阶"><a href="#四-备份高阶" class="headerlink" title="四.备份高阶"></a>四.备份高阶</h2><h3 id="1-常用参数"><a href="#1-常用参数" class="headerlink" title="1.常用参数"></a>1.常用参数</h3><ul>
+<li>-B：表示的是指定多个库，增加了建库语句和use数据库的语句。</li>
+<li>-compact：去掉注释，适合调试输出，不适合在生产环境使用。</li>
+<li>-A： 表示的是本分所有的库。</li>
+<li>-F：刷新binlog日志，方便进行增量的恢复。</li>
+<li>–master-data：增加binlog日志文件名及其对应的位置点。</li>
+<li>-x，–lock-all-tables ：在备份的时候进行锁表，保持数据的一致性。</li>
+<li>-d：只备份表的结构。</li>
+<li>-t : 只备份数据库中的数据</li>
+<li>–single-transaction 适合innodb数据库的备份。</li>
+</ul>
+<h3 id="2-B备份"><a href="#2-B备份" class="headerlink" title="2.-B备份"></a>2.-B备份</h3><h4 id="单库"><a href="#单库" class="headerlink" title="单库"></a>单库</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">备份test中的所有表</span><br><span class="line">mysqldump -uroot -ppassword  -B test &gt;/tmp/test.sql</span><br></pre></td></tr></table></figure>
+<h4 id="多库"><a href="#多库" class="headerlink" title="多库"></a>多库</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysqldump -uroot -ppassword  -B 库<span class="number">1</span> 库<span class="number">2</span>  &gt;/tmp/test.sql</span><br></pre></td></tr></table></figure>
+<h3 id="3-使用gzip进行压缩数据备份"><a href="#3-使用gzip进行压缩数据备份" class="headerlink" title="3.使用gzip进行压缩数据备份"></a>3.使用gzip进行压缩数据备份</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysqldump -uroot -ppassword  -B 库1 库2 |gzip &gt;&#x2F;tmp&#x2F;test.gz</span><br></pre></td></tr></table></figure>
+<h3 id="4-备份时候切割binlog日志：（进行增量备份的时候可以用到）"><a href="#4-备份时候切割binlog日志：（进行增量备份的时候可以用到）" class="headerlink" title="4.备份时候切割binlog日志：（进行增量备份的时候可以用到）"></a>4.备份时候切割binlog日志：（进行增量备份的时候可以用到）</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">-F 的作用就是备份数据库的时候，将binlog日志进行重新刷新。</span><br><span class="line">mysqldump -uroot -ppassword  -t  -B -F test</span><br></pre></td></tr></table></figure>
+<h3 id="5-备份的时候会记录指定文件的位置以及mysqlbinglog的文件名称"><a href="#5-备份的时候会记录指定文件的位置以及mysqlbinglog的文件名称" class="headerlink" title="5.备份的时候会记录指定文件的位置以及mysqlbinglog的文件名称"></a>5.备份的时候会记录指定文件的位置以及mysqlbinglog的文件名称</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">--master-data=<span class="number">1</span> 的作用就是备份数据库的时候，将binlog日志进行重新刷新</span><br><span class="line">mysqldump -uroot -ppassword  -t  -B -F --master-data test</span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://sir0.net/%E6%95%B0%E6%8D%AE%E5%BA%93%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="sir0.net">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="吴梦梦、刘玥和SL炮叔">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/%E6%95%B0%E6%8D%AE%E5%BA%93%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/" class="post-title-link" itemprop="url">数据库数据类型</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-03-07 23:00:57" itemprop="dateCreated datePublished" datetime="2020-03-07T23:00:57+08:00">2020-03-07</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-03-06 11:40:10" itemprop="dateModified" datetime="2020-03-06T11:40:10+08:00">2020-03-06</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="07-14自我总结"><a href="#07-14自我总结" class="headerlink" title="07.14自我总结"></a>07.14自我总结</h1><h2 id="MYSQL数据库数据类型"><a href="#MYSQL数据库数据类型" class="headerlink" title="MYSQL数据库数据类型"></a>MYSQL数据库数据类型</h2><h2 id="一-整数类型和浮点数典型"><a href="#一-整数类型和浮点数典型" class="headerlink" title="一.整数类型和浮点数典型"></a>一.整数类型和浮点数典型</h2><h3 id="1-有符号-没符号"><a href="#1-有符号-没符号" class="headerlink" title="1.有符号/没符号"></a>1.有符号/没符号</h3><p>对于整数和负整数来说，默认情况下是有符号范围的<br><code>默认</code>是<code>有符号</code><br><code>有符号和没符号其实就是有没有包括负数,有符号是包括负数的</code><br>设置成无符号:<br>alter table 表名 变量名 数据类型 unsigned;</p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: center;"></th>
+<th style="text-align: center;">严格模式</th>
+<th style="text-align: center;">非严格模式</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">有符号</td>
+<td style="text-align: center;">（-，+） 超出范围会报错</td>
+<td style="text-align: center;">（-，+） 超出范围取极值</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">无符号</td>
+<td style="text-align: center;">（0，+） 超出范围会报错</td>
+<td style="text-align: center;">（0，+） 超出范围取极值</td>
+</tr>
+</tbody>
+</table>
+### 2.严选/非严选
+我们`不推荐使用非严格模式下`建立table，因为它会可能造成数据丢失的情况，所以我们必须在5.6版本中将mysql设置为严格模式。
+方法一：select@@sql_mode; @表示全局变量；@@表示会话级变量（局部）
+​ 临时设置set @@sql_mode ='NO_ENGINE_SUBSTITUTION,STRICT_TRANS_TABLES ';
+方法二:直接修改配置文件;
+​ [mysqld]
+​ sql_mode=NO_ENGINE_SUBSTITUTION,STRICT_TRANS_TABLES 并重启服务端mysql后生效.
+
+<ul>
+<li>严选情况下,数据超过他的设置范围他会报错</li>
+<li>非严选情况下,数据超过他的设置范围不会报错,但是只存他设置大小的那一部分的数据,多余的会丢掉</li>
+</ul>
+<h3 id="3-常见的类型"><a href="#3-常见的类型" class="headerlink" title="3.常见的类型"></a>3.常见的类型</h3><h4 id="1-整数型"><a href="#1-整数型" class="headerlink" title="1.整数型"></a>1.整数型</h4><table>
+<thead>
+<tr class="header">
+<th>数据类型</th>
+<th>字节数</th>
+<th>符号范围</th>
+<th>有符号范围</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>TINYINT</td>
+<td>1</td>
+<td>0~255</td>
+<td>-128~127</td>
+</tr>
+<tr class="even">
+<td>SMALLINT</td>
+<td>2</td>
+<td>0~65535</td>
+<td>-32768~32767</td>
+</tr>
+<tr class="odd">
+<td>MEDIUMINT</td>
+<td>3</td>
+<td>0~16777215</td>
+<td>-8388608~8388607</td>
+</tr>
+<tr class="even">
+<td>INT</td>
+<td>4</td>
+<td>0~4294967295</td>
+<td>-2147483648~2147483647</td>
+</tr>
+<tr class="odd">
+<td>BIGINT</td>
+<td>8</td>
+<td>0~18446744073709551615</td>
+<td>-9223372036854775808<br />~9223372036854775807</td>
+</tr>
+</tbody>
+</table>
+### 2.浮点型
+<table>
+<thead>
+<tr class="header">
+<th>数据类型</th>
+<th>字节数</th>
+<th>符号范围</th>
+<th>有符号范围</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>float</td>
+<td>4</td>
+<td>1.175494351E-38 
+~3.402823466E +38</td>
+<td>-3.402823466E+38~
+-1.175494351E-38</td>
+</tr>
+<tr class="even">
+<td>double</td>
+<td>8</td>
+<td>2.2250738585072014E-308
+~1.7976931348623157E+308</td>
+<td>-1.7976931348623157E+308
+~-2.2250738585072014E- 308</td>
+</tr>
+<tr class="odd">
+<td>decimal[(M[,D])]</td>
+<td>最大与
+double相同</td>
+<td>不固定</td>
+<td>不固定 10.2 decimal(3,1);</td>
+</tr>
+</tbody>
+</table>
+## 二.字符串类型
+### 1.char 与varchar
+char:定长字符串,字符长度0-255个字节之间,存储时占用固定字节空间
+相对于varchar来讲
+优点: 读取存储速度快于varchar
+varchar:可变长度字符串,字符长度在0-65532个字节,存储式占用空间实际字节长度+1,而+1是存的他的长度
+`原因`:因为char我们如果规定6,然后输入3个字符,他后面的内容会用宫格来填充,而varchar不会用空格填充,所有存的时候空间节省了,而读的时候需要发送字符的数量所有读取会变慢
+### 2.binary 与 varbinary
+BINARY和VARBINARY类类似于CHAR和VARCHAR，不同的是它们包含二进制字符串而不要二进制字符串<br />
+输入值的和char 与varchar差不多的填充效果
+### 3.text与blob
+blob:没有编码的二进制大字符串.(了解即可)
+text:具备编码的大字符串;
+都有四种
+
+<ul>
+<li>tinyblob,tinytext:</li>
+<li>blob,text</li>
+<li>mediumblob,mediumtext</li>
+<li>longblob,longtext</li>
+</ul>
+<h3 id="4-enum与set"><a href="#4-enum与set" class="headerlink" title="4.enum与set"></a>4.enum与set</h3><p>规定这个里面输入内容是什么,你可以输入他的内容,也可以输入他的索引<br>enum与set区别,enum只能输一个,set能输入一个或多个,且用集合的形式输入<br>*<em>注意: mysql会自动将字符串后面的空格删掉 所以你的数据在存储前应该先把空格处理掉 *</em></p>
+<h2 id="三-时间类型"><a href="#三-时间类型" class="headerlink" title="三.时间类型"></a>三.时间类型</h2><ul>
+<li>year :格式YYYT</li>
+<li>data:格式YYYY-MM-DD</li>
+<li>time:格式HH:MM:SS</li>
+<li>datatime:格式YYYY-MM-DD HH:MM:SS</li>
+<li>timestamp :格式YYYY-MM-DD HH:MM:SS (不用输入默认为数据插入时候的插入时间)</li>
+</ul>
+<p><strong>注意：</strong></p>
+<ul>
+<li>0-69 翻译为 2000-2069； 70-99 翻译为1790-1999</li>
+<li>year、date、time既可以用字符串也可以用数字输入值；current_time和now()输入系统当前日期</li>
+<li>time不仅可以表示一天的时间，也可以表示两个时间的时间间隔</li>
+<li>‘D HH:MM:SS’格式的字符串，D表示日（0-34），HH的实际值为D*24+HH</li>
+<li>datetime、timestamp只能以字符串形式输入</li>
+<li>在使用timestamp时，输入current_timestamp输入系统当前日期和时间</li>
+<li>在使用timestamp时，输入null或不输入，系统会自动输入当前日期和时间</li>
+</ul>
+<p>​<br>​</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://sir0.net/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%94%A8%E6%88%B7%E7%AE%A1%E7%90%86/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="sir0.net">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="吴梦梦、刘玥和SL炮叔">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%94%A8%E6%88%B7%E7%AE%A1%E7%90%86/" class="post-title-link" itemprop="url">数据库用户管理</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-03-07 23:00:57" itemprop="dateCreated datePublished" datetime="2020-03-07T23:00:57+08:00">2020-03-07</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-03-06 11:39:49" itemprop="dateModified" datetime="2020-03-06T11:39:49+08:00">2020-03-06</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="07-21自我总结"><a href="#07-21自我总结" class="headerlink" title="07.21自我总结"></a>07.21自我总结</h1><h1 id="数据库用户管理"><a href="#数据库用户管理" class="headerlink" title="数据库用户管理"></a>数据库用户管理</h1><h2 id="一-用户创建语法"><a href="#一-用户创建语法" class="headerlink" title="一.用户创建语法"></a>一.用户创建语法</h2><p>语法:<br>create user 用户名@”ip地址” “identified” by 密码;<br>举例:<br>create user tom@”192.168.101” identified by “123”;<br>创建除本机以外其他ip第能登入<br>create user 用户名@”%” “identified” by 密码;</p>
+<h2 id="二-用户授权"><a href="#二-用户授权" class="headerlink" title="二.用户授权"></a>二.用户授权</h2><h3 id="1-给权限"><a href="#1-给权限" class="headerlink" title="1.给权限"></a>1.给权限</h3><p>grant all on <em>.</em> to toms@”%” identified by “123”;</p>
+<ul>
+<li>all:增删改查所有权限</li>
+<li>all的地方可以修改对于的方式updata,select等待select后面可以跟字段表示只能查看某个字段</li>
+<li>on后面库名.表明,*表示所有</li>
+<li>to后面跟账号和账号ip</li>
+<li>如果创建账号时候没有创建密码可以在授权这里加上密码</li>
+</ul>
+<h3 id="2-收回权限"><a href="#2-收回权限" class="headerlink" title="2.收回权限"></a>2.收回权限</h3><p>REVOKE all privileges [column] on 库名.表名 from user@”host”;<br>column 不填表示所有字段</p>
+<h3 id="3-删除用户"><a href="#3-删除用户" class="headerlink" title="3.删除用户"></a>3.删除用户</h3><p>drop user@”host”</p>
+<h3 id="4-刷新权限表"><a href="#4-刷新权限表" class="headerlink" title="4.刷新权限表"></a>4.刷新权限表</h3><p>flush privileges;<br /><br>刷新权限表 一些时候权限信息可能会有所延迟 可以执行该语句立即刷新权限信息</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://sir0.net/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B4%A2%E5%BC%95/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -763,390 +1146,11 @@ b+树
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://sir0.net/%E9%9A%8F%E6%9C%BA%E7%82%B9%E5%90%8D%E5%8F%AF%E8%A7%86%E5%8C%96%E7%95%8C%E9%9D%A2,%E8%AE%B0%E5%BD%95%E8%BF%9F%E5%88%B0%E4%BA%BA%E5%91%98,%E8%BD%ACexe%E6%96%87%E4%BB%B6/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="sir0.net">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="吴梦梦、刘玥和SL炮叔">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/%E9%9A%8F%E6%9C%BA%E7%82%B9%E5%90%8D%E5%8F%AF%E8%A7%86%E5%8C%96%E7%95%8C%E9%9D%A2,%E8%AE%B0%E5%BD%95%E8%BF%9F%E5%88%B0%E4%BA%BA%E5%91%98,%E8%BD%ACexe%E6%96%87%E4%BB%B6/" class="post-title-link" itemprop="url">随机点名可视化界面,记录迟到人员,转exe文件</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-03-07 23:00:56" itemprop="dateCreated datePublished" datetime="2020-03-07T23:00:56+08:00">2020-03-07</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-03-06 11:39:20" itemprop="dateModified" datetime="2020-03-06T11:39:20+08:00">2020-03-06</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="随机点名可视化界面-记录迟到人员-转exe文件"><a href="#随机点名可视化界面-记录迟到人员-转exe文件" class="headerlink" title="随机点名可视化界面,记录迟到人员,转exe文件"></a>随机点名可视化界面,记录迟到人员,转exe文件</h1><h2 id="一-介绍"><a href="#一-介绍" class="headerlink" title="一.介绍"></a>一.介绍</h2><p>对于人员采取随机点名</p>
-<h2 id="二-代码"><a href="#二-代码" class="headerlink" title="二.代码"></a>二.代码</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> datetime</span><br><span class="line"><span class="keyword">import</span> random</span><br><span class="line"><span class="keyword">from</span> tkinter <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">from</span> tkinter.filedialog <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line">name_lis = []</span><br><span class="line">print(name_lis)</span><br><span class="line">root_1 = Tk()</span><br><span class="line">e = StringVar()</span><br><span class="line">x = StringVar()</span><br><span class="line">root_1.title(<span class="string">'随机点名'</span>)</span><br><span class="line"></span><br><span class="line">count = Label(root_1, text=<span class="string">'输入点名的人数按回车确定'</span>)</span><br><span class="line">count.grid(row=<span class="number">0</span>, column=<span class="number">0</span>)</span><br><span class="line"></span><br><span class="line">enter_1 = Entry(root_1, state=<span class="string">'normal'</span>, textvariable=e)</span><br><span class="line">enter_1.grid(row=<span class="number">0</span>, column=<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">enter_1.delete(<span class="number">0</span>, END)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 初始显示</span></span><br><span class="line">Window_1 = Listbox(root_1)</span><br><span class="line">Window_1.insert(<span class="number">0</span>, <span class="string">'请载入人员名单'</span>)</span><br><span class="line">Window_1.grid(row=<span class="number">1</span>, column=<span class="number">0</span>, sticky=N + S)</span><br><span class="line"></span><br><span class="line">Window_2 = Listbox(root_1)</span><br><span class="line"><span class="keyword">for</span> name <span class="keyword">in</span> [<span class="string">'人员名单格式'</span>, <span class="string">'请载入人员名单'</span>, <span class="string">'一个人员为一行'</span>, <span class="string">'文本为TXT格式'</span>]:</span><br><span class="line">    Window_2.insert(<span class="number">0</span>, name)</span><br><span class="line">Window_2.grid(row=<span class="number">1</span>, column=<span class="number">1</span>, sticky=N + S)</span><br><span class="line">print(name_lis)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">enter_chiose</span><span class="params">(a, enter=enter_1)</span>:</span></span><br><span class="line">    text = enter.get()  <span class="comment"># type:str</span></span><br><span class="line">    <span class="keyword">if</span> text.isdigit():</span><br><span class="line">        <span class="keyword">if</span> int(text) &lt;= len(name_lis):</span><br><span class="line">            count_lis = [<span class="string">'点名人数:'</span>, <span class="string">f'<span class="subst">&#123;text&#125;</span>人'</span>]</span><br><span class="line">            Window_1 = Listbox(root_1)</span><br><span class="line">            Window_1.insert(<span class="number">0</span>, count_lis)</span><br><span class="line">            Window_1.grid(row=<span class="number">1</span>, column=<span class="number">0</span>, sticky=N + S)</span><br><span class="line"></span><br><span class="line">            print(text)</span><br><span class="line">            print(type(text))</span><br><span class="line">            num = int(text)</span><br><span class="line">            a = random.sample(name_lis, num)</span><br><span class="line">            names_lis = [<span class="string">'点名名单'</span>]</span><br><span class="line">            print(a)</span><br><span class="line">            <span class="keyword">if</span> a:</span><br><span class="line">                names_lis.extend(a)</span><br><span class="line">            Window_2 = Listbox(root_1)</span><br><span class="line">            Window_2.grid(row=<span class="number">1</span>, column=<span class="number">1</span>, sticky=N + S)</span><br><span class="line">            <span class="keyword">for</span> data <span class="keyword">in</span> names_lis:</span><br><span class="line">                Window_2.insert(<span class="number">1</span>, data)</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            lis_1 = [<span class="string">'选择人数超过范围'</span>]</span><br><span class="line">            lis_2 = [<span class="string">'选择人数超过范围'</span>]</span><br><span class="line">            Window_1 = Listbox(root_1)</span><br><span class="line">            Window_1.insert(<span class="number">0</span>, lis_1)</span><br><span class="line">            Window_1.grid(row=<span class="number">1</span>, column=<span class="number">0</span>, sticky=N + S)</span><br><span class="line">            Window_2 = Listbox(root_1)</span><br><span class="line">            Window_2.insert(<span class="number">0</span>, lis_2)</span><br><span class="line">            Window_2.grid(row=<span class="number">1</span>, column=<span class="number">1</span>, sticky=N + S)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        lis_1 = [<span class="string">'请输入数字'</span>]</span><br><span class="line">        lis_2 = [<span class="string">'请输入数字'</span>]</span><br><span class="line">        Window_1 = Listbox(root_1)</span><br><span class="line">        Window_1.insert(<span class="number">0</span>, lis_1)</span><br><span class="line">        Window_1.grid(row=<span class="number">1</span>, column=<span class="number">0</span>, sticky=N + S)</span><br><span class="line">        Window_2 = Listbox(root_1)</span><br><span class="line">        Window_2.insert(<span class="number">0</span>, lis_2)</span><br><span class="line">        Window_2.grid(row=<span class="number">1</span>, column=<span class="number">1</span>, sticky=N + S)</span><br><span class="line"></span><br><span class="line">    enter_1.delete(<span class="number">0</span>, <span class="string">'end'</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">count_2 = Label(root_1, text=<span class="string">'未点到人员记事本'</span>)</span><br><span class="line">count_2.grid(row=<span class="number">0</span>, column=<span class="number">2</span>)</span><br><span class="line"></span><br><span class="line">enter_2 = Entry(root_1, state=<span class="string">'normal'</span>, textvariable=x)</span><br><span class="line">enter_2.grid(row=<span class="number">1</span>, column=<span class="number">2</span>, sticky=N + S + E + W)</span><br><span class="line">enter_2.delete(<span class="number">0</span>, END)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">b_save</span><span class="params">(enter=enter_2)</span>:</span></span><br><span class="line">    text = enter.get()</span><br><span class="line">    time = datetime.datetime.now()</span><br><span class="line">    time = str(time).split(<span class="string">'.'</span>)[<span class="number">0</span>]</span><br><span class="line">    enter.delete(<span class="number">0</span>, <span class="string">'end'</span>)</span><br><span class="line">    data = Label(enter, text=<span class="string">f'上次保存内容\n<span class="subst">&#123;time&#125;</span>\n<span class="subst">&#123;text&#125;</span>'</span>)</span><br><span class="line">    <span class="keyword">with</span> open(<span class="string">'迟到人员.txt'</span>, <span class="string">'a'</span>, encoding=<span class="string">'utf8'</span>) <span class="keyword">as</span> fa:</span><br><span class="line">        fa.write(<span class="string">f'<span class="subst">&#123;time&#125;</span>\n<span class="subst">&#123;text&#125;</span>\n'</span>)</span><br><span class="line">    data.grid(row=<span class="number">0</span>, column=<span class="number">0</span>, sticky=N + S + E + W)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">save_b = Button(root_1, text=<span class="string">'保存'</span>, command=b_save)</span><br><span class="line">save_b.grid(row=<span class="number">2</span>, column=<span class="number">2</span>)</span><br><span class="line"></span><br><span class="line">enter_1.bind(<span class="string">'&lt;Return&gt;'</span>, enter_chiose)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">b_load</span><span class="params">()</span>:</span></span><br><span class="line">    fd = LoadFileDialog(root_1)  <span class="comment"># 创建打开文件对话框</span></span><br><span class="line">    filename = fd.go()  <span class="comment"># 显示打开文件对话框，并获取选择的文件名称</span></span><br><span class="line">    <span class="keyword">if</span> filename:</span><br><span class="line">        <span class="keyword">try</span>:</span><br><span class="line">            <span class="keyword">with</span> open(filename, <span class="string">'r'</span>, encoding=<span class="string">'utf8'</span>) <span class="keyword">as</span> fr:</span><br><span class="line">                name_lis.clear()</span><br><span class="line">                <span class="keyword">for</span> name <span class="keyword">in</span> fr:</span><br><span class="line">                    name = name.strip()</span><br><span class="line">                    name_lis.append(name)</span><br><span class="line">        <span class="keyword">except</span>:</span><br><span class="line">            <span class="keyword">with</span> open(filename, <span class="string">'r'</span>, encoding=<span class="string">'gbk'</span>) <span class="keyword">as</span> fr:</span><br><span class="line">                name_lis.clear()</span><br><span class="line">                <span class="keyword">for</span> name <span class="keyword">in</span> fr:</span><br><span class="line">                    name = name.strip()</span><br><span class="line">                    name_lis.append(name)</span><br><span class="line"></span><br><span class="line">        Window_1 = Listbox(root_1)</span><br><span class="line">        Window_1.insert(<span class="number">0</span>, <span class="string">'人员名单'</span>)</span><br><span class="line">        Window_1.grid(row=<span class="number">1</span>, column=<span class="number">0</span>, sticky=N + S)</span><br><span class="line"></span><br><span class="line">        Window_2 = Listbox(root_1)</span><br><span class="line">        <span class="keyword">for</span> name <span class="keyword">in</span> name_lis:</span><br><span class="line">            Window_2.insert(<span class="number">0</span>, name)</span><br><span class="line">        Window_2.grid(row=<span class="number">1</span>, column=<span class="number">1</span>, sticky=N + S)</span><br><span class="line">        print(name_lis)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">load_b = Button(root_1, text=<span class="string">'载入人员名单'</span>, command=b_load)</span><br><span class="line">load_b.grid(row=<span class="number">2</span>, column=<span class="number">0</span>)</span><br><span class="line"></span><br><span class="line">root_1.mainloop()</span><br></pre></td></tr></table></figure>
-<h2 id="三-EXE程序"><a href="#三-EXE程序" class="headerlink" title="三.EXE程序"></a>三.EXE程序</h2><p>压缩文件下载链接:<a href="https://github.com/a568972484/Random_roll_call" target="_blank" rel="noopener" class="uri">https://github.com/a568972484/Random_roll_call</a><br>exe程序在压缩文件中dist文件中</p>
-<h2 id="四-相关实用文档"><a href="#四-相关实用文档" class="headerlink" title="四.相关实用文档"></a>四.相关实用文档</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">https://blog.csdn.net/weifuliu/article/details/<span class="number">82826643</span> <span class="comment">#生成exe文件</span></span><br><span class="line"></span><br><span class="line">https://www.cnblogs.com/ruo-li-suo-yi/p/<span class="number">7425307.</span>html <span class="comment">#grid设置位置参照</span></span><br><span class="line"></span><br><span class="line">https://www.runoob.com/python/python-gui-tkinter.html <span class="comment">#菜鸟变成关于tkinter概述</span></span><br><span class="line"></span><br><span class="line">https://www.cnblogs.com/jxxclj/p/<span class="number">9572919.</span>html <span class="comment">#参考案例</span></span><br><span class="line"></span><br><span class="line">https://blog.csdn.net/ppdyhappy/article/details/<span class="number">52129612</span> <span class="comment">#打开文件</span></span><br><span class="line"></span><br><span class="line">https://blog.csdn.net/qq_37235798/article/details/<span class="number">82349223</span> <span class="comment">#控件</span></span><br></pre></td></tr></table></figure>
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://sir0.net/%E7%BD%91%E7%BB%9C%E6%A1%86%E6%9E%B6,%E4%BA%92%E8%81%94%E7%BD%91%E7%9A%84%E7%BB%84%E6%88%90,OSI%E4%B8%83%E5%B1%82%E5%8D%8F%E8%AE%AE,%E6%8A%BD%E8%B1%A1%E5%B1%82/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="sir0.net">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="吴梦梦、刘玥和SL炮叔">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/%E7%BD%91%E7%BB%9C%E6%A1%86%E6%9E%B6,%E4%BA%92%E8%81%94%E7%BD%91%E7%9A%84%E7%BB%84%E6%88%90,OSI%E4%B8%83%E5%B1%82%E5%8D%8F%E8%AE%AE,%E6%8A%BD%E8%B1%A1%E5%B1%82/" class="post-title-link" itemprop="url">网络框架,互联网的组成,OSI七层协议,抽象层</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-03-07 23:00:56" itemprop="dateCreated datePublished" datetime="2020-03-07T23:00:56+08:00">2020-03-07</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-03-06 11:39:19" itemprop="dateModified" datetime="2020-03-06T11:39:19+08:00">2020-03-06</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="6-25自我总结"><a href="#6-25自我总结" class="headerlink" title="6.25自我总结"></a>6.25自我总结</h1><h2 id="1-网络框架"><a href="#1-网络框架" class="headerlink" title="1.网络框架"></a>1.网络框架</h2><h3 id="1-单机"><a href="#1-单机" class="headerlink" title="1.单机"></a>1.单机</h3><ul>
-<li>单机游戏</li>
-</ul>
-<p>以下两个基于网络的</p>
-<h3 id="2-CS架构"><a href="#2-CS架构" class="headerlink" title="2.CS架构"></a>2.CS架构</h3><ul>
-<li>cs—&gt;client客户/server服务<br>服务端(应用程序)一个就够了,客户端(应用程序)可以有多个</li>
-</ul>
-<p>服务端和客户端都是应用程序,那两者一定都可以存储数据,哪一个存储数据更好:</p>
-<ul>
-<li>服务端: 很多人都可以用,它一次更新,其它人还是直接拿,还能保证数据的安全</li>
-<li>客户端:非常快,如果本地保存账号密码,安全性非常低,客户端不联网,数据不更新</li>
-</ul>
-<h3 id="3-BS架构"><a href="#3-BS架构" class="headerlink" title="3.BS架构"></a>3.BS架构</h3><ul>
-<li>bs—&gt;browser浏览器/服务端<br>客户端(浏览器)/服务端,程序放在浏览器上</li>
-</ul>
-<h2 id="2-互联网的组成"><a href="#2-互联网的组成" class="headerlink" title="2.互联网的组成"></a>2.互联网的组成</h2><p>边缘部分: 客户端/服务端,这些普通的计算机,负责接收/发送数据<br>核心部分:传输网络的设备,路由,基站,负责数据的传输<br>举例我们打开浏览器:</p>
-<ol>
-- 打开浏览器(客户端)
-- 输入www.taobao.com,----->地址指向淘宝的服务端
-- 按enter键客户端把www.taobao.com解析成淘宝的地址(杭州.....)
-- 发送一条指令给淘宝,让淘宝把数据发给你
-- 客户端渲染数据
-</ol>
-## 3.OSI七层协议
-互联网的本质就是一系列的网络协议，这个协议就叫OSI协议（一系列协议），按照功能不同，分工不同，人为的分层七层。实际上这个七层是不存在的。没有这七层的概念，只是人为的划分而已。区分出来的目的只是让你明白哪一层是干什么用的。
-每一层都运行不同的协议。协议是干什么的，协议就是标准。
-实际上还有人把它划成五层、四层。
-
-<ul>
-<li>七层划分为：应用层、表示层、会话层、传输层、网络层、数据链路层、物理层。</li>
-<li>五层划分为：应用层、传输层、网络层、数据链路层、物理层。</li>
-<li>四层划分为：应用层、传输层、网络层、网络接口层。</li>
-</ul>
-<p>互联网由硬件和软件组成,传输数据,只能传输电信号,0和1,OSI协议吧0和1从无意义的东西变成有意义的东西</p>
-<h3 id="1-物理层"><a href="#1-物理层" class="headerlink" title="1.物理层"></a>1.物理层</h3><p>计算机与计算机之间传输数据</p>
-<ul>
-<li>光缆/网线:传输信号,连接两台计算机,如果有一根网线能从中国连到美国,只要物理层就够了</li>
-</ul>
-<p>客户端 —-00111110011111001111100111110011111001111100111110011111—&gt;服务端</p>
-<h3 id="2-数据链路层"><a href="#2-数据链路层" class="headerlink" title="2.数据链路层"></a>2.数据链路层</h3><p>让同一局域网下的计算机连接在一起<br>把001111 100111 110011 1110011111变得有意义,分组,每几位一组<br>以太网协议:规定物理层中传输的0和1的格式<br>head:<br>有点类似我们的邮件</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">收件人地址:</span><br><span class="line"></span><br><span class="line">数据类型:</span><br><span class="line"></span><br><span class="line">发件人地址:</span><br></pre></td></tr></table></figure>
-<p>data: 内容</p>
-<ul>
-<li>发件人地址就是mac地址,计算机上网卡的地址,这个地址固定不变,并且唯一,每一台电脑有自己固定的mac地址</li>
-<li>广播:你一定知道自己的mac地址,还有收件人的mac地址,通过某一台设备(交换机),但是交换机不知道mac地址对应的计算机是那一台,交换机就会以广播的形式发送给所有的计算机,收件人的计算机收到了就会解析这条命令,拿到内容了.之后交换机会记录两个mac地址.</li>
-</ul>
-<p>以上基于局域网</p>
-<h3 id="3-网络层"><a href="#3-网络层" class="headerlink" title="3.网络层"></a>3.网络层</h3><p>让不同局域网下面的计算机连接在一起.<br>叫做ip地址,只只知道mac地址无法连接其他局域网内的计算机.因为mac地址只被交换机识别,然后不同局域网的交换机不一样.所以现在定义一个新的地址表名是哪个局域网,通过路由器<br>在数据链路层的基础上在包一层ip头.<br>已经知道了淘宝的ip地址和mac地址,你会吧自己的mac地址和ip地址一起发送出去,路由会接收淘宝的ip地址,路由发送淘宝的ip地址和mac地址,自带mac地址(路由器的)和ip地址(路由器的ip地址)<br>mac地址(局域网)+IP地址(互联网)就能找到全世界独一无二的电脑</p>
-<h3 id="4-传输层"><a href="#4-传输层" class="headerlink" title="4.传输层"></a>4.传输层</h3><p>组织网络带来的数据,<br>端口号,找到一个固定的应用程序,一个端口号对应一个应用程序<br>mac地址(局域网)+IP地址(互联网)+端口号就能找到全世界独一无二的电脑上的独一无二的应用程序<br>数据,0和1发给应用程序,tcp/udp协议</p>
-<h3 id="5-应用层"><a href="#5-应用层" class="headerlink" title="5.应用层"></a>5.应用层</h3><p>0和1转换成具体的功能</p>
-<h2 id="4-抽象层"><a href="#4-抽象层" class="headerlink" title="4.抽象层"></a>4.抽象层</h2><p>我们可以利用IP地址＋协议＋端口号唯一标示网络中的一个进程。<br>能够唯一标示网络中的进程后，它们就可以利用Socket进行通信了，什么是Socket呢？我们经常把Socket翻译为套接字，Socket是在应用层和传输层之间的一个抽象层，它把TCP/IP层复杂的操作抽象为几个简单的接口供应用层调用已实现进程在网络中通信。<br><img src="https://www.cnblogs.com/images/cnblogs_com/pythonywy/1452728/o_o_153-socket%e6%8a%bd%e8%b1%a1%e5%b1%82-socket%e5%b1%82.png" /><br>Socket起源于UNIX，在Unix一切皆文件哲学的思想下，Socket是一种”打开—读/写—关闭”模式的实现，服务器和客户端各自维护一个”文件”，在建立连接打开后，可以向自己文件写入内容供对方读取或者读取对方内容，通讯结束时关闭文件。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://sir0.net/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E7%99%BB%E5%85%A5%E6%B5%81%E7%A8%8B/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="sir0.net">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="吴梦梦、刘玥和SL炮叔">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E7%99%BB%E5%85%A5%E6%B5%81%E7%A8%8B/" class="post-title-link" itemprop="url">微信小程序登入流程</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-03-07 23:00:56" itemprop="dateCreated datePublished" datetime="2020-03-07T23:00:56+08:00">2020-03-07</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-03-06 11:39:46" itemprop="dateModified" datetime="2020-03-06T11:39:46+08:00">2020-03-06</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="微信小程序登入流程"><a href="#微信小程序登入流程" class="headerlink" title="微信小程序登入流程"></a>微信小程序登入流程</h1><img src="https://res.wx.qq.com/wxdoc/dist/assets/img/api-login.2fcc9f35.jpg" />
-## 一.首先前端先传code去后端
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">wx.login(&#123;</span><br><span class="line">      success(res) &#123;</span><br><span class="line">        <span class="keyword">if</span> (res.code) &#123;</span><br><span class="line">          <span class="comment">//发起网络请求</span></span><br><span class="line">          wx.request(&#123;</span><br><span class="line">            url: app.globalData.host+<span class="string">'login'</span>,</span><br><span class="line">            method:<span class="string">"post"</span>,</span><br><span class="line">            data: &#123;</span><br><span class="line">              code: res.code</span><br><span class="line">            &#125;</span><br><span class="line">          &#125;)</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">          <span class="built_in">console</span>.log(<span class="string">'登录失败！'</span> + res.errMsg)</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;)</span><br></pre></td></tr></table></figure>
-## 二.后端接受到请求中的code
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#.......省略一下配置路由啥的</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Login</span><span class="params">(APIView)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">post</span><span class="params">(self,request)</span>:</span></span><br><span class="line">        code = request.data.get(<span class="string">'code'</span>)</span><br><span class="line">        print(code,type(code))</span><br><span class="line">        <span class="comment">#061HMtlG0hAQ6d2hOYkG0DlhlG0HMtlh &lt;class 'str'&gt;</span></span><br></pre></td></tr></table></figure>
-## 三.后端获得code之后向微信官方发起请求获得相关参数
-### 发起的链接
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">GET https://api.weixin.qq.com/sns/jscode2session?appid=APPID&amp;amp;secret=SECRET&amp;amp;js_code=JSCODE&amp;amp;grant_type=authorization_code</span><br></pre></td></tr></table></figure>
-### 请求参数
-<table>
-<thead>
-<tr class="header">
-<th style="text-align: left;">属性</th>
-<th style="text-align: left;">类型</th>
-<th style="text-align: left;">默认值</th>
-<th style="text-align: left;">必填</th>
-<th style="text-align: left;">说明</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">appid</td>
-<td style="text-align: left;">string</td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;">是</td>
-<td style="text-align: left;">小程序 appId</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">secret</td>
-<td style="text-align: left;">string</td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;">是</td>
-<td style="text-align: left;">小程序 appSecret</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">js_code</td>
-<td style="text-align: left;">string</td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;">是</td>
-<td style="text-align: left;">登录时获取的 code</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">grant_type</td>
-<td style="text-align: left;">string</td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;">是</td>
-<td style="text-align: left;">授权类型，此处只需填写 authorization_code</td>
-</tr>
-</tbody>
-</table>
-### 返回值
-### Object
-返回的 JSON 数据包
-<table>
-<thead>
-<tr class="header">
-<th style="text-align: left;">属性</th>
-<th style="text-align: left;">类型</th>
-<th style="text-align: left;">说明</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">openid</td>
-<td style="text-align: left;">string</td>
-<td style="text-align: left;">用户唯一标识</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">session_key</td>
-<td style="text-align: left;">string</td>
-<td style="text-align: left;">会话密钥</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">unionid</td>
-<td style="text-align: left;">string</td>
-<td style="text-align: left;">用户在开放平台的唯一标识符，在满足 UnionID 下发条件的情况下会返回，详见 <a href="https://developers.weixin.qq.com/miniprogram/dev/framework/open-ability/union-id.html" target="_blank" rel="noopener">UnionID 机制说明</a>。</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">errcode</td>
-<td style="text-align: left;">number</td>
-<td style="text-align: left;">错误码</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">errmsg</td>
-<td style="text-align: left;">string</td>
-<td style="text-align: left;">错误信息</td>
-</tr>
-</tbody>
-</table>
-### **errcode 的合法值**
-<table>
-<thead>
-<tr class="header">
-<th style="text-align: left;">值</th>
-<th style="text-align: left;">说明</th>
-<th style="text-align: left;">最低版本</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">-1</td>
-<td style="text-align: left;">系统繁忙，此时请开发者稍候再试</td>
-<td style="text-align: left;"></td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">0</td>
-<td style="text-align: left;">请求成功</td>
-<td style="text-align: left;"></td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">40029</td>
-<td style="text-align: left;">code 无效</td>
-<td style="text-align: left;"></td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">45011</td>
-<td style="text-align: left;">频率限制，每个用户每分钟100次</td>
-<td style="text-align: left;"></td>
-</tr>
-</tbody>
-</table>
-### 接着上述我们对于路径进行拼接成他需要的内容
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Login</span><span class="params">(APIView)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">post</span><span class="params">(self,request)</span>:</span></span><br><span class="line">        code = request.data.get(<span class="string">'code'</span>)</span><br><span class="line">    <span class="comment">#https: // api.weixin.qq.com / sns / jscode2session?appid = &#123;&#125; &amp;amp; secret =&#123;&#125; &amp;amp; js_code = &#123;&#125; &amp;amp; grant_type = authorization_code</span></span><br><span class="line">        url= <span class="string">f"https://api.weixin.qq.com/sns/jscode2session?appid=xxxx&amp;amp;secret=xxxx&amp;amp;js_code=<span class="subst">&#123;code&#125;</span>&amp;amp;grant_type=authorization_code"</span></span><br><span class="line">        <span class="comment">#appid与secret不同的开发者不一样</span></span><br><span class="line">        reponse=requests.get(url)</span><br><span class="line">        <span class="comment">#因为返回值是json的形式</span></span><br><span class="line">        data=reponse.json()</span><br><span class="line">        print(data)</span><br></pre></td></tr></table></figure>
-appid看你小程序中设置了是哪个appid
-对于的appid有对应的secret
-其中`appid`以及`secret`均在你`小程序账号中`
-## 四.获取参数后后台对于参数进行加密处理
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> hashlib</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Login</span><span class="params">(APIView)</span>:</span></span><br><span class="line">    ........</span><br><span class="line">    <span class="keyword">if</span> data.get(<span class="string">"openid"</span>) <span class="keyword">and</span> data.get(<span class="string">"session_key"</span>):</span><br><span class="line">        md5 = hashlib.md5()</span><br><span class="line">        md5.update(data[<span class="string">'openid'</span>].encode(<span class="string">"utf-8"</span>))</span><br><span class="line">        md5.update(data[<span class="string">'session_key'</span>].encode(<span class="string">"utf-8"</span>))</span><br><span class="line">        key = md5.hexdigest()</span><br><span class="line">        val =data[<span class="string">'session_key'</span>]+<span class="string">"&amp;amp;"</span>+data[<span class="string">'openid'</span>]</span><br><span class="line">        print(key,val)</span><br></pre></td></tr></table></figure>
-## 五.如果上述过程都成功,返回前端一个标识方便后续操作
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> rest_framework.response <span class="keyword">import</span>  Response</span><br><span class="line"><span class="keyword">from</span> django.core.cache <span class="keyword">import</span> cache</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Login</span><span class="params">(APIView)</span>:</span></span><br><span class="line">    ........</span><br><span class="line">    cache.set(key,val)  <span class="comment">#存缓存中较少对于数据库的压力</span></span><br><span class="line">    has_user=models.Wxuser.objects.filter(openid=data[<span class="string">'openid'</span>]).first() <span class="comment">#将唯一标识进行存储</span></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span>  has_user:</span><br><span class="line">        models.Wxuser.objects.create(openid=data[<span class="string">'openid'</span>])</span><br><span class="line">        <span class="keyword">return</span> Response(&#123;</span><br><span class="line">            <span class="string">"code"</span>: <span class="number">200</span>,</span><br><span class="line">            <span class="string">"msg"</span>: <span class="string">"ok"</span>,</span><br><span class="line">            <span class="string">"data"</span>:&#123;<span class="string">'login_key'</span>:key&#125;  <span class="comment">#发送login_key其目的是为了后续可以直接去缓存取对于信息</span></span><br><span class="line">        &#125;)</span><br></pre></td></tr></table></figure>
-## 六.前端在前没有任何问题的情况下对于标识信息进行接收
-目的,标识已登入以及获取标识,方便后续对于用户信息的查找
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> that = <span class="keyword">this</span></span><br><span class="line">   wx.login(&#123;</span><br><span class="line">     success(res) &#123;</span><br><span class="line">       <span class="keyword">if</span> (res.code) &#123;</span><br><span class="line">         <span class="comment">//发起网络请求</span></span><br><span class="line">         wx.request(&#123;</span><br><span class="line">           url: app.globalData.host + <span class="string">'login'</span>,</span><br><span class="line">           method: <span class="string">"post"</span>,</span><br><span class="line">           data: &#123;</span><br><span class="line">             code: res.code</span><br><span class="line">           &#125;,</span><br><span class="line">           success(res) &#123;</span><br><span class="line">             <span class="built_in">console</span>.log(res.data.data.login_key)</span><br><span class="line">             <span class="built_in">console</span>.log(that)</span><br><span class="line">             that.setData(&#123;</span><br><span class="line">               login_key: res.data.data.login_key</span><br><span class="line">             &#125;</span><br><span class="line">             )</span><br><span class="line">           &#125;,</span><br><span class="line">         &#125;)</span><br><span class="line">       &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">         <span class="built_in">console</span>.log(<span class="string">'登录失败！'</span> + res.errMsg)</span><br><span class="line">       &#125;</span><br><span class="line">     &#125;</span><br><span class="line">   &#125;)</span><br></pre></td></tr></table></figure>
-`其中setData`方法的必须对象是整个页面
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
   </div>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/9/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><span class="page-number current">10</span><a class="page-number" href="/page/11/">11</a><span class="space">&hellip;</span><a class="page-number" href="/page/13/">13</a><a class="extend next" rel="next" href="/page/11/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/9/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><span class="page-number current">10</span><a class="page-number" href="/page/11/">11</a><span class="space">&hellip;</span><a class="page-number" href="/page/14/">14</a><a class="extend next" rel="next" href="/page/11/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -1212,7 +1216,7 @@ appid看你小程序中设置了是哪个appid
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">128</span>
+          <span class="site-state-item-count">131</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
