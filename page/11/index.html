@@ -153,6 +153,108 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://sir0.net/%E5%89%8D%E5%90%8E%E7%AB%AF%E5%88%86%E7%A6%BB%E9%A1%B9%E7%9B%AE%E4%B8%80%E5%8F%B0%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%B8%8A%E7%BA%BF/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="sir0.net">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="吴梦梦、刘玥和SL炮叔">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/%E5%89%8D%E5%90%8E%E7%AB%AF%E5%88%86%E7%A6%BB%E9%A1%B9%E7%9B%AE%E4%B8%80%E5%8F%B0%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%B8%8A%E7%BA%BF/" class="post-title-link" itemprop="url">前后端分离项目一台服务器上线</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-03-07 23:00:57" itemprop="dateCreated datePublished" datetime="2020-03-07T23:00:57+08:00">2020-03-07</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-03-06 11:39:05" itemprop="dateModified" datetime="2020-03-06T11:39:05+08:00">2020-03-06</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="一-购买服务器"><a href="#一-购买服务器" class="headerlink" title="一.购买服务器"></a>一.购买服务器</h2><p>这里有几点注意</p>
+<ul>
+<li>选择配置 linux 系统的时候最好选择<code>centos7+</code>不要选择<code>centos6+</code></li>
+<li>配置开发端口最好把常用端口打开以及运行端口最好多开几个防止后续<code>nginx</code> 启动网页没法没法访问ip一般是端口权限没开</li>
+<li>默认服务器账户名为<code>root</code></li>
+</ul>
+<h2 id="二-更新系统安装包-非常重要"><a href="#二-更新系统安装包-非常重要" class="headerlink" title="二.更新系统安装包(非常重要)"></a>二.更新系统安装包(非常重要)</h2><ul>
+<li>yum update -y</li>
+<li>yum -y groupinstall “Development tools”</li>
+<li>yum install openssl-devel bzip2-devel expat-devel gdbm-devel readline-devel sqlite-devel psmisc libffi-devel</li>
+</ul>
+<h2 id="三-安装mysql"><a href="#三-安装mysql" class="headerlink" title="三.安装mysql"></a>三.安装mysql</h2><ul>
+<li>cd ~</li>
+<li>下载安装包也可以<code>wget http://dev.mysql.com/get/mysql57-community-release-el7-10.noarch.rpm</code><br>也可以直接上传安装包一样的</li>
+<li>yum -y install mysql57-community-release-el7-10.noarch.rpm</li>
+<li>yum -y install mysql-community-server</li>
+<li>systemctl start mysqld.service</li>
+<li>systemctl status mysqld.service</li>
+<li>grep “password” /var/log/mysqld.log (查看初始密码)</li>
+<li>mysql -uroot -p (登入mysql)</li>
+<li>修改密码</li>
+<li>ALTER USER ‘root’@’localhost’ IDENTIFIED BY ‘YWy1234?’;</li>
+</ul>
+<h2 id="四-安装Redis"><a href="#四-安装Redis" class="headerlink" title="四.安装Redis"></a>四.安装Redis</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span>）前往用户根目录</span><br><span class="line">&gt;: cd ~</span><br><span class="line"></span><br><span class="line"><span class="number">2</span>）下载redis<span class="number">-5.0</span><span class="number">.5</span></span><br><span class="line">&gt;: wget http://download.redis.io/releases/redis<span class="number">-5.0</span><span class="number">.5</span>.tar.gz</span><br><span class="line"></span><br><span class="line"><span class="number">3</span>）解压安装包</span><br><span class="line">&gt;: tar -xf redis<span class="number">-5.0</span><span class="number">.5</span>.tar.gz</span><br><span class="line"></span><br><span class="line"><span class="number">4</span>）进入目标文件</span><br><span class="line">&gt;: cd redis<span class="number">-5.0</span><span class="number">.5</span></span><br><span class="line"></span><br><span class="line"><span class="number">5</span>）编译环境</span><br><span class="line">&gt;: make</span><br><span class="line"></span><br><span class="line"><span class="number">6</span>）复制环境到指定路径完成安装</span><br><span class="line">&gt;: cp -r ~/redis<span class="number">-5.0</span><span class="number">.5</span> /usr/local/redis</span><br><span class="line"></span><br><span class="line"><span class="number">7</span>）配置redis可以后台启动：修改下方内容</span><br><span class="line">&gt;: vim /usr/local/redis/redis.conf</span><br><span class="line"></span><br><span class="line">daemonize yes</span><br><span class="line"></span><br><span class="line"><span class="number">8</span>）完成配置修改</span><br><span class="line">&gt;: esc</span><br><span class="line">&gt;: :wq</span><br><span class="line"></span><br><span class="line"><span class="number">9</span>）建立软连接</span><br><span class="line">&gt;: ln -s /usr/local/redis/src/redis-server /usr/bin/redis-server</span><br><span class="line">&gt;: ln -s /usr/local/redis/src/redis-cli /usr/bin/redis-cli</span><br><span class="line"></span><br><span class="line"><span class="number">10</span>）后台运行redis</span><br><span class="line">&gt;: redis-server &amp;amp;</span><br><span class="line">ctrl + c</span><br><span class="line"></span><br><span class="line"><span class="number">11</span>）测试redis环境</span><br><span class="line">&gt;: redis-cli</span><br><span class="line">ctrl + c</span><br><span class="line"></span><br><span class="line"><span class="number">12</span>）关闭redis服务</span><br><span class="line">&gt;: pkill -f redis <span class="number">-9</span></span><br></pre></td></tr></table></figure>
+<h2 id="五-安装Python3-6"><a href="#五-安装Python3-6" class="headerlink" title="五.安装Python3.6"></a>五.安装Python3.6</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span>）前往用户根目录</span><br><span class="line">&gt;: cd ~</span><br><span class="line"></span><br><span class="line"><span class="number">2</span>）下载 或 上传 Python3<span class="number">.6</span><span class="number">.7</span></span><br><span class="line">&gt;: wget https://www.python.org/ftp/python/<span class="number">3.6</span><span class="number">.7</span>/Python<span class="number">-3.6</span><span class="number">.7</span>.tar.xz</span><br><span class="line"></span><br><span class="line"><span class="number">3</span>）解压安装包</span><br><span class="line">&gt;: tar -xf Python<span class="number">-3.6</span><span class="number">.7</span>.tar.xz</span><br><span class="line"></span><br><span class="line"><span class="number">4</span>）进入目标文件</span><br><span class="line">&gt;: cd Python<span class="number">-3.6</span><span class="number">.7</span></span><br><span class="line"></span><br><span class="line"><span class="number">5</span>）配置安装路径：/usr/local/python3</span><br><span class="line">&gt;: ./configure --prefix=/usr/local/python3</span><br><span class="line"></span><br><span class="line"><span class="number">6</span>）编译并安装</span><br><span class="line">&gt;: make &amp;amp;&amp;amp; sudo make install</span><br><span class="line"></span><br><span class="line"><span class="number">7</span>）建立软连接：终端命令 python3，pip3</span><br><span class="line">&gt;: ln -s /usr/local/python3/bin/python3<span class="number">.6</span> /usr/bin/python3</span><br><span class="line">&gt;: ln -s /usr/local/python3/bin/pip3<span class="number">.6</span> /usr/bin/pip3</span><br><span class="line"></span><br><span class="line"><span class="number">8</span>）删除安装包与文件：</span><br><span class="line">&gt;: rm -rf Python<span class="number">-3.6</span><span class="number">.7</span></span><br><span class="line">&gt;: rm -rf Python<span class="number">-3.6</span><span class="number">.7</span>.tar.xz</span><br></pre></td></tr></table></figure>
+<p>六.配置pip镜像源</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span>）创建pip配置路径</span><br><span class="line">&gt;: mkdir ~/.pip</span><br><span class="line"></span><br><span class="line"><span class="number">2</span>）进入目录编辑配置文件：填入下方内容</span><br><span class="line">cd ~/.pip &amp;amp;&amp;amp; vim pip.conf</span><br><span class="line"></span><br><span class="line">[<span class="keyword">global</span>]</span><br><span class="line">index-url = http://pypi.douban.com/simple</span><br><span class="line">[install]</span><br><span class="line">use-mirrors =true</span><br><span class="line">mirrors =http://pypi.douban.com/simple/</span><br><span class="line">trusted-host =pypi.douban.com</span><br></pre></td></tr></table></figure>
+<h2 id="七-安装虚拟环境"><a href="#七-安装虚拟环境" class="headerlink" title="七.安装虚拟环境"></a>七.安装虚拟环境</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span>）安装依赖</span><br><span class="line">&gt;: pip3 install virtualenv</span><br><span class="line">&gt;: pip3 install virtualenvwrapper</span><br><span class="line"></span><br><span class="line"><span class="number">2</span>）建立虚拟环境软连接</span><br><span class="line">&gt;: ln -s /usr/local/python3/bin/virtualenv /usr/bin/virtualenv</span><br><span class="line"></span><br><span class="line"><span class="number">3</span>）配置虚拟环境：填入下方内容</span><br><span class="line">&gt;: vim ~/.bash_profile</span><br><span class="line"></span><br><span class="line">VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3</span><br><span class="line">source /usr/local/python3/bin/virtualenvwrapper.sh</span><br><span class="line"></span><br><span class="line"><span class="number">4</span>）退出编辑状态</span><br><span class="line">&gt;: esc</span><br><span class="line"></span><br><span class="line"><span class="number">5</span>）保存修改并退出</span><br><span class="line">&gt;: :wq</span><br><span class="line"></span><br><span class="line"><span class="number">6</span>）更新配置文件内容</span><br><span class="line">&gt;: source ~/.bash_profile</span><br><span class="line"></span><br><span class="line"><span class="number">7</span>）虚拟环境默认根目录：~/.virtualenvs</span><br></pre></td></tr></table></figure>
+<h2 id="八-pip3安装uwsgi"><a href="#八-pip3安装uwsgi" class="headerlink" title="八.pip3安装uwsgi"></a>八.pip3安装uwsgi</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span>）在真实环境下安装</span><br><span class="line">pip3 install uwsgi</span><br><span class="line"></span><br><span class="line"><span class="number">2</span>）建立软连接</span><br><span class="line">ln -s /usr/local/python3/bin/uwsgi /usr/bin/uwsgi</span><br></pre></td></tr></table></figure>
+<h2 id="九-安装Nginx"><a href="#九-安装Nginx" class="headerlink" title="九.安装Nginx"></a>九.安装Nginx</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span>）前往用户根目录</span><br><span class="line">&gt;: cd ~</span><br><span class="line"></span><br><span class="line"><span class="number">2</span>）下载nginx1<span class="number">.13</span><span class="number">.7</span></span><br><span class="line">&gt;: wget http://nginx.org/download/nginx<span class="number">-1.13</span><span class="number">.7</span>.tar.gz</span><br><span class="line"></span><br><span class="line"><span class="number">3</span>）解压安装包</span><br><span class="line">&gt;: tar -xf nginx<span class="number">-1.13</span><span class="number">.7</span>.tar.gz</span><br><span class="line"></span><br><span class="line"><span class="number">4</span>）进入目标文件</span><br><span class="line">&gt;: cd nginx<span class="number">-1.13</span><span class="number">.7</span></span><br><span class="line"></span><br><span class="line"><span class="number">5</span>）配置安装路径：/usr/local/nginx</span><br><span class="line">&gt;: ./configure --prefix=/usr/local/nginx</span><br><span class="line"></span><br><span class="line"><span class="number">6</span>）编译并安装</span><br><span class="line">&gt;: make &amp;amp;&amp;amp; sudo make install</span><br><span class="line"></span><br><span class="line"><span class="number">7</span>）建立软连接：终端命令 nginx</span><br><span class="line">&gt;: ln -s /usr/local/nginx/sbin/nginx /usr/bin/nginx</span><br><span class="line"></span><br><span class="line"><span class="number">8</span>）删除安装包与文件：</span><br><span class="line">&gt;: rm -rf nginx<span class="number">-1.13</span><span class="number">.7</span></span><br><span class="line">&gt;: rm -rf nginx<span class="number">-1.13</span><span class="number">.7</span>.tar.xz</span><br><span class="line"></span><br><span class="line"><span class="number">9</span>）测试Nginx环境，服务器运行nginx，本地访问服务器ip</span><br><span class="line">&gt;: nginx</span><br><span class="line">&gt;: 服务器绑定的域名 或 ip:<span class="number">80</span></span><br></pre></td></tr></table></figure>
+<h2 id="十-Nginx常用命令"><a href="#十-Nginx常用命令" class="headerlink" title="十.Nginx常用命令"></a>十.Nginx常用命令</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">1）启动</span><br><span class="line">&gt;: nginx</span><br><span class="line"></span><br><span class="line">2）关闭nginx</span><br><span class="line">&gt;: nginx -s stop</span><br><span class="line"></span><br><span class="line">3）重启nginx</span><br><span class="line">&gt;: nginx -s reload</span><br><span class="line"></span><br><span class="line">4）查看端口，强行关闭</span><br><span class="line">&gt;: ps -aux|grep nginx</span><br><span class="line">&gt;: kill &lt;pid:进程编号&gt;</span><br></pre></td></tr></table></figure>
+<h2 id="十一-前端部署"><a href="#十一-前端部署" class="headerlink" title="十一.前端部署"></a>十一.前端部署</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1.</span>项目中关于与后端请求的ip改成服务器的ip(这个没有固定写法根据自己项目灵活设置)</span><br><span class="line"></span><br><span class="line">前端项目打包</span><br><span class="line">cnpm run build (项目目录执行)</span><br><span class="line">打包后会有一个dist文件夹只要他就好了</span><br><span class="line"></span><br><span class="line">上传到~(也就是root)</span><br><span class="line"></span><br><span class="line">移动并重命名</span><br><span class="line">mv ~/dist /home/html</span><br></pre></td></tr></table></figure>
+<h2 id="十二-后端部署"><a href="#十二-后端部署" class="headerlink" title="十二.后端部署"></a>十二.后端部署</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span>）需要做上线修改的内容settings.py</span><br><span class="line">DEBUG = <span class="literal">False</span></span><br><span class="line">ALLOWED_HOSTS = [</span><br><span class="line">    <span class="string">'39.100.107.176'</span>  <span class="comment"># 公网ip地址</span></span><br><span class="line">]</span><br><span class="line"></span><br><span class="line">CORS_ORIGIN_ALLOW_ALL = <span class="literal">True</span>  <span class="comment"># 允许所有跨域</span></span><br><span class="line">CORS_ORIGIN_WHITELIST = [</span><br><span class="line">]</span><br><span class="line"></span><br><span class="line"><span class="number">2</span> )上传并移动至于/home/project</span><br><span class="line"></span><br><span class="line"><span class="number">3</span> )提前先配置uwsgi设置</span><br><span class="line">vim /home/project/你的后台项目名称/配置的文件名称.xml</span><br><span class="line">里面写入内容如下:</span><br><span class="line"> &lt;uwsgi&gt;    </span><br><span class="line">   &lt;socket&gt;127.0.0.1:8808&lt;/socket&gt; &lt;!-- 内部端口，自定义 --&gt; </span><br><span class="line">   &lt;chdir&gt;/home/project/你的后台项目名称/&lt;/chdir&gt; &lt;!-- 项目路径 --&gt;            </span><br><span class="line">   &lt;module&gt;xxxx.wsgi&lt;/module&gt;  &lt;!-- xxxx为wsgi.py所在目录名--&gt; </span><br><span class="line">   &lt;processes&gt;4&lt;/processes&gt; &lt;!-- 进程数 --&gt;     </span><br><span class="line">   &lt;daemonize&gt;uwsgi.log&lt;/daemonize&gt; &lt;!-- 日志文件 --&gt;</span><br><span class="line">&lt;/uwsgi&gt;</span><br><span class="line"></span><br><span class="line">保存并退出</span><br></pre></td></tr></table></figure>
+<h2 id="十三-导出本地依赖-服务器安装依赖"><a href="#十三-导出本地依赖-服务器安装依赖" class="headerlink" title="十三.导出本地依赖,服务器安装依赖"></a>十三.导出本地依赖,服务器安装依赖</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">走进后台项目</span><br><span class="line">pip3 freeze &gt; packages.txt</span><br><span class="line"></span><br><span class="line">上传packages.txt至服务器</span><br><span class="line">pip3 install -r packages.txt</span><br></pre></td></tr></table></figure>
+<h2 id="十四-数据库迁移-没有数据库相关可以忽略"><a href="#十四-数据库迁移-没有数据库相关可以忽略" class="headerlink" title="十四.数据库迁移(没有数据库相关可以忽略)"></a>十四.数据库迁移(没有数据库相关可以忽略)</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">和玩DJANGO迁移在CMD中执行命令一模一样</span><br></pre></td></tr></table></figure>
+<h2 id="十五-配置上线启动"><a href="#十五-配置上线启动" class="headerlink" title="十五.配置上线启动"></a>十五.配置上线启动</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line">vim /usr/local/nginx/conf/nginx.conf</span><br><span class="line"></span><br><span class="line">写入内容如下:</span><br><span class="line"></span><br><span class="line">events &#123;</span><br><span class="line">    worker_connections  1024;</span><br><span class="line">&#125;</span><br><span class="line">http &#123;</span><br><span class="line">    include       mime.types;</span><br><span class="line">    default_type  application/octet-stream;</span><br><span class="line">    sendfile        on;</span><br><span class="line">    server &#123;</span><br><span class="line">        listen 8000;</span><br><span class="line">        server_name  127.0.0.1; # 改为自己的域名，没域名修改为127.0.0.1:80</span><br><span class="line">        charset utf-8;</span><br><span class="line">        location / &#123;</span><br><span class="line">           include uwsgi_params;</span><br><span class="line">           uwsgi_pass 127.0.0.1:8808;  # 端口要和uwsgi里配置的一样</span><br><span class="line">           uwsgi_param UWSGI_SCRIPT wsgi.py所在的目录名.wsgi;  #wsgi.py所在的目录名+.wsgi</span><br><span class="line">           uwsgi_param UWSGI_CHDIR /home/project/项目路径/; # 项目路径</span><br><span class="line">        &#125;</span><br><span class="line">        # 新增的配置静态文件</span><br><span class="line">        location /static &#123;</span><br><span class="line">            alias /home/project/项目路径/wsgi.py所在的目录名/static;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    server &#123;</span><br><span class="line">        listen 80;</span><br><span class="line">        server_name  127.0.0.1; # 改为自己的域名，没域名修改为127.0.0.1:80</span><br><span class="line">        charset utf-8;</span><br><span class="line">        location / &#123;</span><br><span class="line">            root /home/html; # html访问路径</span><br><span class="line">            index index.html; # html文件名称</span><br><span class="line">            try_files $uri $uri/ /index.html; # 解决单页面应用刷新404问题</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">保存退出</span><br></pre></td></tr></table></figure>
+<h2 id="十六-启动服务"><a href="#十六-启动服务" class="headerlink" title="十六.启动服务"></a>十六.启动服务</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">pkill -f uwsgi <span class="number">-9</span></span><br><span class="line"></span><br><span class="line">uwsgi -x /home/project/项目路径/xxx.xml</span><br><span class="line"></span><br><span class="line">nginx</span><br></pre></td></tr></table></figure>
+<p><code>如果有做修改需要重新启动一次服务才生效</code></p>
+<h2 id="十七-简单的django启动办法"><a href="#十七-简单的django启动办法" class="headerlink" title="十七.简单的django启动办法"></a>十七.简单的django启动办法</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">cd 到manage.py所在目录</span><br><span class="line"></span><br><span class="line">python3 manage.py runserver <span class="number">0.0</span><span class="number">.0</span><span class="number">.0</span>:<span class="number">80</span></span><br><span class="line">    </span><br><span class="line">这时候测试后台的ip+端口是服务器的ip</span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://sir0.net/%E6%B7%B1%E5%85%A5selenium%E6%A8%A1%E5%9D%97%E5%9F%BA%E7%A1%80%E6%93%8D%E4%BD%9C/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -364,6 +466,132 @@
 <h3 id="自定义expected-conditions"><a href="#自定义expected-conditions" class="headerlink" title="自定义expected_conditions"></a><strong>自定义expected_conditions</strong></h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">current_url</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self,current_url)</span>:</span></span><br><span class="line">        self.current_url = current_url</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__call__</span><span class="params">(self, driver)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> self.current_url == driver.current_url</span><br></pre></td></tr></table></figure>
 <h3 id="使用举例"><a href="#使用举例" class="headerlink" title="使用举例"></a>使用举例</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> selenium <span class="keyword">import</span> webdriver</span><br><span class="line"><span class="keyword">from</span> selenium.webdriver.support <span class="keyword">import</span> expected_conditions <span class="keyword">as</span> EC</span><br><span class="line"><span class="keyword">from</span> selenium.webdriver.common.by <span class="keyword">import</span> By</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">browser =  webdriver.Chrome()</span><br><span class="line">response = browser.get(<span class="string">'https://www.12306.cn/index/'</span>)</span><br><span class="line">login_button_xpath = <span class="string">'//*[@id="J-header-login"]/a[1]'</span></span><br><span class="line">print(time.time())</span><br><span class="line"><span class="comment">#每1秒扫描一次，直到60秒超时后，停止</span></span><br><span class="line">a=WebDriverWait(browser,<span class="number">60</span>,<span class="number">1</span>).until(EC.presence_of_element_located((By.XPATH,login_button_xpath)))</span><br><span class="line">login_button = browser.find_element_by_xpath(login_button_xpath)</span><br><span class="line">print(time.time())</span><br><span class="line">login_button.click()</span><br></pre></td></tr></table></figure>
 <p>参考文档:<a href="http://www.imdsx.cn/index.php/2017/07/27/ec/" target="_blank" rel="noopener">http://www.imdsx.cn/index.php/2017/07/27/ec/</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://sir0.net/%E6%89%8B%E6%9C%BAAPP%E6%97%A0%E6%B3%95%E6%8A%93%E5%8C%85(%E6%97%A0%E6%B3%95%E8%BF%9E%E6%8E%A5%E6%9C%8D%E5%8A%A1%E5%99%A8)/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="sir0.net">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="吴梦梦、刘玥和SL炮叔">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/%E6%89%8B%E6%9C%BAAPP%E6%97%A0%E6%B3%95%E6%8A%93%E5%8C%85(%E6%97%A0%E6%B3%95%E8%BF%9E%E6%8E%A5%E6%9C%8D%E5%8A%A1%E5%99%A8)/" class="post-title-link" itemprop="url">手机APP无法抓包(无法连接服务器)</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-03-07 23:00:57" itemprop="dateCreated datePublished" datetime="2020-03-07T23:00:57+08:00">2020-03-07</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-03-06 11:39:48" itemprop="dateModified" datetime="2020-03-06T11:39:48+08:00">2020-03-06</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="一-把证书放到系统信任区"><a href="#一-把证书放到系统信任区" class="headerlink" title="一. 把证书放到系统信任区"></a>一. 把证书放到系统信任区</h2><ul>
+<li><p>前提：手机已root</p>
+</li>
+<li><p>详细步骤</p>
+</li>
+<li><p>计算证书名</p>
+</li>
+<li><p><code>openssl x509 -subject_hash_old -in charles-ssl-proxying-certificate_saved.pem</code></p>
+</li>
+<li><p>算出数值，比如<code>3a1074b3</code></p>
+</li>
+<li><p>证书文件改名</p>
+</li>
+<li><p>然后把原Charles证书<code>charles-ssl-proxying-certificate_saved.pem</code>改名为<code>3a1074b3.0</code></p>
+</li>
+<li><p>放到系统分区</p>
+</li>
+<li><p>放到<code>/system/etc/security/cacerts/</code></p>
+</li>
+</ul>
+<ul>
+<li><p>注意</p>
+</li>
+<li><p>但是呢，现在多数手机都很难root了</p>
+</li>
+<li><p>包括我之前的锤子M1L和很多常见品牌，比如小米、华为等，的最新手机</p>
+</li>
+<li><p>如果真的可以root，那倒是容易此办法去解决ssl pinning的问题<br /><br>也可以直接移动证书<br /><br>用户证书路径:<code>/data/misc/user/0/cacerts-added</code><br /><br>系统证书路径:<code>/system/etc/security/cacerts</code></p>
+<h2 id="二-用其他工具绕开https校验实现https抓包"><a href="#二-用其他工具绕开https校验实现https抓包" class="headerlink" title="二.用其他工具绕开https校验实现https抓包"></a>二.用其他工具绕开https校验实现https抓包</h2></li>
+<li><p>确保了手机已root或越狱</p>
+</li>
+<li><p>Android：已root</p>
+</li>
+<li><p>确保后续可以安装Xposed等工具</p>
+</li>
+<li><p>iOS：已越狱</p>
+</li>
+<li><p>确保后续能安装<code>Cydia</code>等工具</p>
+</li>
+<li><p>再去用可以绕开/禁止<br><code>SSL pinning</code>的插件</p>
+</li>
+<li><p><code>Android</code></p>
+</li>
+<li><p>基于<code>Xposed</code>的JustTrustMe</p>
+</li>
+<li><p>限制：</p>
+</li>
+<li><p>只能/支持<code>Android 7.0</code>之前的安卓</p>
+</li>
+<li><p>超过<code>Android 7.0</code>就不工作了</p>
+</li>
+</ul>
+<ul>
+<li><p>基于<code>Cydia</code>的<a href="https://github.com/iSECPartners/Android-SSL-TrustKiller" target="_blank" rel="noopener">Android-SSL-TrustKiller</a></p>
+</li>
+<li><p><code>iOS</code></p>
+</li>
+<li><p>基于Cydia的SSL Kill Switch 2</p>
+</li>
+<li><p>旧版本：基于Cydia的<a href="https://github.com/iSECPartners/ios-ssl-kill-switch" target="_blank" rel="noopener">iOS SSL Kill Switch</a></p>
+</li>
+</ul>
 
       
     </div>
@@ -797,132 +1025,6 @@ delimiter改变命令行语言执行的方法<br />
 /<br />
 如默认是;进行运行
 而delimiter | 表示末尾输入|表示执行
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://sir0.net/%E6%89%8B%E6%9C%BAAPP%E6%97%A0%E6%B3%95%E6%8A%93%E5%8C%85(%E6%97%A0%E6%B3%95%E8%BF%9E%E6%8E%A5%E6%9C%8D%E5%8A%A1%E5%99%A8)/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="sir0.net">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="吴梦梦、刘玥和SL炮叔">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/%E6%89%8B%E6%9C%BAAPP%E6%97%A0%E6%B3%95%E6%8A%93%E5%8C%85(%E6%97%A0%E6%B3%95%E8%BF%9E%E6%8E%A5%E6%9C%8D%E5%8A%A1%E5%99%A8)/" class="post-title-link" itemprop="url">手机APP无法抓包(无法连接服务器)</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-03-07 23:00:57" itemprop="dateCreated datePublished" datetime="2020-03-07T23:00:57+08:00">2020-03-07</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-03-06 11:39:48" itemprop="dateModified" datetime="2020-03-06T11:39:48+08:00">2020-03-06</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="一-把证书放到系统信任区"><a href="#一-把证书放到系统信任区" class="headerlink" title="一. 把证书放到系统信任区"></a>一. 把证书放到系统信任区</h2><ul>
-<li><p>前提：手机已root</p>
-</li>
-<li><p>详细步骤</p>
-</li>
-<li><p>计算证书名</p>
-</li>
-<li><p><code>openssl x509 -subject_hash_old -in charles-ssl-proxying-certificate_saved.pem</code></p>
-</li>
-<li><p>算出数值，比如<code>3a1074b3</code></p>
-</li>
-<li><p>证书文件改名</p>
-</li>
-<li><p>然后把原Charles证书<code>charles-ssl-proxying-certificate_saved.pem</code>改名为<code>3a1074b3.0</code></p>
-</li>
-<li><p>放到系统分区</p>
-</li>
-<li><p>放到<code>/system/etc/security/cacerts/</code></p>
-</li>
-</ul>
-<ul>
-<li><p>注意</p>
-</li>
-<li><p>但是呢，现在多数手机都很难root了</p>
-</li>
-<li><p>包括我之前的锤子M1L和很多常见品牌，比如小米、华为等，的最新手机</p>
-</li>
-<li><p>如果真的可以root，那倒是容易此办法去解决ssl pinning的问题<br /><br>也可以直接移动证书<br /><br>用户证书路径:<code>/data/misc/user/0/cacerts-added</code><br /><br>系统证书路径:<code>/system/etc/security/cacerts</code></p>
-<h2 id="二-用其他工具绕开https校验实现https抓包"><a href="#二-用其他工具绕开https校验实现https抓包" class="headerlink" title="二.用其他工具绕开https校验实现https抓包"></a>二.用其他工具绕开https校验实现https抓包</h2></li>
-<li><p>确保了手机已root或越狱</p>
-</li>
-<li><p>Android：已root</p>
-</li>
-<li><p>确保后续可以安装Xposed等工具</p>
-</li>
-<li><p>iOS：已越狱</p>
-</li>
-<li><p>确保后续能安装<code>Cydia</code>等工具</p>
-</li>
-<li><p>再去用可以绕开/禁止<br><code>SSL pinning</code>的插件</p>
-</li>
-<li><p><code>Android</code></p>
-</li>
-<li><p>基于<code>Xposed</code>的JustTrustMe</p>
-</li>
-<li><p>限制：</p>
-</li>
-<li><p>只能/支持<code>Android 7.0</code>之前的安卓</p>
-</li>
-<li><p>超过<code>Android 7.0</code>就不工作了</p>
-</li>
-</ul>
-<ul>
-<li><p>基于<code>Cydia</code>的<a href="https://github.com/iSECPartners/Android-SSL-TrustKiller" target="_blank" rel="noopener">Android-SSL-TrustKiller</a></p>
-</li>
-<li><p><code>iOS</code></p>
-</li>
-<li><p>基于Cydia的SSL Kill Switch 2</p>
-</li>
-<li><p>旧版本：基于Cydia的<a href="https://github.com/iSECPartners/ios-ssl-kill-switch" target="_blank" rel="noopener">iOS SSL Kill Switch</a></p>
-</li>
-</ul>
-
       
     </div>
 
@@ -1601,113 +1703,6 @@ text:具备编码的大字符串;
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://sir0.net/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B4%A2%E5%BC%95/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="sir0.net">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="吴梦梦、刘玥和SL炮叔">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B4%A2%E5%BC%95/" class="post-title-link" itemprop="url">数据库索引</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-03-07 23:00:57" itemprop="dateCreated datePublished" datetime="2020-03-07T23:00:57+08:00">2020-03-07</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-03-06 11:39:27" itemprop="dateModified" datetime="2020-03-06T11:39:27+08:00">2020-03-06</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="07-21自我总结"><a href="#07-21自我总结" class="headerlink" title="07.21自我总结"></a>07.21自我总结</h1><h1 id="数据库索引"><a href="#数据库索引" class="headerlink" title="数据库索引"></a>数据库索引</h1><h2 id="1-什么是索引"><a href="#1-什么是索引" class="headerlink" title="1.什么是索引?"></a>1.什么是索引?</h2><p>即搜索引导,索引是一个特殊的数据结构,其存储的关键信息与详细信息的位置对应关系,加速索引<br>索引的影响:</p>
-<ol>
-- 正确使用索引才能加速查询;
-- 索引需要额外的占用数据空间;
-- 索引的加入,使数据的crud变慢
-</ol>
-索引的应用场景:
-​ 查询操作较多,写入较少;本质原理是尽可能减小搜索范围
-## 2.磁盘IO
-数据库的数据最终存储到了硬盘上,**当一次IO时，不光把当前磁盘地址的数据，而是把相邻的数据也都读取到内存缓冲区内**，因为局部预读性原理告诉我们，当计算机访问一个地址的数据的时候，与其相邻的数据也会很快被访问到。每一次IO读取的数据我们称之为一页(page)
-索引的目的:尽可能减低io次数,算法支持:二分查找法,**应该尽可能的将数据量小的字段作为索引**
-## 3.索引数据结构
-b+树
-​ 在b+树中 叶子节点才是存储真实数据的,叶子数量越多,树的层级越高,导致IO次数增加
-​ 要避免这个问题,在叶子节点中尽可能的存储更多的数据, **应该将数据量小的字段作为索引**
-### 最左匹配原则
-当b+树的数据项是复合的数据结构,b+树会按照从左到右的顺序来建立搜索树，也就是说根据sql语句由左至右顺序写入的搜索字段,会优先搜索最左边的字段条件,再匹配下一个字段条件,即索引的最左匹配特性.
-### 聚集索引
-聚集索引中包含了所有字段的值,如果拟制定了主键,主键就是聚集索引;<br />
-如果没有则找一个非空且唯一的字段作为聚集索引;<br />
-如果也没有这样的列,innoDB会在表内自动产生一个聚集索引id,它是自增的<br />
-聚集索引中存储了所有的数据
-### 辅助索引
-除了聚集索引之外的索引都称之为辅助索引或第二索引,包括 foreign key 与 unique
-辅助索引的特点:<br />
-其叶子节点保存的是索引数据与所在行的主键值,InnoDB用这个 主键值来从聚集索引中搜查找数据
-### 覆盖查询
-覆盖索引指的是需要的数据仅在辅助索引中就能找到:
-### 回表查询
-如果要查找的数据在辅助索引中不存在,则需要回到聚集索引中查找,这种现象称之为回表<br />
-也就是说搜索字段为非索引字段时,查询搜索字段数据时,先根据索引字段获取主键值,在根据主键值搜索查询的字段.
-## 小结:(判断数据查询的快慢其实是如何正确使用索引)
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">#为表中某个字段添加索引</span><br><span class="line">create index index_name on table_name(column);</span><br><span class="line"># index_name表示索引名</span><br><span class="line"># table_name表示表名</span><br><span class="line"># column表示字段名</span><br><span class="line"></span><br><span class="line">#添加主键</span><br><span class="line">alter table table_name add primary key(column);</span><br></pre></td></tr></table></figure>
-<ol>
-- 使用占用空间最小的字段来作为索引;
-- 不要再一行中存储太多的数据,例如小说,视频,如果字段太多可以分表 ;
-- 尽量使用覆盖查询 ;
-- 如果字段区分度低(重复度高),建立索引是没有意义,反过来说应该将区分度高的字段作为索引
-- 不要再等号的左边做运算,例如:select count( ) from usr where id   3 = 6; 也会遍历所有记录
-- 模糊匹配中,%尽量不要写在前面
-- and语句中会自动找一个具的字段优先执行,所以我们应该在and语句中至少包含一个具备索引的字段
-- or语句要避免使用,如果要用则保证所有字段都有索引才能加速
-- 联合索引中,顺序应该将区分度最高的放到左边,最低的放右边
-</ol>
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
   </div>
 
   
@@ -1778,7 +1773,7 @@ b+树
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">147</span>
+          <span class="site-state-item-count">148</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

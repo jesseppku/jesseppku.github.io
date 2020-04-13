@@ -153,6 +153,114 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://sir0.net/%E5%8A%9B%E6%89%A3%E9%A2%98%E7%9B%AE%E6%B1%87%E6%80%BB%EF%BC%88%E4%B8%A4%E6%95%B0%E4%B9%8B%E5%92%8C%E2%85%A1-%E8%BE%93%E5%85%A5%E6%9C%89%E5%BA%8F%E6%95%B0%E7%BB%84%EF%BC%8C%E5%88%A0%E9%99%A4%E6%8E%92%E5%BA%8F%E6%95%B0%E7%BB%84%E4%B8%AD%E7%9A%84%E9%87%8D%E5%A4%8D%E9%A1%B9%EF%BC%8C%E9%AA%8C%E8%AF%81%E5%9B%9E%E6%96%87%E4%B8%B2%EF%BC%89/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="sir0.net">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="吴梦梦、刘玥和SL炮叔">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/%E5%8A%9B%E6%89%A3%E9%A2%98%E7%9B%AE%E6%B1%87%E6%80%BB%EF%BC%88%E4%B8%A4%E6%95%B0%E4%B9%8B%E5%92%8C%E2%85%A1-%E8%BE%93%E5%85%A5%E6%9C%89%E5%BA%8F%E6%95%B0%E7%BB%84%EF%BC%8C%E5%88%A0%E9%99%A4%E6%8E%92%E5%BA%8F%E6%95%B0%E7%BB%84%E4%B8%AD%E7%9A%84%E9%87%8D%E5%A4%8D%E9%A1%B9%EF%BC%8C%E9%AA%8C%E8%AF%81%E5%9B%9E%E6%96%87%E4%B8%B2%EF%BC%89/" class="post-title-link" itemprop="url">力扣题目汇总（两数之和Ⅱ-输入有序数组，删除排序数组中的重复项，验证回文串）</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-03-07 23:01:31" itemprop="dateCreated datePublished" datetime="2020-03-07T23:01:31+08:00">2020-03-07</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-03-06 11:40:12" itemprop="dateModified" datetime="2020-03-06T11:40:12+08:00">2020-03-06</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="两数之和-II-输入有序数组"><a href="#两数之和-II-输入有序数组" class="headerlink" title="两数之和 II - 输入有序数组"></a><a href="https://leetcode-cn.com/problems/two-sum-ii-input-array-is-sorted/" target="_blank" rel="noopener">两数之和 II - 输入有序数组</a></h2><h3 id="1-题目描述"><a href="#1-题目描述" class="headerlink" title="1.题目描述"></a>1.题目描述</h3><ol>
+- 给定一个已按照**升序排列** 的有序数组，找到两个数使得它们相加之和等于目标数。
+函数应该返回这两个下标值 index1 和 index2，其中 index1 必须小于 index2 。 
+**说明:**
+
+<ul>
+<li>返回的下标值（index1 和 index2）不是从零开始的。</li>
+<li>你可以假设每个输入只对应唯一的答案，而且你不可以重复使用相同的元素。</li>
+</ul>
+<p><strong>示例:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入: numbers &#x3D; [2, 7, 11, 15], target &#x3D; 9</span><br><span class="line">输出: [1,2]</span><br><span class="line">解释: 2 与 7 之和等于目标数 9 。因此 index1 &#x3D; 1, index2 &#x3D; 2 。</span><br></pre></td></tr></table></figure>
+<h3 id="2-解题思路"><a href="#2-解题思路" class="headerlink" title="2.解题思路"></a>2.解题思路</h3></ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">第一点:数有<span class="number">2</span>个,</span><br><span class="line">第二点:两个数的和为target</span><br><span class="line">第三点:两个数可能会相同,相同两个数应为他是有序的索引一定会是连续的</span><br></pre></td></tr></table></figure>
+### 3.解题
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">twoSum</span><span class="params">(self, numbers: List[int], target: int)</span> -&gt; List[int]:</span></span><br><span class="line">        numbers_set = set(numbers)   <span class="comment">#去重减少执行时间</span></span><br><span class="line">        new_list = []</span><br><span class="line">        <span class="keyword">for</span> a <span class="keyword">in</span> numbers_set:</span><br><span class="line">            <span class="keyword">if</span> target -a <span class="keyword">in</span> numbers_set:</span><br><span class="line">                b = target -a                <span class="comment">#判断这个值是否减去后在列表中</span></span><br><span class="line">                <span class="keyword">if</span> a != b:                    <span class="comment">#如果两个值不相同那肯定两个索引不一样</span></span><br><span class="line">                    new_list.append(numbers.index(a)+<span class="number">1</span>)</span><br><span class="line">                <span class="keyword">else</span>:</span><br><span class="line">                    <span class="keyword">if</span> numbers.count(a) != <span class="number">1</span>:    <span class="comment">#如果值一样那要计数看看原来列表里面是否与两个</span></span><br><span class="line">                        new_list.append(numbers.index(a)+<span class="number">1</span>)</span><br><span class="line">                        new_list.append(numbers.index(a)+<span class="number">2</span>)</span><br><span class="line">                        <span class="keyword">break</span></span><br><span class="line">        new_list.sort()      <span class="comment">#应为集合是无序的要排序                  </span></span><br><span class="line">        <span class="keyword">return</span> new_list</span><br><span class="line">        <span class="comment">#直接列表搜太费时间了,题目超时</span></span><br><span class="line">        <span class="comment"># new_list = []</span></span><br><span class="line">        <span class="comment"># for a in range(len(numbers)):</span></span><br><span class="line">        <span class="comment">#     if target - numbers[a] in numbers:</span></span><br><span class="line">        <span class="comment">#         if target - numbers[a] !=numbers[a]:</span></span><br><span class="line">        <span class="comment">#             new_list.append(a+1)</span></span><br><span class="line">        <span class="comment">#         else:</span></span><br><span class="line">        <span class="comment">#             if numbers.count(numbers[a]) != 1:</span></span><br><span class="line">        <span class="comment">#                 new_list.append(a+1)</span></span><br><span class="line">        <span class="comment"># print(new_list) </span></span><br><span class="line">        <span class="comment"># return new_list</span></span><br></pre></td></tr></table></figure>
+## <a href="https://leetcode-cn.com/problems/remove-duplicates-from-sorted-array/" target="_blank" rel="noopener">删除排序数组中的重复项</a>
+### 1.题目描述
+给定一个排序数组，你需要在**原地**删除重复出现的元素，使得每个元素只出现一次，返回移除后数组的新长度。
+不要使用额外的数组空间，你必须在**原地修改输入数组**并在使用 O(1) 额外空间的条件下完成。
+**示例 1:**
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">给定数组 nums &#x3D; [1,1,2], </span><br><span class="line"></span><br><span class="line">函数应该返回新的长度 2, 并且原数组 nums 的前两个元素被修改为 1, 2。 </span><br><span class="line"></span><br><span class="line">你不需要考虑数组中超出新长度后面的元素。</span><br></pre></td></tr></table></figure>
+**示例 2:**
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">给定 nums &#x3D; [0,0,1,1,1,2,2,3,3,4],</span><br><span class="line"></span><br><span class="line">函数应该返回新的长度 5, 并且原数组 nums 的前五个元素被修改为 0, 1, 2, 3, 4。</span><br><span class="line"></span><br><span class="line">你不需要考虑数组中超出新长度后面的元素。</span><br></pre></td></tr></table></figure>
+**说明:**
+为什么返回数值是整数，但输出的答案是数组呢?
+请注意，输入数组是以**“引用”**方式传递的，这意味着在函数里修改输入数组对于调用者是可见的。
+你可以想象内部操作如下:
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; nums 是以“引用”方式传递的。也就是说，不对实参做任何拷贝</span><br><span class="line">int len &#x3D; removeDuplicates(nums);</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 在函数里修改输入数组对于调用者是可见的。</span><br><span class="line">&#x2F;&#x2F; 根据你的函数返回的长度, 它会打印出数组中该长度范围内的所有元素。</span><br><span class="line">for (int i &#x3D; 0; i &lt; len; i++) &#123;</span><br><span class="line">    print(nums[i]);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+### 2.解题思路
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#逆向思维,倒着来如果发现重复的将其删除</span></span><br></pre></td></tr></table></figure>
+### 3.解题
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">removeDuplicates</span><span class="params">(self, nums: List[int])</span> -&gt; int:</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(len(nums)<span class="number">-1</span>, <span class="number">0</span>, <span class="number">-1</span>):</span><br><span class="line">            <span class="keyword">if</span> nums[i] == nums[i<span class="number">-1</span>]: nums.pop(i)</span><br><span class="line">        <span class="keyword">return</span> len(nums)</span><br></pre></td></tr></table></figure>
+## <a href="https://leetcode-cn.com/problems/valid-palindrome/" target="_blank" rel="noopener">验证回文串</a>
+### 1题目描述
+给定一个字符串，验证它是否是回文串，只考虑字母和数字字符，可以忽略字母的大小写。
+**说明：**本题中，我们将空字符串定义为有效的回文串。
+**示例 1:**
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入: &quot;A man, a plan, a canal: Panama&quot;</span><br><span class="line">输出: true</span><br></pre></td></tr></table></figure>
+**示例 2:**
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入: &quot;race a car&quot;</span><br><span class="line">输出: false</span><br></pre></td></tr></table></figure>
+### 2.解题思路
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">将字符串中的字母按顺序拿出来，并且将大写的字母转化为小写字母添加到一个新的字符串中，然后判断回文字符即可</span><br></pre></td></tr></table></figure>
+### 3.解题
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">isPalindrome</span><span class="params">(self, s: str)</span> -&gt; bool:</span></span><br><span class="line">        s_filter = <span class="string">''</span>.join(filter(str.isalnum, s)).lower()</span><br><span class="line">        <span class="keyword">return</span> s_filter[::<span class="number">-1</span>] == s_filter</span><br></pre></td></tr></table></figure>
+# ``有更加好的思路，或者解题方法评论区留言谢谢`
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://sir0.net/%E5%8A%9B%E6%89%A3%E9%A2%98%E7%9B%AE%E6%B1%87%E6%80%BB%EF%BC%88%E4%B9%B0%E5%8D%96%E8%82%A1%E7%A5%A8%E7%9A%84%E6%9C%80%E4%BD%B3%E6%97%B6%E6%9C%BA%EF%BC%8C%E6%9C%80%E5%A4%A7%E8%BF%9E%E7%BB%AD1%E7%9A%84%E4%B8%AA%E6%95%B0%EF%BC%8C%E7%BC%BA%E5%A4%B1%E7%9A%84%E6%95%B0%E5%AD%97%EF%BC%89/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1121,85 +1229,6 @@
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://sir0.net/%E6%B5%8F%E8%A7%88%E5%99%A8%E7%A7%81%E6%9C%89%E5%B1%9E%E6%80%A7/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="sir0.net">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="吴梦梦、刘玥和SL炮叔">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/%E6%B5%8F%E8%A7%88%E5%99%A8%E7%A7%81%E6%9C%89%E5%B1%9E%E6%80%A7/" class="post-title-link" itemprop="url">浏览器私有属性</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-03-07 23:01:31" itemprop="dateCreated datePublished" datetime="2020-03-07T23:01:31+08:00">2020-03-07</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-03-06 11:38:39" itemprop="dateModified" datetime="2020-03-06T11:38:39+08:00">2020-03-06</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="一-css中抬头"><a href="#一-css中抬头" class="headerlink" title="一.css中抬头"></a>一.css中抬头</h2><ul>
-<li><code>::-moz-</code>代表firefox浏览器私有属性</li>
-<li><code>::-ms-</code>代表ie浏览器私有属性</li>
-<li><code>::-webkit-</code>代表safari、chrome私有属性</li>
-<li><code>::-o-</code>代表opera</li>
-</ul>
-<h2 id="二-常见的中私有属性拿chrome浏览器举例"><a href="#二-常见的中私有属性拿chrome浏览器举例" class="headerlink" title="二.常见的中私有属性拿chrome浏览器举例"></a>二.常见的中私有属性拿chrome浏览器举例</h2><p><code>::如果前面为空代码全局,如果前面有某个元素的css选择器代表改元素的对于内容</code></p>
-<h3 id="1-输入框"><a href="#1-输入框" class="headerlink" title="1.输入框"></a>1.输入框</h3><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-pseudo">::-webkit-input-placeholder</span> &#123;&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">//阻止input出现黄色背景</span><br><span class="line"><span class="selector-tag">input</span><span class="selector-pseudo">:-webkit-autofill</span> &#123;</span><br><span class="line">    <span class="attribute">background-color</span>: <span class="number">#fff</span> <span class="meta">!important</span>;</span><br><span class="line">    <span class="attribute">-webkit-box-shadow</span>: inset <span class="number">0</span> <span class="number">0</span> <span class="number">0</span> <span class="number">1000px</span> white <span class="meta">!important</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">清除<span class="selector-tag">input</span><span class="selector-attr">[type=”number”]</span>侧边的箭头</span><br><span class="line"><span class="selector-tag">input</span><span class="selector-pseudo">::-webkit-inner-spin-button</span> &#123; <span class="attribute">-webkit-appearance</span>: none; &#125;</span><br></pre></td></tr></table></figure>
-<h3 id="2-禁用选择文本"><a href="#2-禁用选择文本" class="headerlink" title="2.禁用选择文本"></a>2.禁用选择文本</h3><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">* &#123;</span><br><span class="line"><span class="attribute">-webkit-user-select</span>: none;</span><br><span class="line">   <span class="attribute">-moz-user-select</span>: none;</span><br><span class="line">    <span class="attribute">-ms-user-select</span>: none;</span><br><span class="line">        <span class="attribute">user-select</span>: none;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="3-selection-下拉框"><a href="#3-selection-下拉框" class="headerlink" title="3.selection (下拉框)"></a>3.selection (下拉框)</h3><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-pseudo">::selection</span></span><br><span class="line">&#123;</span><br><span class="line">xxxxx</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-pseudo">::-moz-selection</span></span><br><span class="line">&#123;</span><br><span class="line">xxxx</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-tag">IE9</span>+、<span class="selector-tag">Opera</span>、<span class="selector-tag">Google</span> <span class="selector-tag">Chrome</span> 以及 <span class="selector-tag">Safari</span> 中支持 <span class="selector-pseudo">::selection</span> 选择器。</span><br><span class="line"></span><br><span class="line"><span class="selector-tag">Firefox</span> 支持替代的 <span class="selector-pseudo">::-moz-selection</span>。</span><br></pre></td></tr></table></figure>
-<h3 id="4-滚动条"><a href="#4-滚动条" class="headerlink" title="4.滚动条"></a>4.滚动条</h3><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">::-webkit-scrollbar&#123;&#125; //滚动条宽度</span><br><span class="line">::-webkit-scrollbar-thumb &#123;&#125;  //滑轨上滑块</span><br><span class="line">::-webkit-scrollbar-button &#123;&#125;  //滑轨两头的监听按钮颜色</span><br><span class="line">::-webkit-scrollbar-track &#123;&#125;   //定义滚动条轨道</span><br><span class="line"></span><br><span class="line">-webkit-overflow-scrolling: touch; //允许独立的滚动区域和触摸回弹</span><br><span class="line"></span><br><span class="line">//影藏滚动条</span><br><span class="line"><span class="selector-pseudo">::-webkit-scrollbar</span> &#123;</span><br><span class="line">    <span class="attribute">width</span>: <span class="number">0px</span>;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">//举例</span><br><span class="line"><span class="comment">/*定义滚动条样式*/</span><span class="comment">/*定义滚动条高宽及背景 高宽分别对应横竖滚动条的尺寸*/</span></span><br><span class="line"><span class="selector-pseudo">::-webkit-scrollbar</span> &#123;</span><br><span class="line">    <span class="attribute">height</span>: <span class="number">0.01rem</span>;</span><br><span class="line">    <span class="attribute">background-color</span>: <span class="number">#fff</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*定义滚动条轨道 内阴影+圆角*/</span></span><br><span class="line"><span class="selector-pseudo">::-webkit-scrollbar-track</span> &#123;</span><br><span class="line">    <span class="attribute">-webkit-box-shadow</span>: inset <span class="number">0</span> <span class="number">0</span> <span class="number">6px</span> <span class="built_in">rgba</span>(<span class="number">255</span>, <span class="number">255</span>, <span class="number">255</span>, <span class="number">0.3</span>);</span><br><span class="line">    <span class="attribute">border-radius</span>: <span class="number">0.1rem</span>;</span><br><span class="line">    <span class="attribute">background-color</span>: <span class="number">#fff</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*定义滑块 内阴影+圆角*/</span></span><br><span class="line"><span class="selector-pseudo">::-webkit-scrollbar-thumb</span> &#123;</span><br><span class="line">    <span class="attribute">border-radius</span>: <span class="number">0.1rem</span>;</span><br><span class="line">    <span class="attribute">-webkit-box-shadow</span>: inset <span class="number">0</span> <span class="number">0</span> <span class="number">6px</span> <span class="built_in">rgba</span>(<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, .<span class="number">3</span>);</span><br><span class="line">    <span class="attribute">background-color</span>: <span class="number">#fff</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="5-input-range"><a href="#5-input-range" class="headerlink" title="5.input-range"></a>5.input-range</h3><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">::-webkit-slider-thumb&#123;&#125;  //一定要配合::-webkit-slider-runnable-track使用,否则会没有效果.......</span><br><span class="line">里面参数和滑动块类似</span><br></pre></td></tr></table></figure>
-<h3 id="6-字体描边"><a href="#6-字体描边" class="headerlink" title="6.字体描边"></a>6.字体描边</h3><p><strong><code>-webkit-text-stroke</code></strong><a href="https://developer.mozilla.org/en-US/docs/Web/CSS" target="_blank" rel="noopener">CSS</a>属性为文本字符指定了<a href="https://developer.mozilla.org/en-US/docs/Web/CSS/length" target="_blank" rel="noopener">宽</a> 和 <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/color_value" target="_blank" rel="noopener">颜色</a> . 它是&lt;a href=”<a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/-webkit-text-stroke-width" target="_blank" rel="noopener">https://developer.mozilla.org/zh-CN/docs/Web/CSS/-webkit-text-stroke-width</a><br>-webkit-text-stroke-width<code>&lt;/a&gt;和&lt;a href=&quot;https://developer.mozilla.org/zh-CN/docs/Web/CSS/-webkit-text-stroke-color
--webkit-text-stroke-color</code></a>属性的缩写.</p>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 全局设置 */</span></span><br><span class="line"><span class="comment">/* 宽度和颜色属性 */</span></span><br><span class="line"><span class="selector-tag">-webkit-text-stroke</span>: &lt;<span class="selector-tag">length</span>&gt; &lt;<span class="selector-tag">color</span>&gt;;</span><br><span class="line"><span class="selector-tag">-webkit-text-stroke-width</span>：绝对&lt;<span class="selector-tag">length</span>&gt;</span><br><span class="line"><span class="selector-tag">-webkit-text-stroke-color</span>：&lt;<span class="selector-tag">color</span>&gt;</span><br><span class="line"><span class="selector-tag">-webkit-text-stroke</span>: 1<span class="selector-tag">px</span> <span class="selector-tag">red</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 全局属性 */</span></span><br><span class="line"><span class="comment">/* 默认设置 */</span></span><br><span class="line"><span class="selector-tag">-webkit-text-stroke</span>: <span class="selector-tag">inherit</span>;</span><br><span class="line"><span class="selector-tag">-webkit-text-stroke</span>: <span class="selector-tag">initial</span>;</span><br><span class="line"><span class="selector-tag">-webkit-text-stroke</span>: <span class="selector-tag">unset</span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">/* 局部设置 */</span></span><br><span class="line"><span class="selector-tag">div</span> &#123;</span><br><span class="line">    <span class="attribute">-webkit-text-stroke</span>: &lt;length&gt; &lt;color&gt;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
   </div>
 
   
@@ -1270,7 +1299,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">147</span>
+          <span class="site-state-item-count">148</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
